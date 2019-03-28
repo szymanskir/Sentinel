@@ -1,0 +1,11 @@
+language: python
+sudo: required
+dist: xenial
+python: "3.7.0"
+cache: 
+  pip: true
+install:
+  - make requirements
+script:
+  - make tests
+  - make lint
