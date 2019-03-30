@@ -6,7 +6,7 @@
 
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 PROJECT_NAME = sentinel 
-PYTHON_INTERPRETER = python3
+PYTHON_INTERPRETER = python3.6
 VENV_NAME = sentinel.env
 
 #################################################################################
