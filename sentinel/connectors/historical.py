@@ -29,6 +29,12 @@ class TwitterHistoricalConnector(IHistoricalConnector):
             for tweet in tweets:
                 yield TwitterMention.from_status_json(tweet)
 
+class HistoricalConnectorFactory():
+    def create_historical_connector(self, source: str):
+        creation_strategy = {'twitter': TwitterHistoricalConnector}
+        factory_method = creation_strategy[source]
+
+        return factory_method()
 
 if __name__ == "__main__":
     thc = TwitterHistoricalConnector()
