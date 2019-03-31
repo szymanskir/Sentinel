@@ -1,33 +1,46 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 from ..models.mentions import TwitterMention
 from datetime import datetime
-from typing import List
+from typing import Generator, List
 import tweepy
+
 
 class IHistoricalConnector(metaclass=ABCMeta):
     pass
 
+
 class TwitterHistoricalConnector(IHistoricalConnector):
     def __init__(self):
-        auth = tweepy.OAuthHandler("7OQ3QuZHq9VLLHhEfiNLgkXRr", 
-                                "1Y3KdcvUkrwjs8R6XVafRfN4ztMC1h6TShfbdLux6fsHEXpEQj")
+        auth = tweepy.OAuthHandler(
+            "7OQ3QuZHq9VLLHhEfiNLgkXRr",
+            "1Y3KdcvUkrwjs8R6XVafRfN4ztMC1h6TShfbdLux6fsHEXpEQj")
         self.api = tweepy.API(auth)
         pass
 
-    def _build_query(self, keywords: List[str] , since: datetime) -> str:
+    def _build_query(self, keywords: List[str], since: datetime) -> str:
         or_statement = '&OR&'.join(keywords)
 
         query = f'{or_statement}&since={since.date()}'
         return query
 
-    def download_mentions(self, keywords: List[str] , since: datetime, until: datetime) -> List[TwitterMention]:
-        query=self._build_query(keywords, since)
+    def download_mentions(
+            self,
+            keywords: List[str],
+            since: datetime,
+            until: datetime
+    ) -> Generator[TwitterMention, None, None]:
+        query = self._build_query(keywords, since)
 
-        for tweets in tweepy.Cursor(self.api.search, q=query, count=15,
-                                   result_type="recent",include_entities=True, 
-                                    until=str(until.date())).pages():
+        for tweets in tweepy.Cursor(
+                self.api.search,
+                q=query,
+                count=15,
+                result_type="recent",
+                include_entities=True,
+                until=str(until.date())).pages():
             for tweet in tweets:
                 yield TwitterMention.from_status_json(tweet)
+
 
 class HistoricalConnectorFactory():
     def create_historical_connector(self, source: str):
@@ -35,7 +48,3 @@ class HistoricalConnectorFactory():
         factory_method = creation_strategy[source]
 
         return factory_method()
-
-if __name__ == "__main__":
-    thc = TwitterHistoricalConnector()
-    print([x for x in thc.download_mentions(['Russia'], datetime(2019, 3, 27), datetime(2019, 3, 30))])
