@@ -107,3 +107,7 @@ sentinel.env/
 # vscode
 .vscode
 .vscode/
+
+# pycharm
+.idea
+.idea/
