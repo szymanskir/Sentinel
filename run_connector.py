@@ -3,6 +3,7 @@ import logging
 
 from datetime import datetime
 from sentinel.connectors.historical import HistoricalConnectorFactory
+from sentinel.connectors.stream import StreamConnectorFactory
 
 LOGGER = logging.getLogger('main')
 
@@ -32,8 +33,14 @@ def historical(source, keywords, since, until):
 
 
 @main.command()
-def stream():
-    pass
+@click.option('--source', required=True)
+@click.option('--keywords', type=click.STRING, required=True)
+def stream(source, keywords):
+    keywords = keywords.split(',')
+    factory = StreamConnectorFactory()
+    connector = factory.create_stream_connector(source)
+    for mention in connector.stream_comments():
+        LOGGER.info(f'TEXT: {mention.text[:30]}')
 
 
 if __name__ == '__main__':
