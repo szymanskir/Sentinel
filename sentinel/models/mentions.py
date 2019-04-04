@@ -1,11 +1,24 @@
 from datetime import datetime
 from typing import NamedTuple
+from uuid import uuid4
 
 
 class Mention:
-    def __init__(self, text, url, metadata):
+    def __init__(
+            self,
+            text,
+            url,
+            creation_date,
+            download_date,
+            source,
+            metadata
+    ):
+        self.id = uuid4()
         self.text = text
         self.url = url
+        self.creation_date = creation_date
+        self.download_date = download_date
+        self.source = source
         self.metadata = metadata
 
 
@@ -48,9 +61,10 @@ class TwitterMentionMetadata(NamedTuple):
         )
 
 
-class TwitterMention(Mention):
-    def __init__(self, text, url, metadata):
-        super().__init__(text, url, metadata)
+class TwitterMention(NamedTuple):
+    text: str
+    url: str
+    metadata: TwitterMentionMetadata
 
     @classmethod
     def from_status_json(cls, status_json):
@@ -71,18 +85,20 @@ class HackerNewsMetadata(NamedTuple):
         points = hit_json["points"]
         relevancy_score = hit_json["relevancy_score"]
         return HackerNewsMetadata(
-            author, points if points is not None else 0, relevancy_score
+            author,
+            points if points is not None else 0,
+            relevancy_score
         )
 
 
-class HackerNewsMention(Mention):
-    def __init__(self, text, url, metadata):
-        super().__init__(text, url, metadata)
+class HackerNewsMention(NamedTuple):
+    text: str
+    url: str
+    metadata: HackerNewsMetadata
 
     @classmethod
     def from_algolia_json(cls, hit_json):
-
         text = hit_json["comment_text"]
         url = hit_json["story_url"]
         metadata = HackerNewsMetadata.from_algolia_json(hit_json)
-        return HackerNewsMention(text, url, metadata)
+        return cls(text, url, metadata)

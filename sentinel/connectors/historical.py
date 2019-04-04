@@ -30,7 +30,7 @@ class TwitterHistoricalConnector(IHistoricalConnector):
 
     def download_mentions(
         self, keywords: List[str], since: datetime, until: datetime
-    ) -> Generator[TwitterMention, None, None]:
+    ) -> Generator[Mention, None, None]:
         query = self._build_query(keywords, since)
 
         for tweets in tweepy.Cursor(
@@ -42,7 +42,15 @@ class TwitterHistoricalConnector(IHistoricalConnector):
             until=str(until.date()),
         ).pages():
             for tweet in tweets:
-                yield TwitterMention.from_status_json(tweet)
+                twitter_mention = TwitterMention.from_status_json(tweet)
+                yield Mention(
+                    text=twitter_mention.text,
+                    url=twitter_mention.url,
+                    creation_date=twitter_mention.creation_date,
+                    download_date=datetime.utcnow(),
+                    source="twitter",
+                    metadata=twitter_mention.metadata
+                )
 
 
 class HackerNewsHistoricalConnector(IHistoricalConnector):
@@ -57,7 +65,15 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
                 created_at__lt=str(until.date()),
             )
             for hit in response:
-                yield HackerNewsMention.from_algolia_json(hit)
+                hn_mention = HackerNewsMention.from_algolia_json(hit)
+                yield Mention(
+                    text=hn_mention.text,
+                    url=hn_mention.url,
+                    creation_date=hn_mention.creation_date,
+                    download_date=datetime.utcnow(),
+                    source="hacker-news",
+                    metadata=hn_mention.metadata
+                )
 
 
 class HistoricalConnectorFactory:

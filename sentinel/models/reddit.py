@@ -17,6 +17,7 @@ class RedditCommentMetadata(NamedTuple):
             comment.subreddit.id
         )
 
+
 class RedditorMetadata(NamedTuple):
     id: str
     comment_karma: int
@@ -29,8 +30,9 @@ class RedditorMetadata(NamedTuple):
             redditor.id,
             redditor.comment_karma,
             redditor.link_karma,
-            datetime.fromtimestamp(redditor.created_utc)
+            datetime.fromtimestamp(redditor.created_utc),
         )
+
 
 class RedditMentionMetadata(NamedTuple):
     comment_metadata: RedditCommentMetadata
@@ -40,9 +42,5 @@ class RedditMentionMetadata(NamedTuple):
     def from_praw(cls, comment):
         return cls(
             RedditCommentMetadata.from_praw(comment),
-            RedditorMetadata.from_praw(comment.author)
+            RedditorMetadata.from_praw(comment.author),
         )
-
-
-
-
