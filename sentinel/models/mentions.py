@@ -4,15 +4,7 @@ from uuid import uuid4
 
 
 class Mention:
-    def __init__(
-            self,
-            text,
-            url,
-            creation_date,
-            download_date,
-            source,
-            metadata
-    ):
+    def __init__(self, text, url, creation_date, download_date, source, metadata):
         self.id = uuid4()
         self.text = text
         self.url = url
@@ -30,18 +22,6 @@ class TwitterMentionMetadata(NamedTuple):
     listed_count: int
     retweet_count: int
 
-    @classmethod
-    def from_status_json(cls, status_json):
-        user_json = status_json.user
-        return cls(
-            user_json.followers_count,
-            user_json.statuses_count,
-            user_json.friends_count,
-            user_json.verified,
-            user_json.listed_count,
-            status_json.retweet_count
-        )
-
 
 class HackerNewsMetadata(NamedTuple):
     author: str
@@ -54,9 +34,7 @@ class HackerNewsMetadata(NamedTuple):
         points = hit_json["points"]
         relevancy_score = hit_json["relevancy_score"]
         return HackerNewsMetadata(
-            author,
-            points if points is not None else 0,
-            relevancy_score
+            author, points if points is not None else 0, relevancy_score
         )
 
 

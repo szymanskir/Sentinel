@@ -1,61 +1,41 @@
 import pytest
-from datetime import datetime
-from sentinel.models.mentions import (TwitterMentionMetadata,
-                                      HackerNewsMetadata, HackerNewsMention)
+from sentinel.models.mentions import HackerNewsMetadata, HackerNewsMention
 from sentinel.utils import read_pickle
 from os.path import dirname, join, realpath
 
 
 @pytest.fixture
-def status_json():
-    test_cases_dir = join(dirname(realpath(__file__)),
-                          'tweet_status_json.pkl')
-    return read_pickle(test_cases_dir)
-
-
-@pytest.fixture
 def hacker_news_comment_json():
-    test_cases_dir = join(dirname(realpath(__file__)),
-                          'hacker_news_russia_json.pkl')
+    test_cases_dir = join(dirname(realpath(__file__)), "hacker_news_russia_json.pkl")
     return read_pickle(test_cases_dir)
-
-
-@pytest.fixture
-def status_with_url_json():
-    test_cases_dir = join(dirname(realpath(__file__)),
-                          'tweet_status_with_url_json.pkl')
-    return read_pickle(test_cases_dir)
-
-
-def test_TwitterMentionMetadata_from_status_json(status_json):
-    twitter_mention_metadata = TwitterMentionMetadata.from_status_json(
-        status_json)
-    assert twitter_mention_metadata.followers_count == 2503
-    assert twitter_mention_metadata.statuses_count == 338796
-    assert twitter_mention_metadata.friends_count == 3742
-    assert twitter_mention_metadata.verified is False
-    assert twitter_mention_metadata.listed_count == 1258
-    assert twitter_mention_metadata.retweet_count == 4
 
 
 def test_HackerNewsMetadata_from_algolia_empty_points_json(hacker_news_comment_json):
-    hacker_news_metadata = HackerNewsMetadata.from_algolia_json(hacker_news_comment_json['hits'][0])
+    hacker_news_metadata = HackerNewsMetadata.from_algolia_json(
+        hacker_news_comment_json["hits"][0]
+    )
 
-    assert hacker_news_metadata.author == 'arcticbull'
+    assert hacker_news_metadata.author == "arcticbull"
     assert hacker_news_metadata.points == 0
     assert hacker_news_metadata.relevancy_score == 8680
 
 
-def test_HackerNewsMetadata_from_algolia_non_empty_points_json(hacker_news_comment_json):
-    hacker_news_metadata = HackerNewsMetadata.from_algolia_json(hacker_news_comment_json['hits'][1])
+def test_HackerNewsMetadata_from_algolia_non_empty_points_json(
+    hacker_news_comment_json
+):
+    hacker_news_metadata = HackerNewsMetadata.from_algolia_json(
+        hacker_news_comment_json["hits"][1]
+    )
 
-    assert hacker_news_metadata.author == 'vl'
+    assert hacker_news_metadata.author == "vl"
     assert hacker_news_metadata.points == 33
     assert hacker_news_metadata.relevancy_score == 8680
 
 
 def test_HackerNewsMention_from_algolia_empty_points_json(hacker_news_comment_json):
-    hacker_news_mention: HackerNewsMention = HackerNewsMention.from_algolia_json(hacker_news_comment_json['hits'][0])
+    hacker_news_mention: HackerNewsMention = HackerNewsMention.from_algolia_json(
+        hacker_news_comment_json["hits"][0]
+    )
 
     expected_comment_text = 'Thing is, I totally randomly met a British criminologist while visiting Svalbard a few \
 years ago and I spent a while talking to him. He generally agrees that homogeneity reduces problems in a society. \
@@ -72,7 +52,12 @@ www.chicagotribune.com&#x2F;news&#x2F;ct-xpm-2005-10-16-0510150186-story.html" r
 www.chicagotribune.com&#x2F;news&#x2F;ct-xpm-2005-10-16-051015...</a>'
 
     assert hacker_news_mention.text == expected_comment_text
-    assert hacker_news_mention.url == 'https://www.theverge.com/2019/2/20/18233317/florida-department-of-corrections\
--class-action-lawsuit-william-demler-jpay-mp3-song-access'
-    expected_metadata = HackerNewsMetadata.from_algolia_json(hacker_news_comment_json['hits'][0])
+    assert (
+        hacker_news_mention.url
+        == "https://www.theverge.com/2019/2/20/18233317/florida-department-of-corrections\
+-class-action-lawsuit-william-demler-jpay-mp3-song-access"
+    )
+    expected_metadata = HackerNewsMetadata.from_algolia_json(
+        hacker_news_comment_json["hits"][0]
+    )
     assert hacker_news_mention.metadata == expected_metadata

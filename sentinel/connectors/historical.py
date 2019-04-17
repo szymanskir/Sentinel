@@ -27,21 +27,21 @@ class TweetSearcher(ITweetSearcher):
         )
         self.api = tweepy.API(auth)
 
-    def search(self, q:str, until:datetime):
-        for page in tweepy.Cursor(self.api.search,
-                                  q=q,
-                                  count=15,
-                                  result_type="recent",
-                                  include_entities=True,
-                                  until=str(until.date())
-                                  ).pages():
+    def search(self, q: str, until: datetime):
+        for page in tweepy.Cursor(
+            self.api.search,
+            q=q,
+            count=15,
+            result_type="recent",
+            include_entities=True,
+            until=str(until.date()),
+        ).pages():
             for tweet in page:
                 yield tweet
 
 
 class TwitterHistoricalConnector(IHistoricalConnector):
-
-    def __init__(self, tweet_searcher: TweetSearcher=TweetSearcher()):
+    def __init__(self, tweet_searcher: TweetSearcher = TweetSearcher()):
 
         self._tweet_searcher = tweet_searcher
         pass
@@ -59,7 +59,7 @@ class TwitterHistoricalConnector(IHistoricalConnector):
         tweet_generator = self._tweet_searcher.search(query, until)
 
         for tweet in tweet_generator:
-            twitter_mention_metadata = TwitterMentionMetadata.from_status_json(tweet)
+            twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
             urls = tweet.entities["urls"]
             url = urls[0]["url"] if len(urls) > 0 else None
             yield Mention(
@@ -68,8 +68,20 @@ class TwitterHistoricalConnector(IHistoricalConnector):
                 creation_date=tweet.created_at,
                 download_date=datetime.utcnow(),
                 source="twitter",
-                metadata=twitter_mention_metadata
+                metadata=twitter_mention_metadata,
             )
+
+    @staticmethod
+    def create_twitter_mention_metadata(status_json: Status):
+        user_json = status_json.user
+        return TwitterMentionMetadata(
+            user_json.followers_count,
+            user_json.statuses_count,
+            user_json.friends_count,
+            user_json.verified,
+            user_json.listed_count,
+            status_json.retweet_count,
+        )
 
 
 class HackerNewsHistoricalConnector(IHistoricalConnector):
@@ -91,7 +103,7 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
                     creation_date=hn_mention.creation_date,
                     download_date=datetime.utcnow(),
                     source="hacker-news",
-                    metadata=hn_mention.metadata
+                    metadata=hn_mention.metadata,
                 )
 
 
