@@ -1,8 +1,9 @@
 from abc import ABCMeta
-from ..models.mentions import TwitterMention, Mention, HackerNewsMention
+from ..models.mentions import Mention, HackerNewsMention, TwitterMentionMetadata
 from datetime import datetime
 from typing import Generator, List
 from hn import search_by_date
+from tweepy.models import Status
 import tweepy
 
 
@@ -13,13 +14,36 @@ class IHistoricalConnector(metaclass=ABCMeta):
         pass
 
 
-class TwitterHistoricalConnector(IHistoricalConnector):
+class ITweetSearcher(metaclass=ABCMeta):
+    def search(self, q: str, until: datetime) -> Generator[Status, None, None]:
+        pass
+
+
+class TweetSearcher(ITweetSearcher):
     def __init__(self):
         auth = tweepy.OAuthHandler(
             "7OQ3QuZHq9VLLHhEfiNLgkXRr",
             "1Y3KdcvUkrwjs8R6XVafRfN4ztMC1h6TShfbdLux6fsHEXpEQj",
         )
         self.api = tweepy.API(auth)
+
+    def search(self, q:str, until:datetime):
+        for page in tweepy.Cursor(self.api.search,
+                                  q=q,
+                                  count=15,
+                                  result_type="recent",
+                                  include_entities=True,
+                                  until=str(until.date())
+                                  ).pages():
+            for tweet in page:
+                yield tweet
+
+
+class TwitterHistoricalConnector(IHistoricalConnector):
+
+    def __init__(self, tweet_searcher: TweetSearcher=TweetSearcher()):
+
+        self._tweet_searcher = tweet_searcher
         pass
 
     def _build_query(self, keywords: List[str], since: datetime) -> str:
@@ -32,25 +56,20 @@ class TwitterHistoricalConnector(IHistoricalConnector):
         self, keywords: List[str], since: datetime, until: datetime
     ) -> Generator[Mention, None, None]:
         query = self._build_query(keywords, since)
+        tweet_generator = self._tweet_searcher.search(query, until)
 
-        for tweets in tweepy.Cursor(
-            self.api.search,
-            q=query,
-            count=15,
-            result_type="recent",
-            include_entities=True,
-            until=str(until.date()),
-        ).pages():
-            for tweet in tweets:
-                twitter_mention = TwitterMention.from_status_json(tweet)
-                yield Mention(
-                    text=twitter_mention.text,
-                    url=twitter_mention.url,
-                    creation_date=twitter_mention.creation_date,
-                    download_date=datetime.utcnow(),
-                    source="twitter",
-                    metadata=twitter_mention.metadata
-                )
+        for tweet in tweet_generator:
+            twitter_mention_metadata = TwitterMentionMetadata.from_status_json(tweet)
+            urls = tweet.entities["urls"]
+            url = urls[0]["url"] if len(urls) > 0 else None
+            yield Mention(
+                text=tweet.text,
+                url=url,
+                creation_date=tweet.created_at,
+                download_date=datetime.utcnow(),
+                source="twitter",
+                metadata=twitter_mention_metadata
+            )
 
 
 class HackerNewsHistoricalConnector(IHistoricalConnector):
