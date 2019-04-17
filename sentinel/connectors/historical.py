@@ -116,7 +116,9 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
                 yield Mention(
                     text=hit["comment_text"],
                     url=hit["story_url"],
-                    creation_date=hit["created_at"],
+                    creation_date=datetime.strptime(
+                        hit["created_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
+                    ),
                     download_date=datetime.utcnow(),
                     source="hacker-news",
                     metadata=hn_metadata,
