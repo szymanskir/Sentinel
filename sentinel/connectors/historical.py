@@ -85,12 +85,12 @@ class TwitterHistoricalConnector(IHistoricalConnector):
 
 
 class IHackerNewsSearcher(metaclass=ABCMeta):
-    def search(keyword, since: datetime, until: datetime):
+    def search(self, keyword, since: datetime, until: datetime):
         pass
 
 
 class HackerNewsSearcher(IHackerNewsSearcher):
-    def search(search, keyword, since: datetime, until: datetime):
+    def search(self, keyword, since: datetime, until: datetime):
         response = search_by_date(
             q=keyword,
             comments=True,
