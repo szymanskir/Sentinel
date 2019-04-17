@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from ..models.mentions import Mention, HackerNewsMention, TwitterMentionMetadata
+from ..models.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
 from datetime import datetime
 from typing import Generator, List
 from hn import search_by_date
@@ -84,27 +84,52 @@ class TwitterHistoricalConnector(IHistoricalConnector):
         )
 
 
+class IHackerNewsSearcher(metaclass=ABCMeta):
+    def search(keyword, since: datetime, until: datetime):
+        pass
+
+
+class HackerNewsSearcher(IHackerNewsSearcher):
+    def search(search, keyword, since: datetime, until: datetime):
+        response = search_by_date(
+            q=keyword,
+            comments=True,
+            created_at__gt=str(since.date()),
+            created_at__lt=str(until.date()),
+        )
+        return response
+
+
 class HackerNewsHistoricalConnector(IHistoricalConnector):
+    def __init__(
+        self, hacker_news_searcher: IHackerNewsSearcher = HackerNewsSearcher()
+    ):
+        self._hacker_news_searcher = hacker_news_searcher
+
     def download_mentions(
         self, keywords: List[str], since: datetime, until: datetime
     ) -> Generator[Mention, None, None]:
         for keyword in keywords:
-            response = search_by_date(
-                q=keyword,
-                comments=True,
-                created_at__gt=str(since.date()),
-                created_at__lt=str(until.date()),
-            )
+            response = self._hacker_news_searcher.search(keyword, since, until)
             for hit in response:
-                hn_mention = HackerNewsMention.from_algolia_json(hit)
+                hn_metadata = self.create_hn_mention_metadata(hit)
                 yield Mention(
-                    text=hn_mention.text,
-                    url=hn_mention.url,
-                    creation_date=hn_mention.creation_date,
+                    text=hit["comment_text"],
+                    url=hit["story_url"],
+                    creation_date=hit["created_at"],
                     download_date=datetime.utcnow(),
                     source="hacker-news",
-                    metadata=hn_mention.metadata,
+                    metadata=hn_metadata,
                 )
+
+    @staticmethod
+    def create_hn_mention_metadata(hit_json):
+        author = hit_json["author"]
+        points = hit_json["points"]
+        relevancy_score = hit_json["relevancy_score"]
+        return HackerNewsMetadata(
+            author, points if points is not None else 0, relevancy_score
+        )
 
 
 class HistoricalConnectorFactory:

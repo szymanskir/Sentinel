@@ -27,25 +27,3 @@ class HackerNewsMetadata(NamedTuple):
     author: str
     points: int
     relevancy_score: int
-
-    @classmethod
-    def from_algolia_json(cls, hit_json):
-        author = hit_json["author"]
-        points = hit_json["points"]
-        relevancy_score = hit_json["relevancy_score"]
-        return HackerNewsMetadata(
-            author, points if points is not None else 0, relevancy_score
-        )
-
-
-class HackerNewsMention(NamedTuple):
-    text: str
-    url: str
-    metadata: HackerNewsMetadata
-
-    @classmethod
-    def from_algolia_json(cls, hit_json):
-        text = hit_json["comment_text"]
-        url = hit_json["story_url"]
-        metadata = HackerNewsMetadata.from_algolia_json(hit_json)
-        return cls(text, url, metadata)

@@ -2,7 +2,6 @@ from datetime import datetime
 from os.path import join, dirname, realpath
 
 import pytest
-
 from sentinel.connectors.historical import TwitterHistoricalConnector, ITweetSearcher
 from sentinel.models.mentions import TwitterMentionMetadata
 from sentinel.utils import read_pickle
