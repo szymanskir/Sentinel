@@ -59,8 +59,8 @@ class HackerNewsStreamReader(IHackerNewsStreamReader):
 
     def stream_comments(self):
         with requests.get(self._comments_stream_url, stream=True) as r:
-            lines = r.iter_lines()
-            next(lines)
+            lines = r.iter_lines()  # each comment json correspons to a single line
+            next(lines)  # first line is always about opening the stream
             for line in lines:
                 yield line
 
@@ -79,7 +79,7 @@ class HackerNewsStreamConnector(IStreamConnector):
         metadata = HackerNewsMetadata(comment["author"], None, None)
         return Mention(
             text=comment["body"],
-            url=None,
+            url=f'https://news.ycombinator.com/item?id={comment["id"]}',
             creation_date=datetime.utcnow(),
             download_date=datetime.utcnow(),
             source="hacker-news",
