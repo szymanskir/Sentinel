@@ -1,6 +1,8 @@
+import json
 import praw
+import requests
 from datetime import datetime
-from ..models.mentions import Mention
+from ..models.mentions import Mention, HackerNewsMetadata
 from ..models.reddit import RedditMentionMetadata
 from abc import ABCMeta
 
@@ -11,7 +13,10 @@ class IStreamConnector(metaclass=ABCMeta):
 
 class StreamConnectorFactory:
     def create_stream_connector(self, source: str):
-        creation_strategy = {"reddit": RedditStreamConnector}
+        creation_strategy = {
+            "reddit": RedditStreamConnector,
+            "hacker-news": HackerNewsStreamConnector,
+        }
         factory_method = creation_strategy[source]
 
         return factory_method()
@@ -41,3 +46,42 @@ class RedditStreamConnector(IStreamConnector):
                 metadata,
             )
             yield mention
+
+
+class IHackerNewsStreamReader(metaclass=ABCMeta):
+    def stream_comments(self):
+        pass
+
+
+class HackerNewsStreamReader(IHackerNewsStreamReader):
+    def __init__(self):
+        self._comments_stream_url = "http://api.hnstream.com/comments/stream/"
+
+    def stream_comments(self):
+        with requests.get(self._comments_stream_url, stream=True) as r:
+            lines = r.iter_lines()
+            next(lines)
+            for line in lines:
+                yield line
+
+
+class HackerNewsStreamConnector(IStreamConnector):
+    def __init__(self, hn_stream_reader=HackerNewsStreamReader()):
+        self._hn_stream_reader = hn_stream_reader
+
+    def stream_comments(self):
+        for comment in self._hn_stream_reader.stream_comments():
+            yield self._create_hn_mention(comment)
+
+    @staticmethod
+    def _create_hn_mention(comment_json):
+        comment = json.loads(str(comment_json, "utf-8"))
+        metadata = HackerNewsMetadata(comment["author"], None, None)
+        return Mention(
+            text=comment["body"],
+            url=None,
+            creation_date=datetime.utcnow(),
+            download_date=datetime.utcnow(),
+            source="hacker-news",
+            metadata=metadata,
+        )

@@ -11,10 +11,7 @@ class RedditCommentMetadata(NamedTuple):
     @classmethod
     def from_praw(cls, comment):
         return cls(
-            comment.id,
-            comment.score,
-            comment.submission.id,
-            comment.subreddit.id
+            comment.id, comment.score, comment.submission.id, comment.subreddit.id
         )
 
 
