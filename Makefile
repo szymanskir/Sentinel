@@ -42,6 +42,8 @@ tests:
 # PROJECT RULES                                                                 #
 #################################################################################
 
+stream_sample:
+	$(PYTHON_INTERPRETER) run_connector.py stream --source reddit --keywords life,Paris
 
 #################################################################################
 # Self Documenting Commands                                                     #

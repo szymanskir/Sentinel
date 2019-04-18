@@ -103,3 +103,11 @@ sentinel.env/
 
 # mypy
 .mypy_cache/
+
+# vscode
+.vscode
+.vscode/
+
+# pycharm
+.idea
+.idea/
