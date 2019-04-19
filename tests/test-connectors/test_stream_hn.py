@@ -37,7 +37,7 @@ def test_HackerNewsStreamConnector_create_mention(hn_comments):
     assert result.metadata.points is None
     assert result.metadata.relevancy_score is None
     assert result.text == expected_text
-    assert result.url == 'https://news.ycombinator.com/item?id=19691521'
+    assert result.url == "https://news.ycombinator.com/item?id=19691521"
 
 
 def test_HackerNewsStreamConnector_stream_comments(
