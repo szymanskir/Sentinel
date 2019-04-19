@@ -76,7 +76,7 @@ class HackerNewsStreamConnector(IStreamConnector):
     @staticmethod
     def _create_hn_mention(comment_json):
         comment = json.loads(str(comment_json, "utf-8"))
-        metadata = HackerNewsMetadata(comment["author"], None, None)
+        metadata = HackerNewsMetadata(author=comment["author"])
         return Mention(
             text=comment["body"],
             url=f'https://news.ycombinator.com/item?id={comment["id"]}',

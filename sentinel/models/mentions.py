@@ -1,19 +1,10 @@
-from typing import NamedTuple
-from uuid import uuid4
+from typing import Union, Optional
+from uuid import uuid4, UUID
+from pydantic import BaseModel, UrlStr
+from datetime import datetime
 
 
-class Mention:
-    def __init__(self, text, url, creation_date, download_date, source, metadata):
-        self.id = uuid4()
-        self.text = text
-        self.url = url
-        self.creation_date = creation_date
-        self.download_date = download_date
-        self.source = source
-        self.metadata = metadata
-
-
-class TwitterMentionMetadata(NamedTuple):
+class TwitterMentionMetadata(BaseModel):
     followers_count: int
     statuses_count: int
     friends_count: int
@@ -21,8 +12,34 @@ class TwitterMentionMetadata(NamedTuple):
     listed_count: int
     retweet_count: int
 
+    class Config:
+        allow_mutation = False
 
-class HackerNewsMetadata(NamedTuple):
+
+class HackerNewsMetadata(BaseModel):
     author: str
-    points: int
-    relevancy_score: int
+    points: Optional[int]
+    relevancy_score: Optional[int]
+
+    class Config:
+        allow_mutation = False
+
+
+class Mention(BaseModel):
+    id: Optional[UUID] = uuid4()
+    text: str
+    url: Optional[UrlStr]
+    creation_date: datetime
+    download_date: datetime
+    source: str
+    metadata: Union[TwitterMentionMetadata, HackerNewsMetadata]
+
+    class Config:
+        allow_mutation = False
+
+    def to_json(self):
+        return self.json()
+
+    @classmethod
+    def from_json(cls, data: str):
+        return cls.parse_raw(data)
