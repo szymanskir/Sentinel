@@ -36,14 +36,18 @@ create_environment:
 
 ## Run tests
 tests:
+	$(PYTHON_INTERPRETER) setup.py install
 	pytest tests
 
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################
 
-stream_sample:
+reddit_sample:
 	$(PYTHON_INTERPRETER) run_connector.py stream --source reddit --keywords life,Paris
+
+hn_sample:
+	$(PYTHON_INTERPRETER) run_connector.py stream --source hacker-news --keywords life,Paris
 
 #################################################################################
 # Self Documenting Commands                                                     #
