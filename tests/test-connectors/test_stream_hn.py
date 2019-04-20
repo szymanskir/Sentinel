@@ -6,6 +6,9 @@ from sentinel.connectors.stream import HackerNewsStreamConnector
 from sentinel.utils import read_pickle
 
 
+MOCK_CONFIG = dict()
+
+
 def get_hn_comments_pkl():
     hn_comments_pkl_path = join(dirname(realpath(__file__)), "hn_stream_comments.pkl")
     return read_pickle(hn_comments_pkl_path)
@@ -38,7 +41,7 @@ def test_HackerNewsStreamConnector_stream_comments(hn_comments):
         "_stream_comments",
         return_value=mock_stream_comments(),
     ):
-        connector = HackerNewsStreamConnector()
+        connector = HackerNewsStreamConnector(config=MOCK_CONFIG)
         result = [mention for mention in connector.stream_comments()]
 
     expected = [
