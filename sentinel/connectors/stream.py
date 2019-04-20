@@ -90,7 +90,7 @@ class GoogleNewsStreamConnector(IStreamConnector):
             api_key=config["Default"]["GOOGLE_NEWS_API_KEY"]
         )
         self._REQUEST_INTERVAL = 60 * 15
-        self._all_news_sources = self._retrieve_news_sources()
+        self._all_news_sources = None
 
     def _retrieve_news_sources(self) -> str:
         response = self._api_client.get_sources()
@@ -99,6 +99,9 @@ class GoogleNewsStreamConnector(IStreamConnector):
         return all_news_sources
 
     def _search_top_stories(self):
+        if self._all_news_sources is None:
+            self._all_news_sources = self._retrieve_news_sources
+
         while True:
             response = self._api_client.get_top_headlines(sources=self._all_news_sources)
             assert response["status"] == "ok"
