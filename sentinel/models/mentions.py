@@ -24,6 +24,15 @@ class HackerNewsMetadata(BaseModel):
     class Config:
         allow_mutation = False
 
+class GoogleNewsMetadata(BaseModel):
+    content: Optional[str]
+    description: str
+    news_source: str
+    author: Optional[str]
+
+    class Config:
+        allow_mutation = False
+
 
 class Mention(BaseModel):
     id: Optional[UUID] = uuid4()
@@ -32,7 +41,7 @@ class Mention(BaseModel):
     creation_date: datetime
     download_date: datetime
     source: str
-    metadata: Union[TwitterMentionMetadata, HackerNewsMetadata]
+    metadata: Union[TwitterMentionMetadata, GoogleNewsMetadata, HackerNewsMetadata]
 
     class Config:
         allow_mutation = False
