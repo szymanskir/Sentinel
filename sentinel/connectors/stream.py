@@ -103,7 +103,9 @@ class GoogleNewsStreamConnector(IStreamConnector):
             self._all_news_sources = self._retrieve_news_sources
 
         while True:
-            response = self._api_client.get_top_headlines(sources=self._all_news_sources)
+            response = self._api_client.get_top_headlines(
+                sources=self._all_news_sources
+            )
             assert response["status"] == "ok"
             for article in response["articles"]:
                 yield article
