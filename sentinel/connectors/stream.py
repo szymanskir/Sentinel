@@ -2,7 +2,7 @@ import json
 import praw
 import requests
 from datetime import datetime
-from ..models.mentions import Mention, HackerNewsMetadata, RedditMetadata
+from ..models.mentions import Mention, HackerNewsMetadata
 from abc import ABCMeta
 from typing import Any, Dict, Iterator
 from .reddit_common import map_reddit_comment

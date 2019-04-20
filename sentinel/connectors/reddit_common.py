@@ -23,7 +23,8 @@ def map_reddit_comment(comment: praw.models.Comment) -> Mention:
 
 
 def filter_removed_comments(comments):
-    # PRAW returns comments even if they are banned/deleted, we have to filter them manually
+    # PRAW returns comments even if they are banned/deleted,
+    # we have to filter them manually
     # such comments have author removed
     # https://www.reddit.com/r/redditdev/comments/4xnk7c/do_removed_comments_show_in_praw/
     for c in comments:

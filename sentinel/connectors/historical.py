@@ -203,17 +203,18 @@ class RedditHistoricalConnector(IHistoricalConnector):
     def download_mentions(
         self, keywords: List[str], since: datetime, until: datetime
     ) -> Iterator[Mention]:
-        since = int(since.timestamp())
-        until = int(until.timestamp())
-        queries = self._fetch_comments(keywords, since, until)
+
+        queries = self._fetch_comments(
+            keywords, int(since.timestamp()), int(until.timestamp())
+        )
         comments = chain(*queries)
         for comment in filter_removed_comments(comments):
             yield map_reddit_comment(comment)
 
     def _fetch_comments(self, keywords, since, until):
-        # Pushshift does not allow specifying multiple keywords while searching, thus this has to be an N query
+        # Pushshift does not allow specifying multiple keywords while searching,
+        # thus this has to be an N query
         return [
             self.reddit.search_comments(q=keyword, after=since, before=until)
             for keyword in keywords
         ]
-
