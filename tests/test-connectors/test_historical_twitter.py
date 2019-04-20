@@ -1,8 +1,9 @@
+import pytest
+from unittest.mock import patch
+
 from datetime import datetime
 from os.path import join, dirname, realpath
-
-import pytest
-from sentinel.connectors.historical import TwitterHistoricalConnector, ITweetSearcher
+from sentinel.connectors.historical import TwitterHistoricalConnector
 from sentinel.models.mentions import TwitterMentionMetadata
 from sentinel.utils import read_pickle
 
@@ -12,14 +13,8 @@ def get_tweets_pkl():
     return read_pickle(tweets_pkl_path)
 
 
-class TweetCursorFactoryMock(ITweetSearcher):
-    def search(self, q: str, until: datetime):
-        return get_tweets_pkl()
-
-
-@pytest.fixture
-def tweet_cursor_mock():
-    return TweetCursorFactoryMock()
+def mock_search():
+    return get_tweets_pkl()
 
 
 @pytest.fixture
@@ -59,14 +54,16 @@ def test_TwitterHistoricalConnector_create_mention_metadata(status_json):
     assert twitter_mention_metadata.retweet_count == 4
 
 
-def test_TwitterHistoricalConnector_download_mentions(
-    tweet_cursor_mock, tweets_test_case
-):
-    connector = TwitterHistoricalConnector(tweet_cursor_mock)
-    mention_generator = connector.download_mentions(
-        ["nike", "reebok"], datetime(2019, 3, 21), None
-    )
-    mention_list = [mention for mention in mention_generator]
+def test_TwitterHistoricalConnector_download_mentions(tweets_test_case):
+    with patch.object(
+        TwitterHistoricalConnector, "_search", return_value=mock_search()
+    ):
+        connector = TwitterHistoricalConnector()
+        mention_generator = connector.download_mentions(
+            ["nike", "reebok"], datetime(2019, 3, 21), None
+        )
+        mention_list = [mention for mention in mention_generator]
+
     assert len(mention_list) == len(tweets_test_case)
     for mention, tweet_test_case in zip(mention_list, tweets_test_case):
         urls = tweet_test_case.entities["urls"]
