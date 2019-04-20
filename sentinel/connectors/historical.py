@@ -1,11 +1,14 @@
 import hn
-import tweepy
 import tweepy.models
+import tweepy
+import praw
+import psaw
 
 from abc import ABCMeta
 from datetime import datetime
 from newsapi import NewsApiClient
 from typing import Iterator, List, Dict, Any
+from itertools import chain
 
 from ..models.mentions import (
     Mention,
@@ -13,6 +16,7 @@ from ..models.mentions import (
     HackerNewsMetadata,
     TwitterMentionMetadata,
 )
+from .reddit_common import map_reddit_comment
 
 
 class IHistoricalConnector(metaclass=ABCMeta):
@@ -30,6 +34,7 @@ class HistoricalConnectorFactory:
             "twitter": TwitterHistoricalConnector,
             "hacker-news": HackerNewsHistoricalConnector,
             "google-news": GoogleNewsHistoricalConnector,
+            "reddit": RedditHistoricalConnector,
         }
         factory_method = creation_strategy[source]
 
@@ -184,3 +189,29 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
         return GoogleNewsMetadata(
             author=article["author"], news_source=article["source"]["name"]
         )
+
+
+class RedditHistoricalConnector(IHistoricalConnector):
+    def __init__(self, config: Dict[Any, Any]):
+        reddit = praw.Reddit(
+            user_agent="Comment Extraction (by /u/balindwalinstalin)",
+            client_id=config["Default"]["REDDIT_CLIENT_ID"],
+            client_secret=config["Default"]["REDDIT_CLIENT_SECRET"],
+        )
+        self.reddit = psaw.PushshiftAPI(reddit)
+
+    def download_mentions(
+        self, keywords: List[str], since: datetime, until: datetime
+    ) -> Iterator[Mention]:
+        since = int(since.timestamp())
+        until = int(until.timestamp())
+
+        queries = [
+            self.reddit.search_comments(q=keyword, after=since, before=until)
+            for keyword in keywords
+        ]
+        # Pushshift does not allow specifying multiple keywords while searching, thus this has to be an N query
+
+        for comment in chain(*queries):
+            yield map_reddit_comment(comment)
+

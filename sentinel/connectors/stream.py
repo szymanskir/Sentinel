@@ -5,6 +5,7 @@ from datetime import datetime
 from ..models.mentions import Mention, HackerNewsMetadata, RedditMetadata
 from abc import ABCMeta
 from typing import Any, Dict, Iterator
+from .reddit_common import map_reddit_comment
 
 
 class IStreamConnector(metaclass=ABCMeta):
@@ -40,26 +41,7 @@ class RedditStreamConnector(IStreamConnector):
         subreddits = "+".join(subreddits)
 
         for comment in self.reddit.subreddit(subreddits).stream.comments():
-            metadata = self._make_metadata(comment)
-            mention = Mention(
-                text=comment.body,
-                url="https://reddit.com" + comment.permalink,
-                creation_date=datetime.fromtimestamp(comment.created_utc),
-                download_date=datetime.utcnow(),
-                source="reddit",
-                metadata=metadata,
-            )
-            yield mention
-
-    @staticmethod
-    def _make_metadata(comment) -> RedditMetadata:
-        return RedditMetadata(
-            redditor=comment.author.id,
-            redditor_link_karma=comment.author.link_karma,
-            redditor_comment_karma=comment.author.comment_karma,
-            score=comment.score,
-            submission=comment.submission.id,
-        )
+            yield map_reddit_comment(comment)
 
 
 class HackerNewsStreamConnector(IStreamConnector):

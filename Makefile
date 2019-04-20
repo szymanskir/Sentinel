@@ -45,6 +45,9 @@ tests:
 reddit_sample:
 	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source reddit --keywords life,Paris
 
+reddit_historical_sample:
+	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source reddit --keywords madagascar --since 2019-04-15 --until 2019-04-20
+
 hn_sample:
 	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source hacker-news --keywords microsoft
 
