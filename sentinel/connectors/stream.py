@@ -7,7 +7,7 @@ from ..models.mentions import Mention, HackerNewsMetadata, GoogleNewsMetadata
 from ..models.reddit import RedditMentionMetadata
 from abc import ABCMeta
 from newsapi import NewsApiClient
-from typing import Any, Dict, Iterator, List
+from typing import Any, Dict, Iterator
 
 
 class IStreamConnector(metaclass=ABCMeta):
