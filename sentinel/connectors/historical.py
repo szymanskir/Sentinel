@@ -16,7 +16,7 @@ from ..models.mentions import (
     HackerNewsMetadata,
     TwitterMentionMetadata,
 )
-from .reddit_common import map_reddit_comment
+from .reddit_common import map_reddit_comment, filter_removed_comments
 
 
 class IHistoricalConnector(metaclass=ABCMeta):
@@ -212,6 +212,7 @@ class RedditHistoricalConnector(IHistoricalConnector):
         ]
         # Pushshift does not allow specifying multiple keywords while searching, thus this has to be an N query
 
-        for comment in chain(*queries):
+        comments = chain(*queries)
+        for comment in filter_removed_comments(comments):
             yield map_reddit_comment(comment)
 
