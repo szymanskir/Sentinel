@@ -48,6 +48,9 @@ reddit_sample:
 hn_sample:
 	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source hacker-news --keywords microsoft
 
+gn_historical_sample:
+	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source google-news --keywords microsoft --since 2019-04-10 --until 2019-04-13
+
 #################################################################################
 # Self Documenting Commands                                                     #
 #################################################################################
