@@ -1,10 +1,8 @@
 import pytest
+from unittest.mock import patch
 
 from os.path import join, dirname, realpath
-from sentinel.connectors.stream import (
-    IHackerNewsStreamReader,
-    HackerNewsStreamConnector,
-)
+from sentinel.connectors.stream import HackerNewsStreamConnector
 from sentinel.utils import read_pickle
 
 
@@ -13,20 +11,14 @@ def get_hn_comments_pkl():
     return read_pickle(hn_comments_pkl_path)
 
 
-class HackerNewsStreamReaderMock(IHackerNewsStreamReader):
-    def stream_comments(self):
-        for comment in get_hn_comments_pkl():
-            yield comment
+def mock_stream_comments():
+    for comment in get_hn_comments_pkl():
+        yield comment
 
 
 @pytest.fixture
 def hn_comments():
     return get_hn_comments_pkl()
-
-
-@pytest.fixture
-def hacker_news_searcher_mock():
-    return HackerNewsStreamReaderMock()
 
 
 def test_HackerNewsStreamConnector_create_mention(hn_comments):
@@ -40,11 +32,15 @@ def test_HackerNewsStreamConnector_create_mention(hn_comments):
     assert result.url == "https://news.ycombinator.com/item?id=19691521"
 
 
-def test_HackerNewsStreamConnector_stream_comments(
-    hn_comments, hacker_news_searcher_mock
-):
-    connector = HackerNewsStreamConnector(hacker_news_searcher_mock)
-    result = [mention for mention in connector.stream_comments()]
+def test_HackerNewsStreamConnector_stream_comments(hn_comments):
+    with patch.object(
+        HackerNewsStreamConnector,
+        "_stream_comments",
+        return_value=mock_stream_comments(),
+    ):
+        connector = HackerNewsStreamConnector()
+        result = [mention for mention in connector.stream_comments()]
+
     expected = [
         HackerNewsStreamConnector._create_hn_mention(comment) for comment in hn_comments
     ]

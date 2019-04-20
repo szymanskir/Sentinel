@@ -5,14 +5,16 @@ from datetime import datetime
 from ..models.mentions import Mention, HackerNewsMetadata
 from ..models.reddit import RedditMentionMetadata
 from abc import ABCMeta
+from typing import Iterator
 
 
 class IStreamConnector(metaclass=ABCMeta):
-    pass
+    def stream_comments(self) -> Iterator[Mention]:
+        pass
 
 
 class StreamConnectorFactory:
-    def create_stream_connector(self, source: str):
+    def create_stream_connector(self, source: str) -> IStreamConnector:
         creation_strategy = {
             "reddit": RedditStreamConnector,
             "hacker-news": HackerNewsStreamConnector,
@@ -48,33 +50,23 @@ class RedditStreamConnector(IStreamConnector):
             yield mention
 
 
-class IHackerNewsStreamReader(metaclass=ABCMeta):
-    def stream_comments(self):
-        pass
-
-
-class HackerNewsStreamReader(IHackerNewsStreamReader):
+class HackerNewsStreamConnector(IStreamConnector):
     def __init__(self):
         self._comments_stream_url = "http://api.hnstream.com/comments/stream/"
 
-    def stream_comments(self):
+    def stream_comments(self) -> Iterator[Mention]:
+        for comment in self._stream_comments():
+            yield self._create_hn_mention(comment)
+
+    def _stream_comments(self) -> Iterator[str]:
         with requests.get(self._comments_stream_url, stream=True) as r:
             lines = r.iter_lines()  # each comment json correspons to a single line
             next(lines)  # first line is always about opening the stream
             for line in lines:
                 yield line
 
-
-class HackerNewsStreamConnector(IStreamConnector):
-    def __init__(self, hn_stream_reader=HackerNewsStreamReader()):
-        self._hn_stream_reader = hn_stream_reader
-
-    def stream_comments(self):
-        for comment in self._hn_stream_reader.stream_comments():
-            yield self._create_hn_mention(comment)
-
     @staticmethod
-    def _create_hn_mention(comment_json):
+    def _create_hn_mention(comment_json) -> Mention:
         comment = json.loads(str(comment_json, "utf-8"))
         metadata = HackerNewsMetadata(author=comment["author"])
         return Mention(
