@@ -2,8 +2,7 @@ import json
 import praw
 import requests
 from datetime import datetime
-from ..models.mentions import Mention, HackerNewsMetadata
-from ..models.reddit import RedditMentionMetadata
+from ..models.mentions import Mention, HackerNewsMetadata, RedditMetadata
 from abc import ABCMeta
 from typing import Any, Dict, Iterator
 
@@ -39,17 +38,28 @@ class RedditStreamConnector(IStreamConnector):
         if not subreddits:
             subreddits = ["askreddit"]
         subreddits = "+".join(subreddits)
+
         for comment in self.reddit.subreddit(subreddits).stream.comments():
-            metadata = RedditMentionMetadata.from_praw(comment)
+            metadata = self._make_metadata(comment)
             mention = Mention(
                 text=comment.body,
-                url=comment.permalink,
+                url="https://reddit.com" + comment.permalink,
                 creation_date=datetime.fromtimestamp(comment.created_utc),
                 download_date=datetime.utcnow(),
                 source="reddit",
                 metadata=metadata,
             )
             yield mention
+
+    @staticmethod
+    def _make_metadata(comment) -> RedditMetadata:
+        return RedditMetadata(
+            redditor=comment.author.id,
+            redditor_link_karma=comment.author.link_karma,
+            redditor_comment_karma=comment.author.comment_karma,
+            score=comment.score,
+            submission=comment.submission.id,
+        )
 
 
 class HackerNewsStreamConnector(IStreamConnector):
