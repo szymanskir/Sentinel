@@ -24,6 +24,7 @@ class HackerNewsMetadata(BaseModel):
     class Config:
         allow_mutation = False
 
+
 class GoogleNewsMetadata(BaseModel):
     content: Optional[str]
     description: Optional[str]

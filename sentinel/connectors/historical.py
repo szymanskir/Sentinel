@@ -7,7 +7,13 @@ from datetime import datetime
 from newsapi import NewsApiClient
 from typing import Iterator, List, Dict, Any
 
-from ..models.mentions import Mention, GoogleNewsMetadata, HackerNewsMetadata, TwitterMentionMetadata
+from ..models.mentions import (
+    Mention,
+    GoogleNewsMetadata,
+    HackerNewsMetadata,
+    TwitterMentionMetadata,
+)
+
 
 class IHistoricalConnector(metaclass=ABCMeta):
     def download_mentions(
@@ -18,12 +24,12 @@ class IHistoricalConnector(metaclass=ABCMeta):
 
 class HistoricalConnectorFactory:
     def create_historical_connector(
-            self, source: str, config: Dict[Any, Any]
+        self, source: str, config: Dict[Any, Any]
     ) -> IHistoricalConnector:
         creation_strategy = {
             "twitter": TwitterHistoricalConnector,
             "hacker-news": HackerNewsHistoricalConnector,
-            "google-news": GoogleNewsHistoricalConnector
+            "google-news": GoogleNewsHistoricalConnector,
         }
         factory_method = creation_strategy[source]
 
@@ -34,7 +40,7 @@ class TwitterHistoricalConnector(IHistoricalConnector):
     def __init__(self, config: Dict[Any, Any]):
         auth = tweepy.OAuthHandler(
             config["Default"]["TWITTER_CONSUMER_KEY"],
-            config["Default"]["TWITTER_CONSUMER_SECRET"]
+            config["Default"]["TWITTER_CONSUMER_SECRET"],
         )
         self.api = tweepy.API(auth)
 
@@ -147,10 +153,11 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
         response = self._api_client.get_everything(
             q=self._create_query(keywords),
             from_param=str(since.date()),
-            to=str(until.date()))
+            to=str(until.date()),
+        )
 
-        assert response['status'] == 'ok'
-        for article in response['articles']:
+        assert response["status"] == "ok"
+        for article in response["articles"]:
             yield article
 
     def download_mentions(
@@ -173,5 +180,5 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
             author=article["author"],
             content=article["content"],
             description=article["description"],
-            news_source=article["source"]["name"]
+            news_source=article["source"]["name"],
         )
