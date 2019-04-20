@@ -7,7 +7,7 @@
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 PROJECT_NAME = sentinel 
 PYTHON_INTERPRETER = python3.6
-VENV_NAME = sentinel.env
+VENV_NAME = .env
 
 #################################################################################
 # COMMANDS                                                                      #
@@ -42,8 +42,11 @@ tests:
 # PROJECT RULES                                                                 #
 #################################################################################
 
-stream_sample:
+reddit_sample:
 	$(PYTHON_INTERPRETER) run_connector.py stream --source reddit --keywords life,Paris
+
+hn_sample:
+	$(PYTHON_INTERPRETER) run_connector.py stream --source hacker-news --keywords life,Paris
 
 #################################################################################
 # Self Documenting Commands                                                     #

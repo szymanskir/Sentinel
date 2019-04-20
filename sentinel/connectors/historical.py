@@ -75,12 +75,12 @@ class TwitterHistoricalConnector(IHistoricalConnector):
     def create_twitter_mention_metadata(status_json: Status):
         user_json = status_json.user
         return TwitterMentionMetadata(
-            user_json.followers_count,
-            user_json.statuses_count,
-            user_json.friends_count,
-            user_json.verified,
-            user_json.listed_count,
-            status_json.retweet_count,
+            followers_count=user_json.followers_count,
+            statuses_count=user_json.statuses_count,
+            friends_count=user_json.friends_count,
+            verified=user_json.verified,
+            listed_count=user_json.listed_count,
+            retweet_count=status_json.retweet_count,
         )
 
 
@@ -130,7 +130,9 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
         points = hit_json["points"]
         relevancy_score = hit_json["relevancy_score"]
         return HackerNewsMetadata(
-            author, points if points is not None else 0, relevancy_score
+            author=author,
+            points=points if points is not None else 0,
+            relevancy_score=relevancy_score,
         )
 
 
