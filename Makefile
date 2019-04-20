@@ -36,7 +36,6 @@ create_environment:
 
 ## Run tests
 tests:
-	$(PYTHON_INTERPRETER) setup.py install
 	pytest tests
 
 #################################################################################
