@@ -26,7 +26,6 @@ class StreamConnectorFactory:
         return factory_method(config)
 
 
-# https://praw.readthedocs.io/en/latest/index.html
 class RedditStreamConnector(IStreamConnector):
     def __init__(self, config: Dict[Any, Any]):
         self.reddit = praw.Reddit(
