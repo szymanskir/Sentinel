@@ -19,7 +19,7 @@ def get_gn_articles():
     return read_jsonpickle(gn_articles_path)
 
 
-def mock_stream_comments():
+def mock_historical_comments():
     for comment in get_gn_articles():
         yield comment
 
@@ -36,7 +36,7 @@ def test_GoogleNewsHistoricalConnector_download_mentions():
     with patch.object(
         GoogleNewsHistoricalConnector,
         "_search_news",
-        return_value=mock_stream_comments(),
+        return_value=mock_historical_comments(),
     ):
         connector = GoogleNewsHistoricalConnector(config=MOCK_CONFIG)
         result = [mention for mention in connector.download_mentions(keywords='microsoft', since=datetime(2019, 4, 4), until=datetime(2019, 4, 5))]
