@@ -1,11 +1,13 @@
 import json
 import praw
 import requests
+import time
 from datetime import datetime
-from ..models.mentions import Mention, HackerNewsMetadata
+from ..models.mentions import Mention, HackerNewsMetadata, GoogleNewsMetadata
 from ..models.reddit import RedditMentionMetadata
 from abc import ABCMeta
-from typing import Any, Dict, Iterator
+from newsapi import NewsApiClient
+from typing import Any, Dict, Iterator, List
 
 
 class IStreamConnector(metaclass=ABCMeta):
@@ -20,6 +22,7 @@ class StreamConnectorFactory:
         creation_strategy = {
             "reddit": RedditStreamConnector,
             "hacker-news": HackerNewsStreamConnector,
+            "google-news": GoogleNewsStreamConnector,
         }
         factory_method = creation_strategy[source]
 
@@ -78,4 +81,44 @@ class HackerNewsStreamConnector(IStreamConnector):
             download_date=datetime.utcnow(),
             source="hacker-news",
             metadata=metadata,
+        )
+
+
+class GoogleNewsStreamConnector(IStreamConnector):
+    def __init__(self, config: Dict[Any, Any]):
+        self._api_client = NewsApiClient(
+            api_key=config["Default"]["GOOGLE_NEWS_API_KEY"]
+        )
+        self._REQUEST_INTERVAL = 60 * 15
+
+    def _search_top_stories(self):
+        response = self._api_client.get_sources()
+        assert response["status"] == "ok"
+        all_news_sources = ",".join([s["id"] for s in response["sources"]])
+        while True:
+            response = self._api_client.get_top_headlines(sources=all_news_sources)
+            assert response["status"] == "ok"
+            for article in response["articles"]:
+                yield article
+            time.sleep(self._REQUEST_INTERVAL)
+
+    def stream_comments(self) -> Iterator[Mention]:
+        for article in self._search_top_stories():
+            article_metadata = self._create_gn_mention_metadata(article)
+            yield Mention(
+                text=article["title"],
+                url=article["url"],
+                creation_date=article["publishedAt"],
+                download_date=datetime.utcnow(),
+                source="google-news",
+                metadata=article_metadata,
+            )
+
+    @staticmethod
+    def _create_gn_mention_metadata(article) -> GoogleNewsMetadata:
+        return GoogleNewsMetadata(
+            author=article["author"],
+            content=article["content"],
+            description=article["description"],
+            news_source=article["source"]["name"],
         )
