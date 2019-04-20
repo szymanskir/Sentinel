@@ -36,17 +36,17 @@ create_environment:
 
 ## Run tests
 tests:
-	pytest tests
+	$(PYTHON_INTERPRETER) -m pytest tests
 
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################
 
 reddit_sample:
-	$(PYTHON_INTERPRETER) run_connector.py stream --source reddit --keywords life,Paris
+	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source reddit --keywords life,Paris
 
 hn_sample:
-	$(PYTHON_INTERPRETER) run_connector.py stream --source hacker-news --keywords life,Paris
+	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source hacker-news --keywords microsoft
 
 #################################################################################
 # Self Documenting Commands                                                     #

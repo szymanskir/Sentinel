@@ -1,3 +1,4 @@
+import configparser
 import pickle
 from datetime import datetime
 from typing import Any
@@ -19,3 +20,10 @@ def datetime_to_unix_timestamp(dt: str):
     unix_timestamp = round(datetime.strptime(dt, "%Y-%m-%d").timestamp())
 
     return unix_timestamp
+
+
+def read_config(config_filepath: str):
+    config = configparser.ConfigParser()
+    config.read(config_filepath)
+
+    return config

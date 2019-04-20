@@ -111,3 +111,6 @@ sentinel.env/
 # pycharm
 .idea
 .idea/
+
+# confif ile
+config.ini

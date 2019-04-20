@@ -5,7 +5,7 @@ from datetime import datetime
 from ..models.mentions import Mention, HackerNewsMetadata
 from ..models.reddit import RedditMentionMetadata
 from abc import ABCMeta
-from typing import Iterator
+from typing import Any, Dict, Iterator
 
 
 class IStreamConnector(metaclass=ABCMeta):
@@ -14,23 +14,25 @@ class IStreamConnector(metaclass=ABCMeta):
 
 
 class StreamConnectorFactory:
-    def create_stream_connector(self, source: str) -> IStreamConnector:
+    def create_stream_connector(
+        self, source: str, config: Dict[Any, Any]
+    ) -> IStreamConnector:
         creation_strategy = {
             "reddit": RedditStreamConnector,
             "hacker-news": HackerNewsStreamConnector,
         }
         factory_method = creation_strategy[source]
 
-        return factory_method()
+        return factory_method(config)
 
 
 # https://praw.readthedocs.io/en/latest/index.html
 class RedditStreamConnector(IStreamConnector):
-    def __init__(self):
+    def __init__(self, config: Dict[Any, Any]):
         self.reddit = praw.Reddit(
             user_agent="Comment Extraction (by /u/balindwalinstalin)",
-            client_id="OqrZ_DehznAk8Q",
-            client_secret="4WUBg15-g6fwXhnbl0mu8QlD944",
+            client_id=config["Default"]["REDDIT_CLIENT_ID"],
+            client_secret=config["Default"]["REDDIT_CLIENT_SECRET"],
         )
 
     def stream_comments(self, subreddits=None):
@@ -40,18 +42,18 @@ class RedditStreamConnector(IStreamConnector):
         for comment in self.reddit.subreddit(subreddits).stream.comments():
             metadata = RedditMentionMetadata.from_praw(comment)
             mention = Mention(
-                comment.body,
-                comment.permalink,
-                datetime.fromtimestamp(comment.created_utc),
-                datetime.utcnow(),
-                "reddit",
-                metadata,
+                text=comment.body,
+                url=comment.permalink,
+                creation_date=datetime.fromtimestamp(comment.created_utc),
+                download_date=datetime.utcnow(),
+                source="reddit",
+                metadata=metadata,
             )
             yield mention
 
 
 class HackerNewsStreamConnector(IStreamConnector):
-    def __init__(self):
+    def __init__(self, config: Dict[Any, Any]):
         self._comments_stream_url = "http://api.hnstream.com/comments/stream/"
 
     def stream_comments(self) -> Iterator[Mention]:

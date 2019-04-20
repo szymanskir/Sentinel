@@ -16,21 +16,23 @@ class IHistoricalConnector(metaclass=ABCMeta):
 
 
 class HistoricalConnectorFactory:
-    def create_historical_connector(self, source: str) -> IHistoricalConnector:
+    def create_historical_connector(
+            self, source: str, config: Dict[Any, Any]
+    ) -> IHistoricalConnector:
         creation_strategy = {
             "twitter": TwitterHistoricalConnector,
             "hacker-news": HackerNewsHistoricalConnector,
         }
         factory_method = creation_strategy[source]
 
-        return factory_method()
+        return factory_method(config)
 
 
 class TwitterHistoricalConnector(IHistoricalConnector):
-    def __init__(self):
+    def __init__(self, config: Dict[Any, Any]):
         auth = tweepy.OAuthHandler(
-            "7OQ3QuZHq9VLLHhEfiNLgkXRr",
-            "1Y3KdcvUkrwjs8R6XVafRfN4ztMC1h6TShfbdLux6fsHEXpEQj",
+            config["Default"]["TWITTER_CONSUMER_KEY"],
+            config["Default"]["TWITTER_CONSUMER_SECRET"]
         )
         self.api = tweepy.API(auth)
 
@@ -87,6 +89,9 @@ class TwitterHistoricalConnector(IHistoricalConnector):
 
 
 class HackerNewsHistoricalConnector(IHistoricalConnector):
+    def __init__(self, config: Dict[Any, Any]):
+        pass
+
     def download_mentions(
         self, keywords: List[str], since: datetime, until: datetime
     ) -> Iterator[Mention]:
