@@ -4,6 +4,7 @@ import logging
 from datetime import datetime
 from sentinel.connectors.historical import HistoricalConnectorFactory
 from sentinel.connectors.stream import StreamConnectorFactory
+from sentinel.keyword_manager import ConstKeywordManager, DynamicKeywordManager
 
 LOGGER = logging.getLogger("main")
 
@@ -38,8 +39,16 @@ def stream(source, keywords):
     keywords = keywords.split(",")
     factory = StreamConnectorFactory()
     connector = factory.create_stream_connector(source)
-    for mention in connector.stream_comments():
-        LOGGER.info(f"TEXT: {mention}")
+    keyword_manager = DynamicKeywordManager()
+    try:
+        keyword_manager.run()
+        for mention in connector.stream_comments():
+            if keyword_manager.any_match(mention.text):
+                LOGGER.warning(f"TEXT: {mention.text[:20]}")
+            else:
+                LOGGER.info(f"TEXT: {mention.text[:20]}")
+    finally:
+        keyword_manager.exit()
 
 
 if __name__ == "__main__":
