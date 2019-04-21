@@ -34,21 +34,28 @@ def historical(source, keywords, since, until):
 
 @main.command()
 @click.option("--source", required=True)
-@click.option("--keywords", type=click.STRING, required=True)
+@click.option("--keywords", type=click.STRING)
 def stream(source, keywords):
-    keywords = keywords.split(",")
     factory = StreamConnectorFactory()
     connector = factory.create_stream_connector(source)
-    keyword_manager = DynamicKeywordManager()
-    try:
-        keyword_manager.run()
+
+    def stream_mentions():
         for mention in connector.stream_comments():
             if keyword_manager.any_match(mention.text):
-                LOGGER.warning(f"TEXT: {mention.text[:20]}")
+                LOGGER.info(f"HIT: {mention.text[:30]}")
             else:
-                LOGGER.info(f"TEXT: {mention.text[:20]}")
-    finally:
-        keyword_manager.exit()
+                LOGGER.info(f"MISS: {mention.text[:30]}")
+
+    if keywords is not None:
+        keyword_manager = ConstKeywordManager(keywords.split(","))
+        stream_mentions()
+    else:
+        keyword_manager = DynamicKeywordManager()
+        try:
+            keyword_manager.run()
+            stream_mentions()
+        finally:
+            keyword_manager.exit()
 
 
 if __name__ == "__main__":

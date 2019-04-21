@@ -23,15 +23,13 @@ class ConstKeywordManager(KeywordManager):
 class DynamicKeywordManager(KeywordManager):
     def __init__(self):
         super().__init__(KeywordFinder())
-        self.SLEEP_TIME = 1
+        self.SLEEP_TIME = 30
         self._current_keywords = set()
         self._logger = logging.getLogger(DynamicKeywordManager.__name__)
         self._exit_event = threading.Event()
 
     def run(self):
-        self._update_thread = threading.Thread(
-            target=self._update_keywords, daemon=True
-        )
+        self._update_thread = threading.Thread(target=self._update_keywords)
         self._update_thread.start()
 
     def exit(self):
@@ -47,11 +45,9 @@ class DynamicKeywordManager(KeywordManager):
                 self._current_keywords = new_keywords
                 self.keyword_finder = KeywordFinder(new_keywords)
 
-            self._wait_sleep()
+            self._exit_event.wait(self.SLEEP_TIME)
 
     def _get_keywords(self) -> Set[str]:
-        time.sleep(0.1)  # simulate redis / db call
+        # simulate redis / db call
+        time.sleep(0.1)
         return set(["the"])
-
-    def _wait_sleep(self):
-        self._exit_event.wait(self.SLEEP_TIME)
