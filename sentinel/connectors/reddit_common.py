@@ -1,6 +1,7 @@
 import praw
 from datetime import datetime
 from ..models.mentions import Mention, RedditMetadata
+from typing import Iterator
 
 
 def map_reddit_comment(comment: praw.models.Comment) -> Mention:
@@ -22,7 +23,9 @@ def map_reddit_comment(comment: praw.models.Comment) -> Mention:
     )
 
 
-def filter_removed_comments(comments):
+def filter_removed_comments(
+    comments: Iterator[praw.models.Comment]
+) -> Iterator[praw.models.Comment]:
     # PRAW returns comments even if they are banned/deleted,
     # we have to filter them manually
     # such comments have author removed
