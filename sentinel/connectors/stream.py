@@ -1,11 +1,17 @@
 import json
 import praw
 import requests
+import time
+
 from datetime import datetime
-from ..models.mentions import Mention, HackerNewsMetadata
-from ..models.reddit import RedditMentionMetadata
 from abc import ABCMeta
 from typing import Any, Dict, Iterator
+from newsapi import NewsApiClient
+
+from .gn_common import create_gn_mention
+
+from ..models.mentions import Mention, HackerNewsMetadata
+from ..models.reddit import RedditMentionMetadata
 
 
 class IStreamConnector(metaclass=ABCMeta):
@@ -20,6 +26,7 @@ class StreamConnectorFactory:
         creation_strategy = {
             "reddit": RedditStreamConnector,
             "hacker-news": HackerNewsStreamConnector,
+            "google-news": GoogleNewsStreamConnector,
         }
         factory_method = creation_strategy[source]
 
@@ -79,3 +86,35 @@ class HackerNewsStreamConnector(IStreamConnector):
             source="hacker-news",
             metadata=metadata,
         )
+
+
+class GoogleNewsStreamConnector(IStreamConnector):
+    def __init__(self, config: Dict[Any, Any]):
+        self._api_client = NewsApiClient(
+            api_key=config["Default"]["GOOGLE_NEWS_API_KEY"]
+        )
+        self._REQUEST_INTERVAL = 60 * 15
+        self._all_news_sources = None
+
+    def _retrieve_news_sources(self) -> str:
+        response = self._api_client.get_sources()
+        assert response["status"] == "ok"
+        all_news_sources = ",".join([s["id"] for s in response["sources"]])
+        return all_news_sources
+
+    def _search_top_stories(self):
+        if self._all_news_sources is None:
+            self._all_news_sources = self._retrieve_news_sources()
+
+        while True:
+            response = self._api_client.get_top_headlines(
+                sources=self._all_news_sources
+            )
+            assert response["status"] == "ok"
+            for article in response["articles"]:
+                yield article
+            time.sleep(self._REQUEST_INTERVAL)
+
+    def stream_comments(self) -> Iterator[Mention]:
+        for article in self._search_top_stories():
+            yield create_gn_mention(article)

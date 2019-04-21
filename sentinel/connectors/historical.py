@@ -7,12 +7,9 @@ from datetime import datetime
 from newsapi import NewsApiClient
 from typing import Iterator, List, Dict, Any
 
-from ..models.mentions import (
-    Mention,
-    GoogleNewsMetadata,
-    HackerNewsMetadata,
-    TwitterMentionMetadata,
-)
+from .gn_common import create_gn_mention
+
+from ..models.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
 
 
 class IHistoricalConnector(metaclass=ABCMeta):
@@ -164,23 +161,4 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
         self, keywords: List[str], since: datetime, until: datetime
     ) -> Iterator[Mention]:
         for article in self._search_news(keywords, since, until):
-            article_metadata = self._create_gn_mention_metadata(article)
-            text = " ".join(
-                filter(
-                    None, [article["title"], article["description"], article["content"]]
-                )
-            )
-            yield Mention(
-                text=text,
-                url=article["url"],
-                creation_date=article["publishedAt"],
-                download_date=datetime.utcnow(),
-                source="google-news",
-                metadata=article_metadata,
-            )
-
-    @staticmethod
-    def _create_gn_mention_metadata(article) -> GoogleNewsMetadata:
-        return GoogleNewsMetadata(
-            author=article["author"], news_source=article["source"]["name"]
-        )
+            yield create_gn_mention(article)
