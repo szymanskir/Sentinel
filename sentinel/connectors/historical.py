@@ -4,9 +4,10 @@ import tweepy.models
 
 from abc import ABCMeta
 from datetime import datetime
+from newsapi import NewsApiClient
 from typing import Iterator, List, Dict, Any
 
-from .gn_common import GoogleNewsCommonConnector
+from .gn_common import GoogleNewsCommonUtils
 
 from ..models.mentions import (
     Mention,
@@ -141,10 +142,28 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
 
 class GoogleNewsHistoricalConnector(IHistoricalConnector):
     def __init__(self, config: Dict[Any, Any]):
-        self._gn_connector = GoogleNewsCommonConnector(config)
+        self._api_client = NewsApiClient(
+            api_key=config["Default"]["GOOGLE_NEWS_API_KEY"]
+        )
+        self._gn_utils = GoogleNewsCommonUtils()
+
+    def _create_query(self, keywords: List[str]) -> str:
+        query = "&OR&".join(keywords)
+        return query
+
+    def _search_news(self, keywords: List[str], since: datetime, until: datetime):
+        response = self._api_client.get_everything(
+            q=self._create_query(keywords),
+            from_param=str(since.date()),
+            to=str(until.date()),
+        )
+
+        assert response["status"] == "ok"
+        for article in response["articles"]:
+            yield article
 
     def download_mentions(
         self, keywords: List[str], since: datetime, until: datetime
     ) -> Iterator[Mention]:
-        for article in self._gn_connector.search_news(keywords, since, until):
-            yield self._gn_connector.create_gn_mention(article)
+        for article in self._search_news(keywords, since, until):
+            yield self._gn_utils.create_gn_mention(article)
