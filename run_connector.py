@@ -5,6 +5,7 @@ from datetime import datetime
 from sentinel.connectors.historical import HistoricalConnectorFactory
 from sentinel.connectors.stream import StreamConnectorFactory
 from sentinel.keyword_manager import ConstKeywordManager, DynamicKeywordManager
+from sentinel.utils import read_config
 
 LOGGER = logging.getLogger("main")
 
@@ -19,25 +20,29 @@ def main():
 
 
 @main.command()
+@click.argument("config_file", type=click.Path(exists=True))
 @click.option("--source", required=True)
 @click.option("--keywords", type=click.STRING, required=True)
 @click.option("--since", type=click.DateTime(), required=True)
 @click.option("--until", type=click.DateTime(), default=str(datetime.today().date()))
-def historical(source, keywords, since, until):
+def historical(config_file, source, keywords, since, until):
+    config = read_config(config_file)
     keywords = keywords.split(",")
     factory = HistoricalConnectorFactory()
-    connector = factory.create_historical_connector(source)
+    connector = factory.create_historical_connector(source, config)
 
     for mention in connector.download_mentions(keywords, since, until):
         LOGGER.info(f"TEXT:{mention.text}")
 
 
 @main.command()
+@click.argument("config_file", type=click.Path(exists=True))
 @click.option("--source", required=True)
 @click.option("--keywords", type=click.STRING)
-def stream(source, keywords):
+def stream(config_file, source, keywords):
+    config = read_config(config_file)
     factory = StreamConnectorFactory()
-    connector = factory.create_stream_connector(source)
+    connector = factory.create_stream_connector(source, config)
 
     def stream_mentions():
         for mention in connector.stream_comments():

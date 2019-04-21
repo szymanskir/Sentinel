@@ -6,6 +6,7 @@ from os.path import join, dirname, realpath
 from sentinel.utils import read_pickle
 from sentinel.connectors.historical import HackerNewsHistoricalConnector
 
+MOCK_CONFIG = dict()
 
 def get_hn_comments_pkl():
     hn_comments_pkl_path = join(dirname(realpath(__file__)), "hn_comments.pkl")
@@ -51,7 +52,7 @@ def test_HackerNewsHistoricalConnector_download_mentions(hn_comments):
     with patch.object(
         HackerNewsHistoricalConnector, "_search", return_value=mock_search()
     ):
-        connector = HackerNewsHistoricalConnector()
+        connector = HackerNewsHistoricalConnector(config=MOCK_CONFIG)
         mention_generator = connector.download_mentions(
             ["microsoft"], datetime(2019, 4, 10), datetime(2019, 4, 13)
         )

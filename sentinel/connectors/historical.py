@@ -1,11 +1,18 @@
+import hn
+import tweepy
+import tweepy.models
+
 from abc import ABCMeta
-from ..models.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
 from datetime import datetime
+from newsapi import NewsApiClient
 from typing import Iterator, List, Dict, Any
 
-import hn
-import tweepy.models
-import tweepy
+from ..models.mentions import (
+    Mention,
+    GoogleNewsMetadata,
+    HackerNewsMetadata,
+    TwitterMentionMetadata,
+)
 
 
 class IHistoricalConnector(metaclass=ABCMeta):
@@ -16,21 +23,24 @@ class IHistoricalConnector(metaclass=ABCMeta):
 
 
 class HistoricalConnectorFactory:
-    def create_historical_connector(self, source: str) -> IHistoricalConnector:
+    def create_historical_connector(
+        self, source: str, config: Dict[Any, Any]
+    ) -> IHistoricalConnector:
         creation_strategy = {
             "twitter": TwitterHistoricalConnector,
             "hacker-news": HackerNewsHistoricalConnector,
+            "google-news": GoogleNewsHistoricalConnector,
         }
         factory_method = creation_strategy[source]
 
-        return factory_method()
+        return factory_method(config)
 
 
 class TwitterHistoricalConnector(IHistoricalConnector):
-    def __init__(self):
+    def __init__(self, config: Dict[Any, Any]):
         auth = tweepy.OAuthHandler(
-            "7OQ3QuZHq9VLLHhEfiNLgkXRr",
-            "1Y3KdcvUkrwjs8R6XVafRfN4ztMC1h6TShfbdLux6fsHEXpEQj",
+            config["Default"]["TWITTER_CONSUMER_KEY"],
+            config["Default"]["TWITTER_CONSUMER_SECRET"],
         )
         self.api = tweepy.API(auth)
 
@@ -87,6 +97,9 @@ class TwitterHistoricalConnector(IHistoricalConnector):
 
 
 class HackerNewsHistoricalConnector(IHistoricalConnector):
+    def __init__(self, config: Dict[Any, Any]):
+        pass
+
     def download_mentions(
         self, keywords: List[str], since: datetime, until: datetime
     ) -> Iterator[Mention]:
@@ -123,4 +136,51 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
             author=author,
             points=points if points is not None else 0,
             relevancy_score=relevancy_score,
+        )
+
+
+class GoogleNewsHistoricalConnector(IHistoricalConnector):
+    def __init__(self, config: Dict[Any, Any]):
+        self._api_client = NewsApiClient(
+            api_key=config["Default"]["GOOGLE_NEWS_API_KEY"]
+        )
+
+    def _create_query(self, keywords: List[str]) -> str:
+        query = "&OR&".join(keywords)
+        return query
+
+    def _search_news(self, keywords: List[str], since: datetime, until: datetime):
+        response = self._api_client.get_everything(
+            q=self._create_query(keywords),
+            from_param=str(since.date()),
+            to=str(until.date()),
+        )
+
+        assert response["status"] == "ok"
+        for article in response["articles"]:
+            yield article
+
+    def download_mentions(
+        self, keywords: List[str], since: datetime, until: datetime
+    ) -> Iterator[Mention]:
+        for article in self._search_news(keywords, since, until):
+            article_metadata = self._create_gn_mention_metadata(article)
+            text = " ".join(
+                filter(
+                    None, [article["title"], article["description"], article["content"]]
+                )
+            )
+            yield Mention(
+                text=text,
+                url=article["url"],
+                creation_date=article["publishedAt"],
+                download_date=datetime.utcnow(),
+                source="google-news",
+                metadata=article_metadata,
+            )
+
+    @staticmethod
+    def _create_gn_mention_metadata(article) -> GoogleNewsMetadata:
+        return GoogleNewsMetadata(
+            author=article["author"], news_source=article["source"]["name"]
         )

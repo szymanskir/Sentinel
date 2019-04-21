@@ -7,6 +7,13 @@ from sentinel.connectors.historical import TwitterHistoricalConnector
 from sentinel.models.mentions import TwitterMentionMetadata
 from sentinel.utils import read_pickle
 
+MOCK_CONFIG = {
+    "Default": {
+        "TWITTER_CONSUMER_KEY": "MOCK_KEY",
+        "TWITTER_CONSUMER_SECRET": "MOCK_SECRET",
+    }
+}
+
 
 def get_tweets_pkl():
     tweets_pkl_path = join(dirname(realpath(__file__)), "tweets.pkl")
@@ -36,7 +43,7 @@ def status_json():
     ],
 )
 def test_TwitterHistoricalConnector_build_query(keywords, since, expected):
-    thc = TwitterHistoricalConnector()
+    thc = TwitterHistoricalConnector(config=MOCK_CONFIG)
     actual = thc._build_query(keywords, since)
 
     assert actual == expected
@@ -58,7 +65,7 @@ def test_TwitterHistoricalConnector_download_mentions(tweets_test_case):
     with patch.object(
         TwitterHistoricalConnector, "_search", return_value=mock_search()
     ):
-        connector = TwitterHistoricalConnector()
+        connector = TwitterHistoricalConnector(config=MOCK_CONFIG)
         mention_generator = connector.download_mentions(
             ["nike", "reebok"], datetime(2019, 3, 21), None
         )
