@@ -43,7 +43,7 @@ def test_map_reddit_comment(reddit_comments):
     assert result.source == "reddit"
 
     assert result.metadata.redditor == "1zgw3jt5"
-    assert result.metadata.score == 8
+    assert result.metadata.score == 9
     assert result.metadata.redditor_link_karma == 473
     assert result.metadata.redditor_comment_karma == 417
 
@@ -77,3 +77,22 @@ def test_RedditHistoricalConnector_merging_comments(reddit_comments):
             assert act.metadata.score == exp.score
             assert act.metadata.redditor_link_karma == exp.author.link_karma
             assert act.metadata.redditor_comment_karma == exp.author.comment_karma
+
+
+def test_RedditHistoricalConnector_deduplicates_comments(reddit_comments):
+    reddit_comments = reddit_comments[:3]
+    reddit_comments[0].id = "foo"
+    reddit_comments[1].id = "foo"
+
+    with patch.object(
+        RedditHistoricalConnector, "_fetch_comments", return_value=[reddit_comments]
+    ):
+        connector = RedditHistoricalConnector(config=MOCK_CONFIG)
+
+        results = connector.download_mentions(
+            ["life"], datetime(2019, 4, 15), datetime(2019, 4, 20)
+        )
+        results = list(results)
+
+        assert len(results) == 2
+        assert results[0].url != results[1].url

@@ -7,7 +7,7 @@ import psaw
 from abc import ABCMeta
 from datetime import datetime
 from newsapi import NewsApiClient
-from typing import Iterator, List, Dict, Any
+from typing import Iterator, List, Dict, Any, Set
 from itertools import chain
 
 from ..models.mentions import (
@@ -208,10 +208,16 @@ class RedditHistoricalConnector(IHistoricalConnector):
             keywords, int(since.timestamp()), int(until.timestamp())
         )
         comments = chain(*queries)
-        for comment in filter_removed_comments(comments):
-            yield map_reddit_comment(comment)
+        duplicates = set()  # type: Set[str]
 
-    def _fetch_comments(self, keywords, since, until):
+        for comment in filter_removed_comments(comments):
+            if comment.id not in duplicates:
+                duplicates.add(comment.id)
+                yield map_reddit_comment(comment)
+
+    def _fetch_comments(
+        self, keywords: List[str], since: int, until: int
+    ) -> List[Iterator[praw.models.Comment]]:
         # Pushshift does not allow specifying multiple keywords while searching,
         # thus this has to be an N query
         return [
