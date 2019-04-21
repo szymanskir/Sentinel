@@ -165,8 +165,13 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
     ) -> Iterator[Mention]:
         for article in self._search_news(keywords, since, until):
             article_metadata = self._create_gn_mention_metadata(article)
+            text = " ".join(
+                filter(
+                    None, [article["title"], article["description"], article["content"]]
+                )
+            )
             yield Mention(
-                text=article["title"],
+                text=text,
                 url=article["url"],
                 creation_date=article["publishedAt"],
                 download_date=datetime.utcnow(),
@@ -177,8 +182,5 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
     @staticmethod
     def _create_gn_mention_metadata(article) -> GoogleNewsMetadata:
         return GoogleNewsMetadata(
-            author=article["author"],
-            content=article["content"],
-            description=article["description"],
-            news_source=article["source"]["name"],
+            author=article["author"], news_source=article["source"]["name"]
         )
