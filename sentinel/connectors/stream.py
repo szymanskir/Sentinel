@@ -2,12 +2,16 @@ import json
 import praw
 import requests
 import time
+
 from datetime import datetime
-from ..models.mentions import Mention, HackerNewsMetadata, GoogleNewsMetadata
-from ..models.reddit import RedditMentionMetadata
 from abc import ABCMeta
-from newsapi import NewsApiClient
 from typing import Any, Dict, Iterator
+from newsapi import NewsApiClient
+
+from .gn_common import create_gn_mention
+
+from ..models.mentions import Mention, HackerNewsMetadata
+from ..models.reddit import RedditMentionMetadata
 
 
 class IStreamConnector(metaclass=ABCMeta):
@@ -100,7 +104,7 @@ class GoogleNewsStreamConnector(IStreamConnector):
 
     def _search_top_stories(self):
         if self._all_news_sources is None:
-            self._all_news_sources = self._retrieve_news_sources
+            self._all_news_sources = self._retrieve_news_sources()
 
         while True:
             response = self._api_client.get_top_headlines(
@@ -113,21 +117,4 @@ class GoogleNewsStreamConnector(IStreamConnector):
 
     def stream_comments(self) -> Iterator[Mention]:
         for article in self._search_top_stories():
-            article_metadata = self._create_gn_mention_metadata(article)
-            yield Mention(
-                text=article["title"],
-                url=article["url"],
-                creation_date=article["publishedAt"],
-                download_date=datetime.utcnow(),
-                source="google-news",
-                metadata=article_metadata,
-            )
-
-    @staticmethod
-    def _create_gn_mention_metadata(article) -> GoogleNewsMetadata:
-        return GoogleNewsMetadata(
-            author=article["author"],
-            content=article["content"],
-            description=article["description"],
-            news_source=article["source"]["name"],
-        )
+            yield create_gn_mention(article)
