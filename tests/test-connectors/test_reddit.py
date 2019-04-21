@@ -16,7 +16,7 @@ MOCK_CONFIG = MOCK_CONFIG = {
 }
 
 
-# pickle contains 10 good comments and 1 deleted, without body and author
+# pickle contains 5 good comments and 1 deleted, without body and author
 @pytest.fixture
 def reddit_comments():
     path = join(dirname(realpath(__file__)), "reddit.pkl")
@@ -43,7 +43,7 @@ def test_map_reddit_comment(reddit_comments):
     assert result.source == "reddit"
 
     assert result.metadata.redditor == "1zgw3jt5"
-    assert result.metadata.score == 9
+    assert result.metadata.score == 8
     assert result.metadata.redditor_link_karma == 473
     assert result.metadata.redditor_comment_karma == 417
 
@@ -57,7 +57,7 @@ def test_RedditHistoricalConnector_merging_comments(reddit_comments):
     with patch.object(
         RedditHistoricalConnector,
         "_fetch_comments",
-        return_value=[reddit_comments[:5], reddit_comments[5:]],
+        return_value=[reddit_comments[:3], reddit_comments[3:]],
     ):
         connector = RedditHistoricalConnector(config=MOCK_CONFIG)
         results = connector.download_mentions(
