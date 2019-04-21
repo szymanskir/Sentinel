@@ -8,7 +8,7 @@ from abc import ABCMeta
 from typing import Any, Dict, Iterator
 from newsapi import NewsApiClient
 
-from .gn_common import GoogleNewsCommonUtils
+from .gn_common import create_gn_mention
 
 from ..models.mentions import Mention, HackerNewsMetadata
 from ..models.reddit import RedditMentionMetadata
@@ -95,7 +95,6 @@ class GoogleNewsStreamConnector(IStreamConnector):
         )
         self._REQUEST_INTERVAL = 60 * 15
         self._all_news_sources = None
-        self._gn_utils = GoogleNewsCommonUtils()
 
     def _retrieve_news_sources(self) -> str:
         response = self._api_client.get_sources()
@@ -118,4 +117,4 @@ class GoogleNewsStreamConnector(IStreamConnector):
 
     def stream_comments(self) -> Iterator[Mention]:
         for article in self._search_top_stories():
-            yield self._gn_utils.create_gn_mention(article)
+            yield create_gn_mention(article)

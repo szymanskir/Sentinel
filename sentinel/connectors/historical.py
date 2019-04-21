@@ -7,13 +7,9 @@ from datetime import datetime
 from newsapi import NewsApiClient
 from typing import Iterator, List, Dict, Any
 
-from .gn_common import GoogleNewsCommonUtils
+from .gn_common import create_gn_mention
 
-from ..models.mentions import (
-    Mention,
-    HackerNewsMetadata,
-    TwitterMentionMetadata,
-)
+from ..models.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
 
 
 class IHistoricalConnector(metaclass=ABCMeta):
@@ -145,7 +141,6 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
         self._api_client = NewsApiClient(
             api_key=config["Default"]["GOOGLE_NEWS_API_KEY"]
         )
-        self._gn_utils = GoogleNewsCommonUtils()
 
     def _create_query(self, keywords: List[str]) -> str:
         query = "&OR&".join(keywords)
@@ -166,4 +161,4 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
         self, keywords: List[str], since: datetime, until: datetime
     ) -> Iterator[Mention]:
         for article in self._search_news(keywords, since, until):
-            yield self._gn_utils.create_gn_mention(article)
+            yield create_gn_mention(article)
