@@ -5,7 +5,7 @@ from datetime import datetime
 from os.path import join, dirname, realpath
 from sentinel.connectors.historical import TwitterHistoricalConnector
 from sentinel.models.mentions import TwitterMentionMetadata
-from sentinel.utils import read_pickle
+from sentinel.utils import read_pickle, read_jsonpickle
 
 MOCK_CONFIG = {
     "Default": {
@@ -16,7 +16,7 @@ MOCK_CONFIG = {
 
 
 def get_tweets_pkl():
-    tweets_pkl_path = join(dirname(realpath(__file__)), "tweets.pkl")
+    tweets_pkl_path = join(dirname(realpath(__file__)), "twitter-historical_comments.pkl")
     return read_pickle(tweets_pkl_path)
 
 
@@ -31,8 +31,8 @@ def tweets_test_case():
 
 @pytest.fixture
 def status_json():
-    test_cases_dir = join(dirname(realpath(__file__)), "tweet_status_json.pkl")
-    return read_pickle(test_cases_dir)
+    test_cases_dir = join(dirname(realpath(__file__)), "twitter-single_comment.json")
+    return read_jsonpickle(test_cases_dir)
 
 
 @pytest.mark.parametrize(

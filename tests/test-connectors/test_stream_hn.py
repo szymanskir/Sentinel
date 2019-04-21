@@ -3,25 +3,25 @@ from unittest.mock import patch
 
 from os.path import join, dirname, realpath
 from sentinel.connectors.stream import HackerNewsStreamConnector
-from sentinel.utils import read_pickle
+from sentinel.utils import read_jsonpickle
 
 
 MOCK_CONFIG = dict()
 
 
-def get_hn_comments_pkl():
-    hn_comments_pkl_path = join(dirname(realpath(__file__)), "hn_stream_comments.pkl")
-    return read_pickle(hn_comments_pkl_path)
+def get_hn_comments_jsonpkl():
+    hn_comments_jsonpkl_path= join(dirname(realpath(__file__)), "hn-stream_comments.json")
+    return read_jsonpickle(hn_comments_jsonpkl_path)
 
 
 def mock_stream_comments():
-    for comment in get_hn_comments_pkl():
+    for comment in get_hn_comments_jsonpkl():
         yield comment
 
 
 @pytest.fixture
 def hn_comments():
-    return get_hn_comments_pkl()
+    return get_hn_comments_jsonpkl()
 
 
 def test_HackerNewsStreamConnector_create_mention(hn_comments):

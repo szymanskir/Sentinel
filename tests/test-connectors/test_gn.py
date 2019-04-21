@@ -17,7 +17,7 @@ MOCK_CONFIG = {
 
 
 def get_gn_articles():
-    gn_articles_path = join(dirname(realpath(__file__)), "gn_everything_articles_response.json")
+    gn_articles_path = join(dirname(realpath(__file__)), "gn-historical_comments.json")
     return read_jsonpickle(gn_articles_path)
 
 
