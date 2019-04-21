@@ -26,8 +26,6 @@ class HackerNewsMetadata(BaseModel):
 
 
 class GoogleNewsMetadata(BaseModel):
-    content: Optional[str]
-    description: Optional[str]
     news_source: str
     author: Optional[str]
 
