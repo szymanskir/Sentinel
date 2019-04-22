@@ -33,6 +33,17 @@ class GoogleNewsMetadata(BaseModel):
         allow_mutation = False
 
 
+class RedditMetadata(BaseModel):
+    redditor: str
+    redditor_comment_karma: int
+    redditor_link_karma: int
+    score: int
+    submission: str
+
+    class Config:
+        allow_mutation = False
+
+
 class Mention(BaseModel):
     id: Optional[UUID] = uuid4()
     text: str
@@ -40,7 +51,9 @@ class Mention(BaseModel):
     creation_date: datetime
     download_date: datetime
     source: str
-    metadata: Union[TwitterMentionMetadata, GoogleNewsMetadata, HackerNewsMetadata]
+    metadata: Union[
+        TwitterMentionMetadata, GoogleNewsMetadata, HackerNewsMetadata, RedditMetadata
+    ]
 
     class Config:
         allow_mutation = False

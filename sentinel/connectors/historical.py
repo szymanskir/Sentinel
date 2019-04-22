@@ -1,15 +1,22 @@
 import hn
-import tweepy
 import tweepy.models
+import tweepy
+import praw
+import psaw
 
 from abc import ABCMeta
 from datetime import datetime
 from newsapi import NewsApiClient
-from typing import Iterator, List, Dict, Any
+from typing import Iterator, List, Dict, Any, Set
+from itertools import chain
 
+from ..models.mentions import (
+    Mention,
+    HackerNewsMetadata,
+    TwitterMentionMetadata,
+)
+from .reddit_common import map_reddit_comment, filter_removed_comments
 from .gn_common import create_gn_mention
-
-from ..models.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
 
 
 class IHistoricalConnector(metaclass=ABCMeta):
@@ -27,6 +34,7 @@ class HistoricalConnectorFactory:
             "twitter": TwitterHistoricalConnector,
             "hacker-news": HackerNewsHistoricalConnector,
             "google-news": GoogleNewsHistoricalConnector,
+            "reddit": RedditHistoricalConnector,
         }
         factory_method = creation_strategy[source]
 
@@ -162,3 +170,38 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
     ) -> Iterator[Mention]:
         for article in self._search_news(keywords, since, until):
             yield create_gn_mention(article)
+
+
+class RedditHistoricalConnector(IHistoricalConnector):
+    def __init__(self, config: Dict[Any, Any]):
+        reddit = praw.Reddit(
+            user_agent="Comment Extraction (by /u/balindwalinstalin)",
+            client_id=config["Default"]["REDDIT_CLIENT_ID"],
+            client_secret=config["Default"]["REDDIT_CLIENT_SECRET"],
+        )
+        self.reddit = psaw.PushshiftAPI(reddit)
+
+    def download_mentions(
+        self, keywords: List[str], since: datetime, until: datetime
+    ) -> Iterator[Mention]:
+
+        queries = self._fetch_comments(
+            keywords, int(since.timestamp()), int(until.timestamp())
+        )
+        comments = chain(*queries)
+        duplicates = set()  # type: Set[str]
+
+        for comment in filter_removed_comments(comments):
+            if comment.id not in duplicates:
+                duplicates.add(comment.id)
+                yield map_reddit_comment(comment)
+
+    def _fetch_comments(
+        self, keywords: List[str], since: int, until: int
+    ) -> List[Iterator[praw.models.Comment]]:
+        # Pushshift does not allow specifying multiple keywords while searching,
+        # thus this has to be an N query
+        return [
+            self.reddit.search_comments(q=keyword, after=since, before=until)
+            for keyword in keywords
+        ]

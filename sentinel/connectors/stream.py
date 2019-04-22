@@ -3,15 +3,15 @@ import praw
 import requests
 import time
 
-from datetime import datetime
 from abc import ABCMeta
+from datetime import datetime
 from typing import Any, Dict, Iterator
 from newsapi import NewsApiClient
 
 from .gn_common import create_gn_mention
+from .reddit_common import map_reddit_comment
 
 from ..models.mentions import Mention, HackerNewsMetadata
-from ..models.reddit import RedditMentionMetadata
 
 
 class IStreamConnector(metaclass=ABCMeta):
@@ -33,7 +33,6 @@ class StreamConnectorFactory:
         return factory_method(config)
 
 
-# https://praw.readthedocs.io/en/latest/index.html
 class RedditStreamConnector(IStreamConnector):
     def __init__(self, config: Dict[Any, Any]):
         self.reddit = praw.Reddit(
@@ -46,17 +45,9 @@ class RedditStreamConnector(IStreamConnector):
         if not subreddits:
             subreddits = ["askreddit"]
         subreddits = "+".join(subreddits)
+
         for comment in self.reddit.subreddit(subreddits).stream.comments():
-            metadata = RedditMentionMetadata.from_praw(comment)
-            mention = Mention(
-                text=comment.body,
-                url=comment.permalink,
-                creation_date=datetime.fromtimestamp(comment.created_utc),
-                download_date=datetime.utcnow(),
-                source="reddit",
-                metadata=metadata,
-            )
-            yield mention
+            yield map_reddit_comment(comment)
 
 
 class HackerNewsStreamConnector(IStreamConnector):
