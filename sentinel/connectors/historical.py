@@ -10,11 +10,7 @@ from newsapi import NewsApiClient
 from typing import Iterator, List, Dict, Any, Set
 from itertools import chain
 
-from ..models.mentions import (
-    Mention,
-    HackerNewsMetadata,
-    TwitterMentionMetadata,
-)
+from ..models.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
 from .reddit_common import map_reddit_comment, filter_removed_comments
 from .gn_common import create_gn_mention
 
@@ -164,7 +160,7 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
             q=self._create_query(keywords),
             from_param=str(since.date()),
             to=str(until.date()),
-            page_size=self._PAGE_SIZE
+            page_size=self._PAGE_SIZE,
         )
 
         assert response["status"] == "ok"
@@ -173,7 +169,10 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
     def download_mentions(
         self, keywords: List[str], since: datetime, until: datetime
     ) -> Iterator[Mention]:
-        yield from [create_gn_mention(article) for article in self._search_news(keywords, since, until)]
+        yield from [
+            create_gn_mention(article)
+            for article in self._search_news(keywords, since, until)
+        ]
 
 
 class RedditHistoricalConnector(IHistoricalConnector):

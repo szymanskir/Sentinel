@@ -8,6 +8,7 @@ def create_gn_mention(article: Dict) -> Mention:
     text = " ".join(
         filter(None, [article["title"], article["description"], article["content"]])
     )
+
     return Mention(
         text=text,
         url=article["url"],
