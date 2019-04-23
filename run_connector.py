@@ -52,7 +52,7 @@ def stream(config_file, source, keywords):
 
     def stream_mentions():
         for mention in connector.stream_comments():
-            producer.send("test", mention)
+            producer.send("test", mention.to_json())
             if keyword_manager.any_match(mention.text):
                 LOGGER.info(f"HIT: {mention.text[:30]}")
             else:
