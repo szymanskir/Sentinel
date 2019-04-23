@@ -118,10 +118,11 @@ class TwitterStreamConnector(IStreamConnector):
         self.api = self._get_api_connection(config)
 
     def _get_api_connection(self, config):
-        return twitter.Api(consumer_key=config["Default"]["TWITTER_CONSUMER_KEY"],
-                           consumer_secret=config["Default"]["TWITTER_CONSUMER_SECRET"],
-                           access_token_key=config["Default"]["TWITTER_ACCESS_TOKEN"],
-                           access_token_secret=config["Default"]["TWITTER_ACCESS_TOKEN_SECRET"],
+        cfg_def = config["Default"]
+        return twitter.Api(consumer_key=cfg_def["TWITTER_CONSUMER_KEY"],
+                           consumer_secret=cfg_def["TWITTER_CONSUMER_SECRET"],
+                           access_token_key=cfg_def["TWITTER_ACCESS_TOKEN"],
+                           access_token_secret=cfg_def["TWITTER_ACCESS_TOKEN_SECRET"],
                            sleep_on_rate_limit=True)
 
     def stream_comments(self) -> Iterator[Mention]:
@@ -147,13 +148,12 @@ class TwitterStreamConnector(IStreamConnector):
         return url
 
     def _get_stream(self):
+        # python-twitter enforces to specify at least one filter: list of tracked users,
+        # list of keywords or list of locations.
+        # Getting all tweets without filtering is achieved by specifying locations as
+        # a range including all longitudes and latitudes
         return self.api.GetStreamFilter(languages=['en'],
-                                        # python-twitter enforces to specify at least one filter: list of tracked users,
-                                        # list of keywords or list of locations.
-                                        # Getting all tweets without filtering is achieved by specifying locations as
-                                        # a range including all longitudes and latitudes  
-                                        locations=['-180.0,-90.0,180.0,90.0']
-                                        )
+                                        locations=['-180.0,-90.0,180.0,90.0'])
 
     @staticmethod
     def create_twitter_mention_metadata(
