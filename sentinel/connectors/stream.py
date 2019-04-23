@@ -46,8 +46,8 @@ class RedditStreamConnector(IStreamConnector):
             subreddits = ["askreddit"]
         subreddits = "+".join(subreddits)
 
-        for comment in self.reddit.subreddit(subreddits).stream.comments():
-            yield map_reddit_comment(comment)
+        yield from [map_reddit_comment(comment)
+                    for comment in self.reddit.subreddit(subreddits).stream.comments()]
 
 
 class HackerNewsStreamConnector(IStreamConnector):
@@ -55,15 +55,14 @@ class HackerNewsStreamConnector(IStreamConnector):
         self._comments_stream_url = "http://api.hnstream.com/comments/stream/"
 
     def stream_comments(self) -> Iterator[Mention]:
-        for comment in self._stream_comments():
-            yield self._create_hn_mention(comment)
+        yield from [self._create_hn_mention(comment)
+                    for comment in self._stream_comments()]
 
     def _stream_comments(self) -> Iterator[str]:
         with requests.get(self._comments_stream_url, stream=True) as r:
             lines = r.iter_lines()  # each comment json correspons to a single line
             next(lines)  # first line is always about opening the stream
-            for line in lines:
-                yield line
+            yield from lines
 
     @staticmethod
     def _create_hn_mention(comment_json) -> Mention:
@@ -84,7 +83,8 @@ class GoogleNewsStreamConnector(IStreamConnector):
         self._api_client = NewsApiClient(
             api_key=config["Default"]["GOOGLE_NEWS_API_KEY"]
         )
-        self._REQUEST_INTERVAL = 60 * 15
+        self._REQUEST_INTERVAL = 60 * 5
+        self._PAGE_SIZE = 100
         self._all_news_sources = None
 
     def _retrieve_news_sources(self) -> str:
@@ -97,15 +97,19 @@ class GoogleNewsStreamConnector(IStreamConnector):
         if self._all_news_sources is None:
             self._all_news_sources = self._retrieve_news_sources()
 
+        # Free users can only retrieve a max of 100 results
+        # in that case we can download just the first page
+        # and increase the max size to 100. We do not have
+        # to iterate through pages.
         while True:
             response = self._api_client.get_top_headlines(
-                sources=self._all_news_sources
+                sources=self._all_news_sources,
+                page_size=self._PAGE_SIZE
             )
             assert response["status"] == "ok"
-            for article in response["articles"]:
-                yield article
+            yield from response["articles"]
             time.sleep(self._REQUEST_INTERVAL)
 
     def stream_comments(self) -> Iterator[Mention]:
-        for article in self._search_top_stories():
-            yield create_gn_mention(article)
+        yield from [create_gn_mention(article)
+        for article in self._search_top_stories()]
