@@ -12,6 +12,7 @@ flake8==3.7.7
 idna==2.5
 jedi==0.13.3
 jsonpickle==1.1
+kafka-python==1.4.6
 mccabe==0.6.1
 more-itertools==7.0.0
 mypy==0.670
