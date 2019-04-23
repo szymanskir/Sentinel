@@ -16,13 +16,22 @@ CURRENT_DATETIME = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
 def setup_logger(filename: str):
     logging.basicConfig(
-        level=logging.INFO,
+        level=logging.DEBUG,
         filename=filename,
         filemode="w",
         format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
         datefmt="%m-%d %H:%M:%S",
     )
     logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
+
+
+def try_catch_rerun(fun):
+    while True:
+        try:
+            fun()
+        except Exception as e:
+            logging.error(e)
+
 
 @click.group()
 def main():
@@ -69,12 +78,12 @@ def stream(config_file, source, keywords):
 
     if keywords is not None:
         keyword_manager = ConstKeywordManager(keywords.split(","))
-        stream_mentions()
+        try_catch_rerun(stream_mentions)
     else:
         keyword_manager = DynamicKeywordManager()
         try:
             keyword_manager.run()
-            stream_mentions()
+            try_catch_rerun(stream_mentions)
         finally:
             keyword_manager.exit()
 
