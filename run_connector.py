@@ -9,9 +9,19 @@ from sentinel.connectors.stream import StreamConnectorFactory
 from sentinel.keyword_manager import ConstKeywordManager, DynamicKeywordManager
 from sentinel.utils import read_config
 
+KAFKA_URL = "sandbox-hdp.hortonworks.com:6667"
+
+
+def ensure_topics_exist():
+    admin = kafka.admin.KafkaAdminClient(bootstrap_servers=[KAFKA_URL])
+    topics = ["reddit", "twitter", "google-news", "hacker-news"]
+    topics = [kafka.admin.NewTopic(topic, 1, 1) for topic in topics]
+    admin.create_topics(topics)
+
+
 LOGGER = logging.getLogger("main")
 producer = kafka.KafkaProducer(
-    bootstrap_servers=["sandbox-hdp.hortonworks.com:6667"],
+    bootstrap_servers=[KAFKA_URL],
     value_serializer=lambda m: json.dumps(m).encode("utf8"),
 )
 
@@ -49,11 +59,12 @@ def stream(config_file, source, keywords):
     config = read_config(config_file)
     factory = StreamConnectorFactory()
     connector = factory.create_stream_connector(source, config)
+    ensure_topics_exist()
 
     def stream_mentions():
         for mention in connector.stream_comments():
-            producer.send("test", mention.to_json())
             if keyword_manager.any_match(mention.text):
+                producer.send(mention.source, mention.to_json())
                 LOGGER.info(f"HIT: {mention.text[:30]}")
             else:
                 LOGGER.info(f"MISS: {mention.text[:30]}")
