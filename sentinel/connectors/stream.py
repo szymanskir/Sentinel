@@ -117,7 +117,7 @@ class TwitterStreamConnector(IStreamConnector):
     def __init__(self, config: Dict[Any, Any]):
         self.api = self._get_api_connection(config)
 
-    def _get_api_connection(self, config):
+    def _get_api_connection(self, config: Dict[Any, Any]):
         cfg_def = config["Default"]
         return twitter.Api(consumer_key=cfg_def["TWITTER_CONSUMER_KEY"],
                            consumer_secret=cfg_def["TWITTER_CONSUMER_SECRET"],
@@ -128,12 +128,12 @@ class TwitterStreamConnector(IStreamConnector):
     def stream_comments(self) -> Iterator[Mention]:
         for tweet in self._get_stream():
             twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
-            url = self._exctract_url_from_response_dict(tweet)
+            url = self._extract_url_from_response_dict(tweet)
             yield Mention(
-                text=tweet['text'],
+                text=tweet["text"],
                 url=url,
                 creation_date=datetime.strptime(
-                    tweet['created_at'],
+                    tweet["created_at"],
                     "%a %b %d %H:%M:%S  +0000 %Y"
                     ),
                 download_date=datetime.utcnow(),
@@ -141,8 +141,8 @@ class TwitterStreamConnector(IStreamConnector):
                 metadata=twitter_mention_metadata,
             )
 
-    def _exctract_url_from_response_dict(self, tweet):
-        entities = tweet['entities']
+    def _extract_url_from_response_dict(self, tweet: Dict[Any, Any]):
+        entities = tweet["entities"]
         urls = entities["urls"]
         url = urls[0]["url"] if len(urls) > 0 else None
         return url
@@ -152,19 +152,19 @@ class TwitterStreamConnector(IStreamConnector):
         # list of keywords or list of locations.
         # Getting all tweets without filtering is achieved by specifying locations as
         # a range including all longitudes and latitudes
-        return self.api.GetStreamFilter(languages=['en'],
-                                        locations=['-180.0,-90.0,180.0,90.0'])
+        return self.api.GetStreamFilter(languages=["en"],
+                                        locations=["-180.0,-90.0,180.0,90.0"])
 
     @staticmethod
     def create_twitter_mention_metadata(
-        status_dict: dict
+        status_dict: Dict[Any, Any]
     ) -> TwitterMentionMetadata:
-        user_dict = status_dict['user']
+        user_dict = status_dict["user"]
         return TwitterMentionMetadata(
-            followers_count=user_dict['followers_count'],
-            statuses_count=user_dict['statuses_count'],
-            friends_count=user_dict['friends_count'],
-            verified=user_dict['verified'],
-            listed_count=user_dict['listed_count'],
-            retweet_count=status_dict['retweet_count'],
+            followers_count=user_dict["followers_count"],
+            statuses_count=user_dict["statuses_count"],
+            friends_count=user_dict["friends_count"],
+            verified=user_dict["verified"],
+            listed_count=user_dict["listed_count"],
+            retweet_count=status_dict["retweet_count"],
         )

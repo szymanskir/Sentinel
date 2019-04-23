@@ -47,7 +47,7 @@ class TwitterHistoricalConnector(IHistoricalConnector):
             config["Default"]["TWITTER_CONSUMER_KEY"],
             config["Default"]["TWITTER_CONSUMER_SECRET"],
         )
-        self.api = tweepy.API(auth)
+        self.api = tweepy.API(auth, wait_on_rate_limit=True)
 
     def download_mentions(
         self, keywords: List[str], since: datetime, until: datetime
