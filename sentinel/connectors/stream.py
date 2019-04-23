@@ -84,8 +84,10 @@ class GoogleNewsStreamConnector(IStreamConnector):
         self._api_client = NewsApiClient(
             api_key=config["Default"]["GOOGLE_NEWS_API_KEY"]
         )
-        self._REQUEST_INTERVAL = 60 * 15
+        self._REQUEST_INTERVAL = 60 * 5
+        self._PAGE_SIZE = 100
         self._all_news_sources = None
+        self._last_article_time = None
 
     def _retrieve_news_sources(self) -> str:
         response = self._api_client.get_sources()
@@ -93,19 +95,46 @@ class GoogleNewsStreamConnector(IStreamConnector):
         all_news_sources = ",".join([s["id"] for s in response["sources"]])
         return all_news_sources
 
+    def _get_article_time(self, article: Dict) -> datetime:
+        return datetime.strptime(article["publishedAt"], "%Y-%m-%dT%H:%M:%SZ")
+
+    def _is_article_fresh(self, article: Dict) -> bool:
+        if self._last_article_time is None:
+            return True
+        article_time = self._get_article_time(article)
+        return article_time > self._last_article_time
+
     def _search_top_stories(self):
         if self._all_news_sources is None:
             self._all_news_sources = self._retrieve_news_sources()
 
+        response = self._api_client.get_top_headlines(
+            sources=self._all_news_sources, page_size=self._PAGE_SIZE
+        )
+
+        assert response["status"] == "ok"
+        for article in response["articles"]:
+            if self._is_article_fresh(article):
+                yield article
+            else:
+                break
+
+        self._last_article_time = self._get_article_time(
+            response["articles"][
+                0
+            ]  # in the response articles are sorted from the newest
+        )
+
+    def _listen_top_stories(self):
+        # Free users can only retrieve a max of 100 results
+        # in that case we can download just the first page
+        # and increase the max size to 100. We do not have
+        # to iterate through pages.
         while True:
-            response = self._api_client.get_top_headlines(
-                sources=self._all_news_sources
-            )
-            assert response["status"] == "ok"
-            for article in response["articles"]:
+            for article in self._search_top_stories():
                 yield article
             time.sleep(self._REQUEST_INTERVAL)
 
     def stream_comments(self) -> Iterator[Mention]:
-        for article in self._search_top_stories():
+        for article in self._listen_top_stories():
             yield create_gn_mention(article)

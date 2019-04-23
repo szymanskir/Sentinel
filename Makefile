@@ -51,6 +51,9 @@ reddit_historical_sample:
 hn_sample:
 	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source hacker-news --keywords microsoft
 
+hn_historical_sample:
+	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source hacker-news --keywords microsoft --since 2019-04-19 --until 2019-04-20
+
 gn_sample:
 	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source google-news --keywords microsoft
 

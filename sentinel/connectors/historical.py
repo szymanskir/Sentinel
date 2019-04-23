@@ -10,11 +10,7 @@ from newsapi import NewsApiClient
 from typing import Iterator, List, Dict, Any, Set
 from itertools import chain
 
-from ..models.mentions import (
-    Mention,
-    HackerNewsMetadata,
-    TwitterMentionMetadata,
-)
+from ..models.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
 from .reddit_common import map_reddit_comment, filter_removed_comments
 from .gn_common import create_gn_mention
 
@@ -149,27 +145,34 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
         self._api_client = NewsApiClient(
             api_key=config["Default"]["GOOGLE_NEWS_API_KEY"]
         )
+        self._PAGE_SIZE = 100
 
     def _create_query(self, keywords: List[str]) -> str:
         query = "&OR&".join(keywords)
         return query
 
     def _search_news(self, keywords: List[str], since: datetime, until: datetime):
+        # Free users can only retrieve a max of 100 results
+        # in that case we can download just the first page
+        # and increase the max size to 100. We do not have
+        # to iterate through pages.
         response = self._api_client.get_everything(
             q=self._create_query(keywords),
             from_param=str(since.date()),
             to=str(until.date()),
+            page_size=self._PAGE_SIZE,
         )
 
         assert response["status"] == "ok"
-        for article in response["articles"]:
-            yield article
+        yield from response["articles"]
 
     def download_mentions(
         self, keywords: List[str], since: datetime, until: datetime
     ) -> Iterator[Mention]:
-        for article in self._search_news(keywords, since, until):
-            yield create_gn_mention(article)
+        yield from [
+            create_gn_mention(article)
+            for article in self._search_news(keywords, since, until)
+        ]
 
 
 class RedditHistoricalConnector(IHistoricalConnector):
