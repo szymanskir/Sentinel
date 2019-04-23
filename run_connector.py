@@ -13,9 +13,16 @@ KAFKA_URL = "sandbox-hdp.hortonworks.com:6667"
 
 
 def ensure_topics_exist():
+    all_topics = ["reddit", "twitter", "google-news", "hacker-news"]
+
     admin = kafka.admin.KafkaAdminClient(bootstrap_servers=[KAFKA_URL])
-    topics = ["reddit", "twitter", "google-news", "hacker-news"]
-    topics = [kafka.admin.NewTopic(topic, 1, 1) for topic in topics]
+    client = kafka.KafkaClient([KAFKA_URL])
+    existing_topics = client.topics
+    topics = [
+        kafka.admin.NewTopic(topic, 1, 1)
+        for topic in all_topics
+        if topic not in existing_topics
+    ]
     admin.create_topics(topics)
 
 
