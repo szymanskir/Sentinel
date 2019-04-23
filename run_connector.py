@@ -1,5 +1,7 @@
 import click
 import logging
+import kafka
+import json
 
 from datetime import datetime
 from sentinel.connectors.historical import HistoricalConnectorFactory
@@ -8,6 +10,10 @@ from sentinel.keyword_manager import ConstKeywordManager, DynamicKeywordManager
 from sentinel.utils import read_config
 
 LOGGER = logging.getLogger("main")
+producer = kafka.KafkaProducer(
+    bootstrap_servers=["sandbox-hdp.hortonworks.com:6667"],
+    value_serializer=lambda m: json.dumps(m).encode("utf8"),
+)
 
 
 @click.group()
@@ -46,6 +52,7 @@ def stream(config_file, source, keywords):
 
     def stream_mentions():
         for mention in connector.stream_comments():
+            producer.send("test", mention.to_json())
             if keyword_manager.any_match(mention.text):
                 LOGGER.info(f"HIT: {mention.text[:30]}")
             else:
