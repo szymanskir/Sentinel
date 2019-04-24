@@ -57,7 +57,6 @@ class TwitterHistoricalConnector(IHistoricalConnector):
         for tweet in tweet_generator:
             twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
             url = f"https://twitter.com/statuses/{tweet.id_str}"
-            
             yield Mention(
                 text=tweet.text,
                 url=url,
