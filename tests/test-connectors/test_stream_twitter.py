@@ -33,7 +33,8 @@ def tweets_test_case():
 
 @pytest.fixture
 def status_json():
-    test_cases_dir = join(dirname(realpath(__file__)), "twitter-stream_single_comment.json")
+    test_cases_dir = join(dirname(realpath(__file__)),
+                          "twitter-stream_single_comment.json")
     return read_jsonpickle(test_cases_dir)
 
 
@@ -61,12 +62,12 @@ def test_TwitterStreamConnector_download_mentions(tweets_test_case):
 
         assert len(mention_list) == len(tweets_test_case)
         for mention, tweet_test_case in zip(mention_list, tweets_test_case):
-            urls = tweet_test_case["entities"]["urls"]
-            expected_url = urls[0]["url"] if len(urls) > 0 else None
+            expected_url = f"https://twitter.com/statuses/{tweet_test_case['id_str']}"
             metadata = connector.create_twitter_mention_metadata(tweet_test_case)
             assert mention.url == expected_url
             assert mention.text == tweet_test_case["text"]
-            assert mention.creation_date == datetime.strptime(tweet_test_case["created_at"],
-                                                              '%a %b %d %H:%M:%S +0000 %Y')
+            assert mention.creation_date == datetime.strptime(
+                tweet_test_case["created_at"],
+                '%a %b %d %H:%M:%S +0000 %Y')
             assert mention.source == "twitter"
             assert mention.metadata == metadata

@@ -128,7 +128,7 @@ class TwitterStreamConnector(IStreamConnector):
     def stream_comments(self) -> Iterator[Mention]:
         for tweet in self._get_stream():
             twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
-            url = self._extract_url_from_response_dict(tweet)
+            url = f"https://twitter.com/statuses/{tweet['id_str']}"
             yield Mention(
                 text=tweet["text"],
                 url=url,
@@ -140,12 +140,6 @@ class TwitterStreamConnector(IStreamConnector):
                 source="twitter",
                 metadata=twitter_mention_metadata,
             )
-
-    def _extract_url_from_response_dict(self, tweet: Dict[Any, Any]):
-        entities = tweet["entities"]
-        urls = entities["urls"]
-        url = urls[0]["url"] if len(urls) > 0 else None
-        return url
 
     def _get_stream(self):
         # python-twitter enforces to specify at least one filter: list of tracked users,

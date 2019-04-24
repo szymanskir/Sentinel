@@ -52,13 +52,12 @@ class TwitterHistoricalConnector(IHistoricalConnector):
     def download_mentions(
         self, keywords: List[str], since: datetime, until: datetime
     ) -> Iterator[Mention]:
-        query = self._build_query(keywords, since)
-        tweet_generator = self._search(query, until)
-
+        query = self._build_query(keywords)
+        tweet_generator = self._search(query, since, until)
         for tweet in tweet_generator:
             twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
-            urls = tweet.entities["urls"]
-            url = urls[0]["url"] if len(urls) > 0 else None
+            url = f"https://twitter.com/statuses/{tweet.id_str}"
+            
             yield Mention(
                 text=tweet.text,
                 url=url,
@@ -68,20 +67,19 @@ class TwitterHistoricalConnector(IHistoricalConnector):
                 metadata=twitter_mention_metadata,
             )
 
-    def _build_query(self, keywords: List[str], since: datetime) -> str:
-        or_statement = "&OR&".join(keywords)
+    def _build_query(self, keywords: List[str]) -> str:
+        return "&OR&".join(keywords)
 
-        query = f"{or_statement}&since={since.date()}"
-        return query
-
-    def _search(self, q: str, until: datetime):
+    def _search(self, q: str, since: datetime, until: datetime):
         for page in tweepy.Cursor(
             self.api.search,
             q=q,
-            count=15,
+            count=100,
             result_type="recent",
             include_entities=True,
+            since=str(since.date()),
             until=str(until.date()),
+            lang="en"
         ).pages():
             for tweet in page:
                 yield tweet
