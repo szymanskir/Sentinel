@@ -10,6 +10,7 @@ from newsapi import NewsApiClient
 from pydantic import ValidationError
 
 from .gn_common import create_gn_mention
+from .hn_common import clean_html
 from .reddit_common import map_reddit_comment
 
 from ..models.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
@@ -29,7 +30,7 @@ class StreamConnectorFactory:
             "reddit": RedditStreamConnector,
             "hacker-news": HackerNewsStreamConnector,
             "google-news": GoogleNewsStreamConnector,
-            "twitter": TwitterStreamConnector
+            "twitter": TwitterStreamConnector,
         }
         factory_method = creation_strategy[source]
 
@@ -74,7 +75,7 @@ class HackerNewsStreamConnector(IStreamConnector):
         try:
             metadata = HackerNewsMetadata(author=comment["author"])
             return Mention(
-                text=comment["body"],
+                text=clean_html(comment["body"]),
                 url=f'https://news.ycombinator.com/item?id={comment["id"]}',
                 creation_date=datetime.utcnow(),
                 download_date=datetime.utcnow(),
@@ -152,11 +153,13 @@ class TwitterStreamConnector(IStreamConnector):
 
     def _get_api_connection(self, config: Dict[Any, Any]):
         cfg_def = config["Default"]
-        return twitter.Api(consumer_key=cfg_def["TWITTER_CONSUMER_KEY"],
-                           consumer_secret=cfg_def["TWITTER_CONSUMER_SECRET"],
-                           access_token_key=cfg_def["TWITTER_ACCESS_TOKEN"],
-                           access_token_secret=cfg_def["TWITTER_ACCESS_TOKEN_SECRET"],
-                           sleep_on_rate_limit=True)
+        return twitter.Api(
+            consumer_key=cfg_def["TWITTER_CONSUMER_KEY"],
+            consumer_secret=cfg_def["TWITTER_CONSUMER_SECRET"],
+            access_token_key=cfg_def["TWITTER_ACCESS_TOKEN"],
+            access_token_secret=cfg_def["TWITTER_ACCESS_TOKEN_SECRET"],
+            sleep_on_rate_limit=True,
+        )
 
     def stream_comments(self) -> Iterator[Mention]:
         for tweet in self._get_stream():
@@ -166,9 +169,8 @@ class TwitterStreamConnector(IStreamConnector):
                 text=tweet["text"],
                 url=url,
                 creation_date=datetime.strptime(
-                    tweet["created_at"],
-                    "%a %b %d %H:%M:%S  +0000 %Y"
-                    ),
+                    tweet["created_at"], "%a %b %d %H:%M:%S  +0000 %Y"
+                ),
                 download_date=datetime.utcnow(),
                 source="twitter",
                 metadata=twitter_mention_metadata,
@@ -179,8 +181,9 @@ class TwitterStreamConnector(IStreamConnector):
         # list of keywords or list of locations.
         # Getting all tweets without filtering is achieved by specifying locations as
         # a range including all longitudes and latitudes
-        return self.api.GetStreamFilter(languages=["en"],
-                                        locations=["-180.0,-90.0,180.0,90.0"])
+        return self.api.GetStreamFilter(
+            languages=["en"], locations=["-180.0,-90.0,180.0,90.0"]
+        )
 
     @staticmethod
     def create_twitter_mention_metadata(
