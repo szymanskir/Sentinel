@@ -21,7 +21,7 @@ def setup_logger(filename: str):
         filename=filename,
         filemode="w",
         format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
-        datefmt="%m-%d %H:%M:%S",
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
     logging.getLogger("main").addHandler(logging.StreamHandler(sys.stdout))
 
