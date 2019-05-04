@@ -30,6 +30,7 @@ pyflakes==2.1.1
 PySocks==1.6.8
 pytest==4.3.1
 python-hn==0.0.3
+python-twitter==3.5
 requests==2.21.0
 requests-oauthlib==1.2.0
 rope==0.14.0

@@ -12,7 +12,8 @@ from pydantic import ValidationError
 from .gn_common import create_gn_mention
 from .reddit_common import map_reddit_comment
 
-from ..models.mentions import Mention, HackerNewsMetadata
+from ..models.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
+import twitter
 
 
 class IStreamConnector(metaclass=ABCMeta):
@@ -28,6 +29,7 @@ class StreamConnectorFactory:
             "reddit": RedditStreamConnector,
             "hacker-news": HackerNewsStreamConnector,
             "google-news": GoogleNewsStreamConnector,
+            "twitter": TwitterStreamConnector
         }
         factory_method = creation_strategy[source]
 
@@ -142,3 +144,54 @@ class GoogleNewsStreamConnector(IStreamConnector):
     def stream_comments(self) -> Iterator[Mention]:
         for article in self._listen_top_stories():
             yield create_gn_mention(article)
+
+
+class TwitterStreamConnector(IStreamConnector):
+    def __init__(self, config: Dict[Any, Any]):
+        self.api = self._get_api_connection(config)
+
+    def _get_api_connection(self, config: Dict[Any, Any]):
+        cfg_def = config["Default"]
+        return twitter.Api(consumer_key=cfg_def["TWITTER_CONSUMER_KEY"],
+                           consumer_secret=cfg_def["TWITTER_CONSUMER_SECRET"],
+                           access_token_key=cfg_def["TWITTER_ACCESS_TOKEN"],
+                           access_token_secret=cfg_def["TWITTER_ACCESS_TOKEN_SECRET"],
+                           sleep_on_rate_limit=True)
+
+    def stream_comments(self) -> Iterator[Mention]:
+        for tweet in self._get_stream():
+            twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
+            url = f"https://twitter.com/statuses/{tweet['id_str']}"
+            yield Mention(
+                text=tweet["text"],
+                url=url,
+                creation_date=datetime.strptime(
+                    tweet["created_at"],
+                    "%a %b %d %H:%M:%S  +0000 %Y"
+                    ),
+                download_date=datetime.utcnow(),
+                source="twitter",
+                metadata=twitter_mention_metadata,
+            )
+
+    def _get_stream(self):
+        # python-twitter enforces to specify at least one filter: list of tracked users,
+        # list of keywords or list of locations.
+        # Getting all tweets without filtering is achieved by specifying locations as
+        # a range including all longitudes and latitudes
+        return self.api.GetStreamFilter(languages=["en"],
+                                        locations=["-180.0,-90.0,180.0,90.0"])
+
+    @staticmethod
+    def create_twitter_mention_metadata(
+        status_dict: Dict[Any, Any]
+    ) -> TwitterMentionMetadata:
+        user_dict = status_dict["user"]
+        return TwitterMentionMetadata(
+            followers_count=user_dict["followers_count"],
+            statuses_count=user_dict["statuses_count"],
+            friends_count=user_dict["friends_count"],
+            verified=user_dict["verified"],
+            listed_count=user_dict["listed_count"],
+            retweet_count=status_dict["retweet_count"],
+        )

@@ -36,15 +36,15 @@ def status_json():
 
 
 @pytest.mark.parametrize(
-    "keywords , since, expected",
+    "keywords, expected",
     [
-        (["nike", "reebok"], datetime(2019, 3, 21), "nike&OR&reebok&since=2019-03-21"),
-        (["nike"], datetime(2019, 3, 21), "nike&since=2019-03-21"),
+        (["nike", "reebok"], "nike&OR&reebok"),
+        (["nike"], "nike"),
     ],
 )
-def test_TwitterHistoricalConnector_build_query(keywords, since, expected):
+def test_TwitterHistoricalConnector_build_query(keywords, expected):
     thc = TwitterHistoricalConnector(config=MOCK_CONFIG)
-    actual = thc._build_query(keywords, since)
+    actual = thc._build_query(keywords)
 
     assert actual == expected
 
@@ -73,8 +73,7 @@ def test_TwitterHistoricalConnector_download_mentions(tweets_test_case):
 
     assert len(mention_list) == len(tweets_test_case)
     for mention, tweet_test_case in zip(mention_list, tweets_test_case):
-        urls = tweet_test_case.entities["urls"]
-        expected_url = urls[0]["url"] if len(urls) > 0 else None
+        expected_url = f"https://twitter.com/statuses/{tweet_test_case.id_str}"
         metadata = connector.create_twitter_mention_metadata(tweet_test_case)
         assert mention.url == expected_url
         assert mention.text == tweet_test_case.text
