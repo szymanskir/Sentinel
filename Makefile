@@ -55,13 +55,13 @@ gn_sample:
 	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source google-news --keywords microsoft
 
 gn_historical_sample:
-	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source google-news --keywords microsoft --since 2019-04-10 --until 2019-04-13
+	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source google-news --keywords microsoft --since $(shell date +'%Y-%m-%d' --date='-1 day') --until $(shell date +'%Y-%m-%d')
 
 twitter_sample:
 	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source twitter --keywords nasa
 
 twitter_historical_sample:
-	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source twitter --keywords nike --since 2019-04-21 --until 2019-04-24
+	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source twitter --keywords nike --since $(shell date +'%Y-%m-%d' --date='-1 day') --until $(shell date +'%Y-%m-%d')
 
 #################################################################################
 # Self Documenting Commands                                                     #
