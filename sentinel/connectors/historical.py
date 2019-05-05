@@ -12,6 +12,7 @@ from itertools import chain
 from pydantic import ValidationError
 
 from ..models.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
+from .hn_common import clean_html
 from .reddit_common import map_reddit_comment, filter_removed_comments
 from .gn_common import create_gn_mention
 
@@ -111,7 +112,7 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
                 try:
                     hn_metadata = self.create_hn_mention_metadata(hit)
                     yield Mention(
-                        text=hit["comment_text"],
+                        text=clean_html(hit["comment_text"]),
                         url=hit["story_url"],
                         creation_date=datetime.strptime(
                             hit["created_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
