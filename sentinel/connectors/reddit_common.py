@@ -2,25 +2,29 @@ import praw
 from datetime import datetime
 from ..models.mentions import Mention, RedditMetadata
 from typing import Iterator
+from pydantic import ValidationError
 
 
 def map_reddit_comment(comment: praw.models.Comment) -> Mention:
-    metadata = RedditMetadata(
-        redditor=comment.author.id,
-        redditor_link_karma=comment.author.link_karma,
-        redditor_comment_karma=comment.author.comment_karma,
-        score=comment.score,
-        submission=comment.submission.id,
-    )
+    try:
+        metadata = RedditMetadata(
+            redditor=comment.author.id,
+            redditor_link_karma=comment.author.link_karma,
+            redditor_comment_karma=comment.author.comment_karma,
+            score=comment.score,
+            submission=comment.submission.id,
+        )
 
-    return Mention(
-        text=comment.body,
-        url="https://reddit.com" + comment.permalink,
-        creation_date=datetime.fromtimestamp(comment.created_utc),
-        download_date=datetime.utcnow(),
-        source="reddit",
-        metadata=metadata,
-    )
+        return Mention(
+            text=comment.body,
+            url="https://reddit.com" + comment.permalink,
+            creation_date=datetime.fromtimestamp(comment.created_utc),
+            download_date=datetime.utcnow(),
+            source="reddit",
+            metadata=metadata,
+        )
+    except ValidationError as e:
+        raise ValueError("Data parsing error", str(e), str(comment)) from e
 
 
 def filter_removed_comments(

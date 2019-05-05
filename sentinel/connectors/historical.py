@@ -9,6 +9,7 @@ from datetime import datetime
 from newsapi import NewsApiClient
 from typing import Iterator, List, Dict, Any, Set
 from itertools import chain
+from pydantic import ValidationError
 
 from ..models.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
 from .reddit_common import map_reddit_comment, filter_removed_comments
@@ -51,16 +52,19 @@ class TwitterHistoricalConnector(IHistoricalConnector):
         query = self._build_query(keywords)
         tweet_generator = self._search(query, since, until)
         for tweet in tweet_generator:
-            twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
-            url = f"https://twitter.com/statuses/{tweet.id_str}"
-            yield Mention(
-                text=tweet.text,
-                url=url,
-                creation_date=tweet.created_at,
-                download_date=datetime.utcnow(),
-                source="twitter",
-                metadata=twitter_mention_metadata,
-            )
+            try:
+                twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
+                url = f"https://twitter.com/statuses/{tweet.id_str}"
+                yield Mention(
+                    text=tweet.text,
+                    url=url,
+                    creation_date=tweet.created_at,
+                    download_date=datetime.utcnow(),
+                    source="twitter",
+                    metadata=twitter_mention_metadata,
+                )
+            except ValidationError as e:
+                raise ValueError("Data parsing error", str(e), str(tweet)) from e
 
     def _build_query(self, keywords: List[str]) -> str:
         return "&OR&".join(keywords)
@@ -74,7 +78,7 @@ class TwitterHistoricalConnector(IHistoricalConnector):
             include_entities=True,
             since=str(since.date()),
             until=str(until.date()),
-            lang="en"
+            lang="en",
         ).pages():
             for tweet in page:
                 yield tweet
@@ -104,17 +108,20 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
         for keyword in keywords:
             response = self._search(keyword, since, until)
             for hit in response:
-                hn_metadata = self.create_hn_mention_metadata(hit)
-                yield Mention(
-                    text=hit["comment_text"],
-                    url=hit["story_url"],
-                    creation_date=datetime.strptime(
-                        hit["created_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
-                    ),
-                    download_date=datetime.utcnow(),
-                    source="hacker-news",
-                    metadata=hn_metadata,
-                )
+                try:
+                    hn_metadata = self.create_hn_mention_metadata(hit)
+                    yield Mention(
+                        text=hit["comment_text"],
+                        url=hit["story_url"],
+                        creation_date=datetime.strptime(
+                            hit["created_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
+                        ),
+                        download_date=datetime.utcnow(),
+                        source="hacker-news",
+                        metadata=hn_metadata,
+                    )
+                except ValidationError as e:
+                    raise ValueError("Data parsing error", str(e), str(hit)) from e
 
     def _search(self, keyword: str, since: datetime, until: datetime) -> Dict[Any, Any]:
         response = hn.search_by_date(

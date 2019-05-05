@@ -7,6 +7,7 @@ from abc import ABCMeta
 from datetime import datetime
 from typing import Any, Dict, Iterator
 from newsapi import NewsApiClient
+from pydantic import ValidationError
 
 from .gn_common import create_gn_mention
 from .reddit_common import map_reddit_comment
@@ -70,15 +71,18 @@ class HackerNewsStreamConnector(IStreamConnector):
     @staticmethod
     def _create_hn_mention(comment_json) -> Mention:
         comment = json.loads(str(comment_json, "utf-8"))
-        metadata = HackerNewsMetadata(author=comment["author"])
-        return Mention(
-            text=comment["body"],
-            url=f'https://news.ycombinator.com/item?id={comment["id"]}',
-            creation_date=datetime.utcnow(),
-            download_date=datetime.utcnow(),
-            source="hacker-news",
-            metadata=metadata,
-        )
+        try:
+            metadata = HackerNewsMetadata(author=comment["author"])
+            return Mention(
+                text=comment["body"],
+                url=f'https://news.ycombinator.com/item?id={comment["id"]}',
+                creation_date=datetime.utcnow(),
+                download_date=datetime.utcnow(),
+                source="hacker-news",
+                metadata=metadata,
+            )
+        except ValidationError as e:
+            raise ValueError("Data parsing error", str(e), str(comment)) from e
 
 
 class GoogleNewsStreamConnector(IStreamConnector):
