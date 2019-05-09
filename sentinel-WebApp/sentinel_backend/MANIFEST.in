@@ -1,0 +1,2 @@
+recursive-include sentinel_backend/templates *
+recursive-include sentinel_backend/static *
