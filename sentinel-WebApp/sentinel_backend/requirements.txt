@@ -1,0 +1,7 @@
+Click==7.0
+Flask==1.0.2
+itsdangerous==1.1.0
+Jinja2==2.10.1
+MarkupSafe==1.1.1
+-e git+https://github.com/szymanskir/Sentinel-WebApp@d153bb8f4903a81695d4d6c6ae71595859d4388c#egg=sentinel_backend&subdirectory=sentinel_backend
+Werkzeug==0.15.2
