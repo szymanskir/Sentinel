@@ -8,6 +8,7 @@
     "@types/node": "12.0.0",
     "@types/react": "16.8.17",
     "@types/react-dom": "16.8.4",
+    "moment": "^2.24.0",
     "plotly.js": "^1.47.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

@@ -1,12 +1,15 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import { FormControl, Select, InputLabel, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
+import moment from 'moment';
+import { FormControl, Select, InputLabel, MenuItem, Checkbox, ListItemText, TextField } from '@material-ui/core';
 
 const keywords = ['life', 'nike', 'javascript'];
 
 
 interface DashboardState {
     selectedKeywords: String[];
+    from: moment.Moment;
+    to: moment.Moment;
 }
 
 
@@ -15,7 +18,9 @@ export class Dashboard extends React.Component<{}, DashboardState> {
     constructor(props: {}) {
         super(props);
         this.state = {
-            selectedKeywords: []
+            selectedKeywords: [],
+            from: moment().add(-7, 'days').startOf('day'),
+            to: moment().startOf('day')
         };
     }
 
@@ -23,7 +28,11 @@ export class Dashboard extends React.Component<{}, DashboardState> {
         return <>
             <DashboardParamsSelector
                 selectedKeywords={this.state.selectedKeywords}
-                onSelectedKeywordsChanged={this.onSelectedKeywordsChanged}
+                from={this.state.from}
+                to={this.state.to}
+                onSelectedKeywordsChanged={selectedKeywords => this.setState({ selectedKeywords })}
+                onFromChanged={from => this.setState({ from })}
+                onToChanged={to => this.setState({ to })}
             />
 
             <br />
@@ -57,8 +66,12 @@ export class Dashboard extends React.Component<{}, DashboardState> {
 
 interface DashboardParamsSelectorProps {
     selectedKeywords: String[];
+    from: moment.Moment;
+    to: moment.Moment;
 
     onSelectedKeywordsChanged: (keywords: String[]) => void;
+    onFromChanged: (from: moment.Moment) => void;
+    onToChanged: (from: moment.Moment) => void;
 };
 
 
@@ -83,11 +96,42 @@ class DashboardParamsSelector extends React.Component<DashboardParamsSelectorPro
                     }
                 </Select>
             </FormControl>
+            <TextField
+                label='From'
+                type='date'
+                value={this.formatDate(this.props.from)}
+                onChange={this.onFromChange}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+            />
+
+            <TextField
+                label='To'
+                type='date'
+                value={this.formatDate(this.props.to)}
+                onChange={this.onTochange}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+            />
         </>;
     }
 
     private onKeywordsChange = (event: React.ChangeEvent<HTMLSelectElement>, _: React.ReactNode) => {
         this.props.onSelectedKeywordsChanged(event.target.value as any as String[]);
-        // typings are messed up, this this ugly casting
+        // typings are messed up, thus this ugly casting
     };
+
+    private onFromChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        this.props.onFromChanged(moment(value));
+    };
+
+    private onTochange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        this.props.onToChanged(moment(value));
+    };
+
+    private formatDate = (date: moment.Moment) => date.format('YYYY-MM-DD');
 }
