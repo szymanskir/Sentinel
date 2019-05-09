@@ -57,10 +57,6 @@ export class Dashboard extends React.Component<{}, DashboardState> {
             />
         </>;
     }
-
-    private onSelectedKeywordsChanged = (keywords: String[]) => {
-        this.setState({ selectedKeywords: keywords });
-    };
 }
 
 
