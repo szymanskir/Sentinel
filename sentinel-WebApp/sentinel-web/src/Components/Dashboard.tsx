@@ -1,32 +1,40 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
 import moment from 'moment';
-import { FormControl, Select, InputLabel, MenuItem, Checkbox, ListItemText, TextField } from '@material-ui/core';
+import { FormControl, Select, InputLabel, MenuItem, Checkbox, ListItemText, TextField, Button } from '@material-ui/core';
+import { apiClient } from '../ApiClient';
+import { Mention } from '../Models/Mention';
 
-const keywords = ['life', 'nike', 'javascript'];
 
 
 interface DashboardState {
-    selectedKeywords: String[];
+    allKeywords: string[];
+    selectedKeywords: string[];
     from: moment.Moment;
     to: moment.Moment;
+    mentions: Mention[];
 }
-
-
 
 export class Dashboard extends React.Component<{}, DashboardState> {
     constructor(props: {}) {
         super(props);
         this.state = {
+            allKeywords: [],
             selectedKeywords: [],
+            mentions: [],
             from: moment().add(-7, 'days').startOf('day'),
             to: moment().startOf('day')
         };
     }
 
+    componentDidMount() {
+        this.downloadKeywords();
+    }
+
     render() {
         return <>
             <DashboardParamsSelector
+                allKeywords={this.state.allKeywords}
                 selectedKeywords={this.state.selectedKeywords}
                 from={this.state.from}
                 to={this.state.to}
@@ -34,6 +42,12 @@ export class Dashboard extends React.Component<{}, DashboardState> {
                 onFromChanged={from => this.setState({ from })}
                 onToChanged={to => this.setState({ to })}
             />
+
+            <Button
+                onClick={this.downloadMentions}
+                color="primary">
+                Fetch
+                </Button>
 
             <br />
 
@@ -57,15 +71,30 @@ export class Dashboard extends React.Component<{}, DashboardState> {
             />
         </>;
     }
+
+    private downloadKeywords = async () => {
+        const keywords = await apiClient.getAllKeywords();
+        this.setState({ allKeywords: keywords });
+    }
+
+    private downloadMentions = async () => {
+        const mentions = await apiClient.getMentions(
+            this.state.from,
+            this.state.to,
+            this.state.selectedKeywords
+        );
+
+        this.setState({ mentions });
+    }
 }
 
-
 interface DashboardParamsSelectorProps {
-    selectedKeywords: String[];
+    allKeywords: string[];
+    selectedKeywords: string[];
     from: moment.Moment;
     to: moment.Moment;
 
-    onSelectedKeywordsChanged: (keywords: String[]) => void;
+    onSelectedKeywordsChanged: (keywords: string[]) => void;
     onFromChanged: (from: moment.Moment) => void;
     onToChanged: (from: moment.Moment) => void;
 };
@@ -83,7 +112,7 @@ class DashboardParamsSelector extends React.Component<DashboardParamsSelectorPro
                     renderValue={(_: any) => this.props.selectedKeywords.join(',')}
                     onChange={this.onKeywordsChange}>
                     {
-                        keywords.map(k => (
+                        this.props.allKeywords.map(k => (
                             <MenuItem key={k} value={k}>
                                 <Checkbox checked={this.props.selectedKeywords.indexOf(k) > -1} />
                                 <ListItemText primary={k} />
@@ -115,7 +144,7 @@ class DashboardParamsSelector extends React.Component<DashboardParamsSelectorPro
     }
 
     private onKeywordsChange = (event: React.ChangeEvent<HTMLSelectElement>, _: React.ReactNode) => {
-        this.props.onSelectedKeywordsChanged(event.target.value as any as String[]);
+        this.props.onSelectedKeywordsChanged(event.target.value as any as string[]);
         // typings are messed up, thus this ugly casting
     };
 
