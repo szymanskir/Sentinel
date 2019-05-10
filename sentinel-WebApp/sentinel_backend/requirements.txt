@@ -3,5 +3,9 @@ Flask==1.0.2
 itsdangerous==1.1.0
 Jinja2==2.10.1
 MarkupSafe==1.1.1
--e git+https://github.com/szymanskir/Sentinel-WebApp@d153bb8f4903a81695d4d6c6ae71595859d4388c#egg=sentinel_backend&subdirectory=sentinel_backend
+numpy==1.16.3
+pandas==0.24.2
+python-dateutil==2.8.0
+pytz==2019.1
+six==1.12.0
 Werkzeug==0.15.2
