@@ -1,7 +1,7 @@
-import moment from 'moment';
-import { Mention } from './Models/Mention';
+import * as moment from "moment";
+import { Mention } from "./Models/Mention";
 
-const baseAddress = 'http://localhost:4000';
+const baseAddress = "http://localhost:4000";
 
 
 class ApiClient {
@@ -12,7 +12,7 @@ class ApiClient {
         });
 
         for (let word of keywords) {
-            params.append('keywords', word);
+            params.append("keywords", word);
         }
 
         const request = new Request(`${baseAddress}/mentions?${params}`);
@@ -22,7 +22,7 @@ class ApiClient {
     }
 
     async getAllKeywords() {
-        const request = new Request(`${baseAddress}/my-keywords`)
+        const request = new Request(`${baseAddress}/my-keywords`);
         const response = await fetch(request);
         const json = await response.json();
         return json as string[];

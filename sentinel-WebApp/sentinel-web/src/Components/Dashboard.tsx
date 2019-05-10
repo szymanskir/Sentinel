@@ -1,9 +1,9 @@
-import React from 'react';
-import Plot from 'react-plotly.js';
-import moment from 'moment';
-import { FormControl, Select, InputLabel, MenuItem, Checkbox, ListItemText, TextField, Button } from '@material-ui/core';
-import { apiClient } from '../ApiClient';
-import { Mention } from '../Models/Mention';
+import * as React from "react";
+import Plot from "react-plotly.js";
+import * as moment from "moment";
+import { FormControl, Select, InputLabel, MenuItem, Checkbox, ListItemText, TextField, Button } from "@material-ui/core";
+import { apiClient } from "../ApiClient";
+import { Mention } from "../Models/Mention";
 
 
 
@@ -22,8 +22,8 @@ export class Dashboard extends React.Component<{}, DashboardState> {
             allKeywords: [],
             selectedKeywords: [],
             mentions: [],
-            from: moment().add(-7, 'days').startOf('day'),
-            to: moment().startOf('day')
+            from: moment().add(-7, "days").startOf("day"),
+            to: moment().startOf("day")
         };
     }
 
@@ -44,6 +44,7 @@ export class Dashboard extends React.Component<{}, DashboardState> {
             />
 
             <Button
+                variant="contained"
                 onClick={this.downloadMentions}
                 color="primary">
                 Fetch
@@ -57,16 +58,16 @@ export class Dashboard extends React.Component<{}, DashboardState> {
                         {
                             x: [1, 2, 3],
                             y: [2, 6, 3],
-                            type: 'scatter',
-                            mode: 'lines+markers',
-                            marker: { color: 'red' },
+                            type: "scatter",
+                            mode: "lines+markers",
+                            marker: { color: "red" },
                         },
                         {
-                            type: 'bar',
+                            type: "bar",
                             x: [1, 2, 3], y: [2, 5, 3]
                         },
                     ]}
-                layout={{ title: 'A Fancy Plot' }
+                layout={{ title: "A Fancy Plot" }
                 }
             />
         </>;
@@ -97,7 +98,7 @@ interface DashboardParamsSelectorProps {
     onSelectedKeywordsChanged: (keywords: string[]) => void;
     onFromChanged: (from: moment.Moment) => void;
     onToChanged: (from: moment.Moment) => void;
-};
+}
 
 
 class DashboardParamsSelector extends React.Component<DashboardParamsSelectorProps> {
@@ -109,7 +110,7 @@ class DashboardParamsSelector extends React.Component<DashboardParamsSelectorPro
                     multiple
                     multiline
                     value={this.props.selectedKeywords}
-                    renderValue={(_: any) => this.props.selectedKeywords.join(',')}
+                    renderValue={(_: any) => this.props.selectedKeywords.join(",")}
                     onChange={this.onKeywordsChange}>
                     {
                         this.props.allKeywords.map(k => (
@@ -122,8 +123,8 @@ class DashboardParamsSelector extends React.Component<DashboardParamsSelectorPro
                 </Select>
             </FormControl>
             <TextField
-                label='From'
-                type='date'
+                label="From"
+                type="date"
                 value={this.formatDate(this.props.from)}
                 onChange={this.onFromChange}
                 InputLabelProps={{
@@ -132,8 +133,8 @@ class DashboardParamsSelector extends React.Component<DashboardParamsSelectorPro
             />
 
             <TextField
-                label='To'
-                type='date'
+                label="To"
+                type="date"
                 value={this.formatDate(this.props.to)}
                 onChange={this.onTochange}
                 InputLabelProps={{
@@ -158,5 +159,5 @@ class DashboardParamsSelector extends React.Component<DashboardParamsSelectorPro
         this.props.onToChanged(moment(value));
     };
 
-    private formatDate = (date: moment.Moment) => date.format('YYYY-MM-DD');
+    private formatDate = (date: moment.Moment) => date.format("YYYY-MM-DD");
 }

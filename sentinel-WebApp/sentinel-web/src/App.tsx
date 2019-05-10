@@ -1,6 +1,5 @@
-import React from 'react';
-import './App.css';
-import { Dashboard } from './Components/Dashboard';
+import * as React from "react";
+import { Dashboard } from "./Components/Dashboard";
 
 const App: React.FC = () => {
   // return (
@@ -21,7 +20,7 @@ const App: React.FC = () => {
   //     </header>
   //   </div>
   // );
-  return <Dashboard />
-}
+  return <Dashboard />;
+};
 
 export default App;
