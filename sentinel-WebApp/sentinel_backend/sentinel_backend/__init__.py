@@ -1,9 +1,12 @@
 import os
 from flask import Flask
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config.from_object('sentinel_backend.default_settings')
 app.config.from_envvar('SENTINEL_BACKEND_SETTINGS')
+
+CORS(app)
 
 if not app.debug:
     import logging

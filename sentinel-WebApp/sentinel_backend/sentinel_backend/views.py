@@ -1,7 +1,7 @@
 from flask import jsonify, request, render_template
-from datetime import datetime
 from sentinel_backend import app
 from .repository import MockRepository
+from dateutil.parser import parse as parse_utc
 
 _REPOSITORY = MockRepository('../mock-data')
 
@@ -14,9 +14,15 @@ def index():
 
 @app.route('/mentions')
 def get_mentions():
-    since = datetime.strptime(request.args.get('from'), '%Y-%m-%d')
-    until = datetime.strptime(request.args.get('to'), '%Y-%m-%d')
-    keywords = request.args.get('keywords').split(',')
+    since = parse_utc(request.args.get('from'), ignoretz=True)
+    until = parse_utc(request.args.get('to'), ignoretz=True)
+
+    keywords = request.args.get('keywords')
+    if keywords is None:
+        keywords = _REPOSITORY.get_keywords(user=request.args.get('user'))
+    else:
+        keywords = keywords.split(',')
+
     mentions = _REPOSITORY.get_mentions(since, until, keywords)
     return jsonify(mentions)
 

@@ -151,12 +151,12 @@ class DashboardParamsSelector extends React.Component<DashboardParamsSelectorPro
 
     private onFromChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        this.props.onFromChanged(moment(value));
+        this.props.onFromChanged(moment.utc(value));
     };
 
     private onTochange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        this.props.onToChanged(moment(value));
+        this.props.onToChanged(moment.utc(value));
     };
 
     private formatDate = (date: moment.Moment) => date.format("YYYY-MM-DD");

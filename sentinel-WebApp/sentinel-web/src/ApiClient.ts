@@ -8,8 +8,8 @@ class ApiClient {
 
     async getMentions(from: moment.Moment, to: moment.Moment, keywords: string[]) {
         const params = new URLSearchParams({
-            from: from.toISOString(true),
-            to: to.toISOString(true),
+            from: from.toISOString(),
+            to: to.toISOString(),
         });
 
         for (let word of keywords) {
