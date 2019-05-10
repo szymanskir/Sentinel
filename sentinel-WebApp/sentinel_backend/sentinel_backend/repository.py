@@ -31,4 +31,4 @@ class MockRepository():
         is_mention_from_keywords = self._mentions_data.keyword.isin(keywords) if keywords else self.mentions == self.mentions 
         requested_data = self._mentions_data[is_mention_from_time_period & is_mention_from_keywords]
         requested_data.date = requested_data.date.apply(lambda x: str(x))
-        return requested_data.to_json(orient='records')
+        return requested_data.to_dict(orient='records')
