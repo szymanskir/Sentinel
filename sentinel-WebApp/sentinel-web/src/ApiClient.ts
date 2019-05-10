@@ -1,10 +1,11 @@
 import * as moment from "moment";
 import { Mention } from "./Models/Mention";
+import config from "config";
 
-const baseAddress = "http://localhost:4000";
-
+const baseAddress = config.apiEndpoint;
 
 class ApiClient {
+
     async getMentions(from: moment.Moment, to: moment.Moment, keywords: string[]) {
         const params = new URLSearchParams({
             from: from.toISOString(true),
