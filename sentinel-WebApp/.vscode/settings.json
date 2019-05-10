@@ -4,5 +4,7 @@
     },
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "python.venvPath": "sentinel_backend",
+    "python.pythonPath": "sentinel_backend/venv/bin/python"
 }
