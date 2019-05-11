@@ -1,10 +1,11 @@
+import os
 from pynamodb.models import Model
 from pynamodb.attributes import (
     UnicodeAttribute, NumberAttribute, UTCDateTimeAttribute
 )
 
 
-DB_ADDR = "http://localhost:8000"
+DB_ADDR = os.environ['DYNAMO_DB_URL']
 
 
 class Mention(Model):
