@@ -12,13 +12,14 @@ class Mention(Model):
         table_name = "mentions"
         host = DB_ADDR
 
-    id = UnicodeAttribute(hash_key=True, null=False)
+    user = UnicodeAttribute(hash_key=True)
+    id = UnicodeAttribute(range_key=True)
+
     author = UnicodeAttribute(null=False)
     text = UnicodeAttribute(null=False)
     date = UTCDateTimeAttribute(null=False)
     sentimentScore = NumberAttribute(null=False)
     keyword = UnicodeAttribute(null=False)
-    user = UnicodeAttribute(null=False)
 
 
 class Keyword(Model):
@@ -26,5 +27,5 @@ class Keyword(Model):
         table_name = "keywords"
         host = DB_ADDR
 
-    user = UnicodeAttribute(hash_key=True, null=False)
-    keyword = UnicodeAttribute(range_key=True, null=False)
+    user = UnicodeAttribute(hash_key=True)
+    keyword = UnicodeAttribute(range_key=True)

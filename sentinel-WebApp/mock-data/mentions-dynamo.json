@@ -1,2500 +1,2392 @@
 [
     [
-        "b4f2525b-f45d-47f4-a5ec-617ebd0f9b55",
+        "users0",
         {
-            "attributes": {
-                "author": {
-                    "S": "Mara Zamora"
-                },
-                "text": {
-                    "S": "Ad qui voluptate eiusmod eu aute consectetur et aliquip ullamco id enim adipisicing. Ad est incididunt exercitation ad culpa velit ea excepteur. Nisi exercitation cillum tempor nostrud quis excepteur laborum proident eiusmod mollit. Et eu minim eu nisi labore proident nostrud eu."
-                },
-                "sentimentScore": {
-                    "N": "-0.1725"
-                },
-                "date": {
-                    "S": "Mon Aug 27 2018 18:43:16 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "5fedcab1-1553-40ca-ae3c-9c6283febe2f",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Noemi Camacho"
-                },
-                "text": {
-                    "S": "Laboris esse elit voluptate sit fugiat sit voluptate tempor commodo exercitation id cillum nulla. Excepteur incididunt ad magna quis. Do sit nostrud duis nulla consectetur do. Officia ut exercitation officia sit esse Lorem. Eiusmod nulla quis duis commodo sit Lorem duis nostrud consequat eiusmod amet exercitation. Nisi eu officia irure enim reprehenderit sunt Lorem quis veniam. Incididunt elit fugiat occaecat nisi excepteur est sunt magna commodo consectetur."
-                },
-                "sentimentScore": {
-                    "N": "0.4293"
-                },
-                "date": {
-                    "S": "Thu Feb 22 2018 11:42:13 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users2"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "e11ee4b6-7c76-4490-b8f5-9f36722f11d3",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Carmela Kirkland"
-                },
-                "text": {
-                    "S": "Minim Lorem ipsum quis laboris et fugiat elit dolore do laboris cillum Lorem eu. Cillum mollit laborum cupidatat ullamco consectetur dolore aliqua elit nisi ipsum sit qui culpa. Lorem pariatur proident cillum ullamco sit."
-                },
-                "sentimentScore": {
-                    "N": "-0.69"
-                },
-                "date": {
-                    "S": "Mon Sep 18 2017 16:26:54 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "c12e7c65-b51e-439d-ae0e-4b76c0217b80",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Odom Browning"
-                },
-                "text": {
-                    "S": "Do ullamco officia sit irure irure commodo ipsum id eiusmod. Irure duis dolor amet in proident. Nisi eu ut esse tempor commodo."
-                },
-                "sentimentScore": {
-                    "N": "-0.4084"
-                },
-                "date": {
-                    "S": "Mon Apr 30 2018 15:43:47 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users0"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "935d6d2f-1600-4ec7-aa46-a3aab222149f",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Faulkner Jefferson"
-                },
-                "text": {
-                    "S": "Est cillum non aliqua laborum quis fugiat laboris. Reprehenderit elit culpa magna sit ad. Labore voluptate minim veniam officia fugiat incididunt. Ullamco officia consequat adipisicing nulla anim mollit ea occaecat ex duis cillum. In labore labore commodo do proident aute nulla nisi enim. Quis duis ea laborum nulla ex qui cillum fugiat nulla quis ipsum excepteur fugiat incididunt."
-                },
-                "sentimentScore": {
-                    "N": "-0.1632"
-                },
-                "date": {
-                    "S": "Thu Mar 29 2018 15:20:18 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users4"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "abeacd06-70a5-4a18-a915-00760b9ef95a",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Durham Howell"
-                },
-                "text": {
-                    "S": "Proident enim incididunt sit occaecat ad sit exercitation ad consequat cupidatat eiusmod. Sunt laboris reprehenderit occaecat in ex sunt incididunt qui ut aliquip laboris mollit et. Veniam officia enim minim adipisicing nulla est mollit sunt ad velit elit consequat. Laborum consequat do pariatur esse est aliquip fugiat nostrud velit aliquip non cupidatat laboris duis. Anim irure minim deserunt enim labore aliqua. Et nulla minim minim deserunt officia commodo commodo sunt magna ad dolor."
-                },
-                "sentimentScore": {
-                    "N": "0.7161"
-                },
-                "date": {
-                    "S": "Wed Feb 22 2017 16:50:47 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users5"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "5c8afb70-c744-4a30-bfdf-da363a8a480d",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Robert Walter"
-                },
-                "text": {
-                    "S": "Tempor elit sit ad labore est magna cupidatat irure labore non veniam quis. Velit officia esse ex adipisicing nisi do velit deserunt exercitation nostrud. Labore adipisicing exercitation et cupidatat pariatur culpa anim Lorem et reprehenderit. Irure minim duis sit quis. Dolor excepteur exercitation excepteur voluptate esse ipsum cillum duis et irure laborum sint veniam cupidatat. Dolor laboris sunt deserunt ut. In pariatur non sit ut commodo deserunt exercitation duis sit tempor cillum aliquip."
-                },
-                "sentimentScore": {
-                    "N": "0.0446"
-                },
-                "date": {
-                    "S": "Fri Jan 13 2017 17:23:31 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users2"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "146b65f7-22b5-42c3-a803-d0406966853f",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Briggs Williamson"
-                },
-                "text": {
-                    "S": "Irure sunt dolor sit laboris labore aliqua ipsum elit ex tempor. Consectetur officia aute id quis mollit aliquip adipisicing cupidatat deserunt. Ea nostrud minim deserunt nisi voluptate duis pariatur est reprehenderit sit sint. Sit ullamco esse ex elit eu ut. Quis commodo adipisicing consequat officia nisi est consectetur voluptate Lorem ipsum."
-                },
-                "sentimentScore": {
-                    "N": "-0.3788"
-                },
-                "date": {
-                    "S": "Sat May 26 2018 20:21:05 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users5"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "95cb3b77-ae2f-4e4d-8751-c4cccb48ca99",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Angie Barnes"
-                },
-                "text": {
-                    "S": "Sunt magna excepteur qui consectetur. Quis sunt proident duis ea quis occaecat. Magna fugiat non aliqua ad labore voluptate cillum nulla mollit velit. Tempor officia nisi duis nisi sint minim occaecat est officia adipisicing eiusmod consectetur ut."
-                },
-                "sentimentScore": {
-                    "N": "0.6554"
-                },
-                "date": {
-                    "S": "Mon Dec 24 2018 06:28:45 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users5"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "59227029-4d0d-4061-a944-c489d2b867e9",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Salinas Thornton"
-                },
-                "text": {
-                    "S": "Anim occaecat fugiat consequat do pariatur. Adipisicing deserunt cupidatat mollit laboris aute voluptate. Laborum duis voluptate ipsum proident duis. Irure aliqua dolor dolore amet exercitation labore ullamco quis qui consequat eu veniam sint fugiat. Consectetur eu deserunt eu duis laboris duis quis nostrud cillum."
-                },
-                "sentimentScore": {
-                    "N": "0.1605"
-                },
-                "date": {
-                    "S": "Mon Apr 02 2018 20:35:06 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users8"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "5374cacc-1735-4596-ba6f-19e1079a021f",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Calhoun Joseph"
-                },
-                "text": {
-                    "S": "Reprehenderit dolor veniam cupidatat sint cupidatat aliqua aute do consequat non eu. Velit laborum amet dolor ut consequat occaecat ad cupidatat. Mollit culpa ullamco cillum ipsum esse esse sint exercitation non non quis laborum amet reprehenderit. Sunt nulla incididunt laboris cillum id non tempor est sint consequat enim incididunt est eiusmod. Consequat labore id tempor cupidatat adipisicing eu eiusmod pariatur quis. Adipisicing elit eu est consequat occaecat ut do sunt ut reprehenderit nulla deserunt. Proident nostrud dolore excepteur eu dolore."
-                },
-                "sentimentScore": {
-                    "N": "-0.2309"
-                },
-                "date": {
-                    "S": "Thu Jan 17 2019 16:30:28 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users5"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "bda0e3f9-3222-43cb-8c31-e12fb2b185f1",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Lambert Bray"
-                },
-                "text": {
-                    "S": "Velit eu excepteur occaecat cupidatat pariatur non consequat dolor non adipisicing enim incididunt. Id nulla consectetur fugiat dolor in anim. Consequat aliquip minim consequat veniam proident deserunt Lorem adipisicing excepteur sint."
-                },
-                "sentimentScore": {
-                    "N": "0.9191"
-                },
-                "date": {
-                    "S": "Sun Feb 26 2017 20:46:54 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users1"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "b4991480-ee33-4afc-8a9d-9541f85a1855",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Brigitte Pittman"
-                },
-                "text": {
-                    "S": "Ad qui enim enim adipisicing sint pariatur cillum. Excepteur aute excepteur sit sunt adipisicing commodo pariatur consectetur culpa cillum voluptate reprehenderit. Laborum esse Lorem do occaecat aliquip eiusmod consectetur quis excepteur. Dolore duis commodo nisi eu irure aliqua cupidatat commodo nostrud adipisicing."
-                },
-                "sentimentScore": {
-                    "N": "-0.4429"
-                },
-                "date": {
-                    "S": "Mon Jan 16 2017 23:20:55 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users3"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "cf2fcc93-c730-4386-90f8-bda11857864d",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Dana Whitfield"
-                },
-                "text": {
-                    "S": "In commodo duis id consectetur aute excepteur sunt sint ad ex occaecat do. Ex deserunt reprehenderit voluptate sint sit tempor consequat. Est aliqua excepteur proident sit occaecat. Sit ullamco voluptate laboris labore incididunt. Labore eu ut do occaecat nulla exercitation dolore exercitation ad laboris. Laboris id ex id elit sint labore deserunt esse ut voluptate fugiat pariatur reprehenderit tempor."
-                },
-                "sentimentScore": {
-                    "N": "0.2901"
-                },
-                "date": {
-                    "S": "Fri Jan 27 2017 13:34:51 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users1"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "7eb8ebaf-f605-4cec-b646-1be1d046450c",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Mona Battle"
-                },
-                "text": {
-                    "S": "Cillum mollit duis laborum Lorem cillum eiusmod adipisicing qui. Laborum dolore ea veniam aliqua et. Commodo culpa nulla veniam consequat in irure aute pariatur officia sint. Fugiat laborum nostrud fugiat dolor Lorem cillum. Tempor dolore officia sit quis non ullamco anim et nulla duis aliquip nulla."
-                },
-                "sentimentScore": {
-                    "N": "0.8473"
-                },
-                "date": {
-                    "S": "Wed Feb 13 2019 00:35:48 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users5"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "806e75b3-f704-431a-b821-06397b451bbb",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Gilliam Fuller"
-                },
-                "text": {
-                    "S": "Laborum quis irure esse cillum proident. Nisi reprehenderit laborum magna Lorem occaecat fugiat quis velit et adipisicing duis pariatur quis. Mollit eiusmod sunt laborum culpa magna velit commodo magna duis pariatur amet officia laboris. Occaecat labore et id excepteur nulla pariatur. Consequat voluptate consequat esse eu nostrud Lorem duis id. Enim quis nostrud dolore consectetur occaecat laborum non ad qui dolore est."
-                },
-                "sentimentScore": {
-                    "N": "-0.3931"
-                },
-                "date": {
-                    "S": "Wed Mar 06 2019 05:43:14 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users10"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "a032209c-3f25-4148-af53-acaeec556486",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Barnett Chavez"
-                },
-                "text": {
-                    "S": "Minim enim cillum sunt laborum voluptate. Quis nulla ex eu quis reprehenderit consectetur quis duis quis magna cillum mollit. Labore ipsum aute exercitation laborum."
-                },
-                "sentimentScore": {
-                    "N": "0.0815"
-                },
-                "date": {
-                    "S": "Fri May 04 2018 12:29:21 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "19bcc202-e653-4e6a-b747-b567defdbac8",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Oneil Brown"
-                },
-                "text": {
-                    "S": "Veniam exercitation cillum non irure enim et. Incididunt velit pariatur laboris eiusmod velit proident cillum velit deserunt dolor commodo ipsum. Elit ut occaecat duis dolor proident culpa enim occaecat magna. Amet veniam incididunt reprehenderit officia enim excepteur mollit adipisicing duis qui incididunt. Ea quis sit nostrud consectetur ea proident mollit."
-                },
-                "sentimentScore": {
-                    "N": "0.8426"
-                },
-                "date": {
-                    "S": "Mon Oct 09 2017 00:43:48 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "d254c55c-3eea-4e67-be73-0ffb0f86299d",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Vera Bryan"
-                },
-                "text": {
-                    "S": "Est tempor officia consectetur aute sit commodo fugiat. Aute occaecat deserunt anim cillum qui laboris nostrud nisi incididunt sint eu est aliquip officia. Do ad eu officia deserunt ex in. Proident minim dolore aliquip irure. Anim eiusmod exercitation qui officia Lorem. Voluptate fugiat elit ad velit do Lorem cupidatat sit duis proident reprehenderit cupidatat."
-                },
-                "sentimentScore": {
-                    "N": "-0.8013"
-                },
-                "date": {
-                    "S": "Wed Oct 24 2018 20:25:30 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "bfe888f9-3ea0-42d7-9c82-59d127e88eb3",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Bette Fitzgerald"
-                },
-                "text": {
-                    "S": "Aliqua enim sunt et nisi proident enim labore. Tempor proident sit excepteur quis et tempor quis sit velit ea sit. Id nostrud eu do culpa ullamco dolor sint eiusmod aute culpa reprehenderit excepteur."
-                },
-                "sentimentScore": {
-                    "N": "-0.6326"
-                },
-                "date": {
-                    "S": "Sat Oct 14 2017 17:08:46 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "5bed2afe-e9dd-4ce7-a67d-6b11058c43d9",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Clark Waller"
-                },
-                "text": {
-                    "S": "Lorem nostrud minim elit tempor id qui enim reprehenderit. Ex aliquip elit cillum in culpa magna dolore aliquip qui ullamco voluptate aute officia. Qui aute do in non consequat in esse culpa nulla minim velit ex."
-                },
-                "sentimentScore": {
-                    "N": "0.5526"
-                },
-                "date": {
-                    "S": "Wed Oct 04 2017 17:26:28 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users2"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "0fdfbac0-7501-4a01-a53a-e480a92fb6f5",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Lesley Ruiz"
-                },
-                "text": {
-                    "S": "Nisi nostrud consequat ad magna nostrud consequat aliqua. Ipsum laborum veniam sint voluptate occaecat minim est dolore dolore in veniam cupidatat ea. Magna anim Lorem ea enim amet adipisicing anim sit nisi labore. Enim consequat culpa cupidatat aliqua Lorem."
-                },
-                "sentimentScore": {
-                    "N": "-0.4015"
-                },
-                "date": {
-                    "S": "Tue Dec 11 2018 09:57:16 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users5"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "53840ed7-93ef-4b7f-8143-8abeeb5aa7b2",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Moore Hull"
-                },
-                "text": {
-                    "S": "Elit ad aliquip voluptate duis labore nisi velit veniam ad elit mollit velit laborum. Non minim aliquip excepteur et ea culpa aliqua sit aute commodo id nisi quis fugiat. Ullamco veniam et exercitation cupidatat nulla do adipisicing eu dolor aliqua cillum fugiat exercitation elit."
-                },
-                "sentimentScore": {
-                    "N": "-0.5867"
-                },
-                "date": {
-                    "S": "Thu May 11 2017 16:41:46 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users8"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "7e7828b1-34da-4198-9df1-074ff918ff93",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Dena Mueller"
-                },
-                "text": {
-                    "S": "Sint mollit ea aute in cupidatat. Sit ipsum culpa ad deserunt excepteur in nisi velit ullamco esse ea commodo ex. Nulla sunt quis minim incididunt proident consectetur nulla. Nulla aliquip eiusmod tempor quis commodo Lorem ipsum. Pariatur sunt nostrud voluptate do qui laboris. Officia et magna deserunt enim adipisicing velit consequat ad minim excepteur."
-                },
-                "sentimentScore": {
-                    "N": "-0.8207"
-                },
-                "date": {
-                    "S": "Mon Oct 16 2017 14:41:14 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users3"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "5b9deddb-ffe3-4b1c-ad1f-1f2b67fa701a",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Nadine Norman"
-                },
-                "text": {
-                    "S": "Proident aliqua amet minim duis mollit sit aute anim. Ad nulla mollit quis sint irure minim nostrud incididunt aliquip eiusmod incididunt cillum officia eu. Irure aute veniam sint cupidatat enim nisi tempor esse et esse. Consectetur pariatur nostrud dolor Lorem aliquip excepteur. Cupidatat cupidatat incididunt eiusmod culpa ut minim ullamco velit eu consequat."
-                },
-                "sentimentScore": {
-                    "N": "-0.7371"
-                },
-                "date": {
-                    "S": "Tue Dec 18 2018 11:14:24 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users1"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "e6faad80-3175-49d2-aa25-94b093e757df",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Mandy Justice"
-                },
-                "text": {
-                    "S": "Cillum exercitation ut dolore adipisicing Lorem culpa ex cillum duis eiusmod tempor. Sunt nulla eu et velit magna consectetur consectetur velit consequat. Exercitation amet non veniam irure sint minim nisi. Non est labore esse in in minim aliqua est veniam enim. Aliqua proident incididunt excepteur excepteur irure pariatur labore qui. Sunt quis do irure consequat enim."
-                },
-                "sentimentScore": {
-                    "N": "-0.3507"
-                },
-                "date": {
-                    "S": "Sun Mar 19 2017 17:39:57 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users3"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "719d96a1-6f1d-468d-9853-c364b6da2c07",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Watson Hurley"
-                },
-                "text": {
-                    "S": "Lorem ipsum proident sit esse pariatur id Lorem in consectetur tempor culpa. Incididunt aute sint cillum aute dolor aliquip irure non. Dolor dolore et aliquip quis voluptate dolor anim nisi duis occaecat. Esse ipsum nulla amet reprehenderit ut magna id laboris anim."
-                },
-                "sentimentScore": {
-                    "N": "-0.0068"
-                },
-                "date": {
-                    "S": "Fri Aug 24 2018 23:04:14 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users0"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "05d82787-bed6-4a5e-bf88-c9de47372435",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Lucinda Nichols"
-                },
-                "text": {
-                    "S": "Sit magna cupidatat laboris dolore incididunt dolor officia sit laborum aute adipisicing elit proident in. Anim occaecat proident irure non amet ex voluptate laboris quis cillum. Amet elit labore in minim nostrud minim qui. Amet ad eiusmod cupidatat ipsum culpa. Lorem tempor laborum non ut officia. Enim enim ea cupidatat aute ut voluptate magna. Elit eiusmod ea ex est magna officia incididunt pariatur commodo."
-                },
-                "sentimentScore": {
-                    "N": "0.5554"
-                },
-                "date": {
-                    "S": "Mon Aug 14 2017 00:04:56 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users8"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "5503dbd0-c2ad-4cf3-9d8f-5ca63af92e4c",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Antoinette Ellis"
-                },
-                "text": {
-                    "S": "Laboris laboris quis sunt proident aliquip duis. Laboris id officia aliqua nostrud consequat velit ullamco non ex est. Commodo mollit duis est nulla cillum sint dolore veniam laboris duis magna. Irure eu commodo id sit in qui."
-                },
-                "sentimentScore": {
-                    "N": "0.1141"
-                },
-                "date": {
-                    "S": "Thu Feb 21 2019 19:19:41 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "3f9a7427-01ed-4234-a999-ed7c03b2c11b",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Desiree Porter"
-                },
-                "text": {
-                    "S": "Ad anim veniam mollit id et sint voluptate sunt voluptate eu irure excepteur ipsum. Dolore exercitation adipisicing est reprehenderit irure consequat quis do deserunt minim. Enim ea est ad enim excepteur culpa proident. Dolore quis elit cupidatat proident duis."
-                },
-                "sentimentScore": {
-                    "N": "0.8469"
-                },
-                "date": {
-                    "S": "Mon Aug 21 2017 01:22:31 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users6"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "32aa2e64-36cc-454c-8e58-31c063a9bba9",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Adams Castaneda"
-                },
-                "text": {
-                    "S": "Pariatur cupidatat irure voluptate ex nostrud deserunt amet officia eiusmod quis minim. Eu velit ut excepteur cupidatat adipisicing aute enim eu sunt elit incididunt aute reprehenderit. Est amet adipisicing cupidatat tempor aliqua. Pariatur magna sit dolor nisi laboris dolor anim reprehenderit et occaecat deserunt consequat. Tempor laborum laborum Lorem do. Commodo esse magna nostrud ipsum ea aliqua Lorem fugiat occaecat excepteur aute officia exercitation. Do aliquip ipsum do laboris aliquip commodo excepteur ipsum ipsum qui laborum esse."
-                },
-                "sentimentScore": {
-                    "N": "-0.1999"
-                },
-                "date": {
-                    "S": "Thu Oct 05 2017 11:03:05 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "3c5c5e65-d0e0-44cb-b602-6ef8de7c90c3",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Goodwin Weber"
-                },
-                "text": {
-                    "S": "Laborum ea aute veniam id irure incididunt non consectetur occaecat sunt. Cillum dolore dolore officia culpa. Duis cillum aliquip culpa qui. Occaecat anim excepteur consectetur ipsum officia occaecat non aliqua tempor excepteur adipisicing quis qui excepteur."
-                },
-                "sentimentScore": {
-                    "N": "0.668"
-                },
-                "date": {
-                    "S": "Mon Feb 04 2019 23:54:43 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "7757cda6-0fc9-47e0-ac33-4de0d8f5cfbb",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Cecelia Patton"
-                },
-                "text": {
-                    "S": "Id ullamco culpa est magna exercitation labore commodo dolor. Quis et eiusmod id nostrud. Est tempor et occaecat cupidatat laborum consectetur nulla esse enim velit. Cillum officia anim ullamco nisi consequat fugiat cillum est."
-                },
-                "sentimentScore": {
-                    "N": "0.9234"
-                },
-                "date": {
-                    "S": "Wed Apr 26 2017 20:03:48 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "73186684-2268-4d5f-ac7e-596f36fcc885",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Leslie Clarke"
-                },
-                "text": {
-                    "S": "Irure excepteur irure Lorem sit excepteur eiusmod. Magna in ex adipisicing reprehenderit cupidatat voluptate ea et amet tempor. Nisi est aliquip qui consequat excepteur qui excepteur sint occaecat. Reprehenderit labore in ut esse occaecat est amet mollit cupidatat sint incididunt aliqua non adipisicing. Deserunt nostrud nulla dolore et. Esse et est velit cupidatat proident amet laborum id est. Est voluptate et occaecat commodo."
-                },
-                "sentimentScore": {
-                    "N": "0.0921"
-                },
-                "date": {
-                    "S": "Sat Dec 01 2018 15:48:15 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "ed52cd4a-3b57-48ed-a00b-d831cdd05059",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Terry Lang"
-                },
-                "text": {
-                    "S": "Esse id duis ut exercitation dolor esse Lorem. Do pariatur minim sint irure nisi sint ut aliquip esse exercitation nisi tempor minim deserunt. Enim fugiat incididunt qui ea qui fugiat ullamco sunt id culpa officia elit. Nulla culpa magna aliquip non do non excepteur ullamco proident reprehenderit ea nostrud ipsum Lorem."
-                },
-                "sentimentScore": {
-                    "N": "-0.3475"
-                },
-                "date": {
-                    "S": "Sat Jan 13 2018 11:54:09 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users8"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "21ab3531-0643-4b14-af8d-98341e6f2b2b",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Greer Whitaker"
-                },
-                "text": {
-                    "S": "Ipsum voluptate ut aute incididunt et non labore dolore irure voluptate excepteur velit eiusmod. Sit pariatur laborum dolor do quis cillum Lorem eu et excepteur. Exercitation nulla irure occaecat exercitation sit eu Lorem consectetur est ullamco reprehenderit consectetur sit pariatur."
-                },
-                "sentimentScore": {
-                    "N": "-0.6505"
-                },
-                "date": {
-                    "S": "Wed Dec 20 2017 14:44:16 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "6806fc94-b697-4236-a0d3-e631dd25bf9f",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Sondra Knowles"
-                },
-                "text": {
-                    "S": "Qui officia consectetur sint ut ex velit. Velit nisi proident tempor esse id voluptate voluptate esse consequat. Commodo labore adipisicing quis labore ipsum incididunt incididunt magna reprehenderit minim. Id voluptate eiusmod anim elit irure duis qui esse aliquip. Quis cillum officia eiusmod tempor pariatur eu commodo laborum velit."
-                },
-                "sentimentScore": {
-                    "N": "-0.467"
-                },
-                "date": {
-                    "S": "Sun Jun 10 2018 12:14:30 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "da95ca2d-708e-4a15-9c06-380a5e9de9f0",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Ramirez Ashley"
-                },
-                "text": {
-                    "S": "Excepteur aliqua minim aliquip cupidatat duis ut quis commodo deserunt do tempor voluptate ea. Cupidatat elit aute Lorem eu sit elit qui non qui incididunt. Incididunt dolor aliquip quis anim et mollit laborum nulla minim exercitation esse irure duis. Ut minim aliquip nisi non cupidatat dolore proident sit in dolor non. Amet elit ipsum sint sunt labore cupidatat occaecat ad."
-                },
-                "sentimentScore": {
-                    "N": "-0.0143"
-                },
-                "date": {
-                    "S": "Thu Feb 09 2017 07:04:13 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users1"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "5e24def8-a961-463e-99d8-13481f673e37",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Sherry Branch"
-                },
-                "text": {
-                    "S": "Nostrud occaecat Lorem sit nisi proident sunt est esse amet sunt magna esse anim quis. Nisi dolore in ut non voluptate culpa cupidatat consequat commodo sint. Tempor ea ea eu duis nulla incididunt. Sint aute nostrud aute aute exercitation eiusmod deserunt qui ut magna nostrud. Ad Lorem minim aliquip non commodo proident nulla cupidatat sit commodo consectetur culpa cupidatat commodo. Consectetur nostrud nisi laboris adipisicing adipisicing eiusmod."
-                },
-                "sentimentScore": {
-                    "N": "-0.9875"
-                },
-                "date": {
-                    "S": "Thu Nov 16 2017 15:20:57 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users3"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "0b2b8a2b-c346-4094-9b86-64e774b846fa",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Lawrence Frye"
-                },
-                "text": {
-                    "S": "Dolore eu excepteur anim officia nisi aute cillum aute occaecat veniam esse est. Mollit esse aliqua ipsum aliquip tempor non irure eu id sint tempor. Do ut aliqua proident laborum nisi commodo eu esse est sint."
-                },
-                "sentimentScore": {
-                    "N": "0.5788"
-                },
-                "date": {
-                    "S": "Tue May 22 2018 05:47:24 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users10"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "5baf26f3-d6c9-4d1f-a14c-d58cee627ba4",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Dawson Olson"
-                },
-                "text": {
-                    "S": "Nisi ullamco dolor Lorem commodo cillum occaecat. Fugiat aute fugiat dolore ad irure nostrud excepteur. Culpa occaecat aliquip id id ad do excepteur incididunt velit et deserunt amet laboris officia. Et sint minim anim Lorem."
-                },
-                "sentimentScore": {
-                    "N": "-0.6063"
-                },
-                "date": {
-                    "S": "Fri Nov 23 2018 02:06:33 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "ecac56bd-f161-4e81-b6a9-ef18ac8c664c",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Kirk Barlow"
-                },
-                "text": {
-                    "S": "Occaecat qui anim reprehenderit enim elit ex deserunt in cupidatat quis exercitation qui. Duis non reprehenderit sit ea eu aute. Tempor ut amet reprehenderit enim aliquip eu laborum sunt Lorem nisi Lorem. Enim dolor commodo ea consectetur proident et proident quis ut sint aliquip quis. Incididunt dolor ea aliqua consequat eu reprehenderit. Adipisicing consequat amet incididunt ullamco ut adipisicing duis enim quis."
-                },
-                "sentimentScore": {
-                    "N": "-0.0724"
-                },
-                "date": {
-                    "S": "Wed Jan 17 2018 19:45:11 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users2"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "678fcc29-482f-486a-bd12-524fb9853519",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Cantu Buckner"
-                },
-                "text": {
-                    "S": "Labore sunt pariatur fugiat exercitation aliqua magna est aliqua esse officia laboris cillum proident. Voluptate excepteur exercitation ipsum veniam incididunt labore. Eu incididunt sunt sunt qui magna est nostrud consequat veniam."
-                },
-                "sentimentScore": {
-                    "N": "-0.91"
-                },
-                "date": {
-                    "S": "Thu Oct 18 2018 01:10:51 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users8"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "f7c8d167-6b58-491a-9376-240f553aba21",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Coffey Daniel"
-                },
-                "text": {
-                    "S": "Anim eu minim et eiusmod nisi. Amet amet eu esse nisi voluptate ipsum voluptate. Irure incididunt deserunt ullamco exercitation. Amet dolor reprehenderit id nulla laborum cupidatat voluptate in magna Lorem esse proident. Quis aliquip excepteur ipsum nisi laborum sunt laborum pariatur reprehenderit irure labore minim."
-                },
-                "sentimentScore": {
-                    "N": "-0.1476"
-                },
-                "date": {
-                    "S": "Mon Oct 15 2018 19:05:35 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "44d0221f-bb58-4adf-ab61-ecdf9b900fca",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Elba Taylor"
-                },
-                "text": {
-                    "S": "Minim excepteur veniam excepteur nostrud ullamco proident Lorem amet magna. Commodo anim nisi officia exercitation. Fugiat ut non consequat amet in laboris qui sunt culpa voluptate dolore dolore magna."
-                },
-                "sentimentScore": {
-                    "N": "-0.1578"
-                },
-                "date": {
-                    "S": "Sat Jul 29 2017 18:10:12 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users10"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "917feb18-4365-46db-ab56-7f8f7913918a",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Robbie Vaughan"
-                },
-                "text": {
-                    "S": "In quis ad voluptate amet amet consectetur. Fugiat cillum do dolore mollit velit amet. Fugiat aliquip et officia ea. Ad minim est exercitation labore ex sint quis ipsum commodo."
-                },
-                "sentimentScore": {
-                    "N": "-0.8138"
-                },
-                "date": {
-                    "S": "Mon Jul 09 2018 08:05:21 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "d5f24999-b436-4e72-81da-f616e5d2a90c",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Gertrude Grant"
-                },
-                "text": {
-                    "S": "Ipsum aliquip pariatur cupidatat in consequat reprehenderit do ullamco qui eu minim magna consequat id. Est elit dolor voluptate veniam officia minim commodo aliquip ullamco commodo Lorem veniam veniam. Culpa aliqua non anim amet id ullamco velit. Ipsum fugiat non cupidatat in aliquip do Lorem exercitation aute labore."
-                },
-                "sentimentScore": {
-                    "N": "-0.5691"
-                },
-                "date": {
-                    "S": "Tue Jan 30 2018 01:16:37 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users1"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "5c544ea3-0252-4ace-90b2-31dad8cb09a2",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Lucille Quinn"
-                },
-                "text": {
-                    "S": "Sunt dolor sit irure ipsum excepteur fugiat cillum magna consectetur elit ad Lorem sunt ullamco. Dolor duis laborum proident sit cupidatat labore aliqua ad et ex commodo. Ullamco aliquip dolor nulla consectetur exercitation ipsum commodo exercitation pariatur et. Ullamco tempor sint ullamco duis sit cillum aliquip. Ad cillum id qui nisi. Quis consectetur pariatur amet Lorem fugiat labore ex cupidatat ad velit reprehenderit ullamco magna quis."
-                },
-                "sentimentScore": {
-                    "N": "0.0273"
-                },
-                "date": {
-                    "S": "Sun Nov 12 2017 01:23:34 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users0"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "1f19660a-49a3-4d0f-8a8f-194ceb4f5a00",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Jean Schroeder"
-                },
-                "text": {
-                    "S": "Occaecat elit et aliqua irure aute fugiat non occaecat consectetur excepteur incididunt amet. Esse dolor eu deserunt tempor est ea aute aliqua excepteur et laboris. Exercitation ad veniam dolore id labore dolore. Fugiat deserunt enim nulla et laboris ea reprehenderit eiusmod quis magna exercitation anim dolore. Ipsum occaecat fugiat eiusmod enim do. Laborum esse anim do do cillum magna eiusmod occaecat ea. Cupidatat ut irure officia cillum."
-                },
-                "sentimentScore": {
-                    "N": "0.2142"
-                },
-                "date": {
-                    "S": "Mon May 07 2018 14:31:15 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "77d0453f-ed76-4d27-8c7d-c1526aa28efc",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Pollard Becker"
-                },
-                "text": {
-                    "S": "Sit ad sint laboris laborum proident consequat. Ullamco ut in voluptate reprehenderit adipisicing adipisicing ea cupidatat magna cillum nulla consectetur deserunt. Eu proident exercitation non cillum proident do est officia reprehenderit sit. Adipisicing nostrud veniam ut anim officia nulla dolore sunt cillum quis consequat. Sint ex exercitation reprehenderit ipsum. Lorem do laboris irure occaecat qui et exercitation ex commodo esse et duis nulla."
-                },
-                "sentimentScore": {
-                    "N": "0.8729"
-                },
-                "date": {
-                    "S": "Wed Sep 19 2018 03:41:45 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users5"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "ac69acb6-fc31-42ea-a8b8-44b56d746787",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Eddie Hooper"
-                },
-                "text": {
-                    "S": "Consectetur sit dolore fugiat eiusmod nostrud pariatur culpa Lorem esse consectetur ut. Enim enim fugiat officia duis. Irure do in ex cillum amet et dolor."
-                },
-                "sentimentScore": {
-                    "N": "-0.9696"
-                },
-                "date": {
-                    "S": "Tue Oct 02 2018 18:54:41 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users8"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "57eef1ac-0c87-492d-931c-070a7de30956",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Nelson Kramer"
-                },
-                "text": {
-                    "S": "Consectetur eu veniam ea eiusmod est ea non. Eiusmod amet laborum incididunt ea. Exercitation anim in Lorem cillum pariatur duis Lorem amet esse velit ipsum cillum. Ullamco excepteur ad et do nostrud tempor nostrud sunt. Officia consectetur veniam mollit minim anim mollit ea."
-                },
-                "sentimentScore": {
-                    "N": "0.9675"
-                },
-                "date": {
-                    "S": "Sat Mar 17 2018 19:40:49 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users8"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "b5ba056c-2296-40ee-bfb4-ba5799e75097",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Chaney Nixon"
-                },
-                "text": {
-                    "S": "Ipsum enim ullamco Lorem laboris commodo minim duis incididunt veniam. Mollit reprehenderit sint aliquip commodo incididunt esse aute. Eu reprehenderit minim ut excepteur. Et commodo Lorem laborum voluptate fugiat mollit occaecat aute veniam. Occaecat eiusmod consectetur enim minim nulla ut consectetur laboris cupidatat cillum commodo consectetur."
-                },
-                "sentimentScore": {
-                    "N": "-0.9133"
-                },
-                "date": {
-                    "S": "Wed Jan 17 2018 23:05:26 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users4"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "f6fb4f17-f7a0-4d87-aa15-b5f929142c81",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Holt Wheeler"
-                },
-                "text": {
-                    "S": "Anim irure ad consequat fugiat voluptate minim elit quis do sint aliquip. Aliqua incididunt sit pariatur occaecat exercitation in sit sit laborum quis deserunt proident aute. Sit culpa mollit est esse consequat deserunt sint labore. Velit pariatur aute proident ad proident ipsum velit ad incididunt excepteur. Sint ex sint ea do minim sunt Lorem enim ullamco sint labore fugiat. Enim exercitation elit reprehenderit id aute."
-                },
-                "sentimentScore": {
-                    "N": "-0.2193"
-                },
-                "date": {
-                    "S": "Wed Nov 15 2017 20:28:10 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users5"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "50192e78-977e-4f83-a754-86bc7059de12",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Claudette Nolan"
-                },
-                "text": {
-                    "S": "Proident pariatur nostrud eu proident excepteur irure nostrud. Est cillum ad voluptate proident occaecat in veniam aliquip. Aliquip veniam mollit ullamco qui tempor enim quis qui culpa duis magna exercitation consequat."
-                },
-                "sentimentScore": {
-                    "N": "-0.3033"
-                },
-                "date": {
-                    "S": "Mon Sep 04 2017 11:43:10 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "d4e07500-1d4e-4fe1-aa66-f7574ea1be1d",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Janelle Rojas"
-                },
-                "text": {
-                    "S": "Duis consectetur quis Lorem reprehenderit laborum aliquip aute. Ea incididunt dolore sunt nulla cupidatat minim sit. Ad ex laboris officia mollit ipsum ullamco ad."
-                },
-                "sentimentScore": {
-                    "N": "0.4287"
-                },
-                "date": {
-                    "S": "Mon Oct 30 2017 01:24:32 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "432b2f23-fa81-4497-8948-9cd310e38af0",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Marks Newton"
-                },
-                "text": {
-                    "S": "Incididunt eu occaecat incididunt fugiat est aliquip. Mollit amet laborum ea exercitation eiusmod eiusmod aute sint quis eiusmod minim eu. Sunt consectetur ut dolor ullamco tempor ut excepteur adipisicing. Est excepteur excepteur fugiat dolor et eiusmod ipsum nulla. Dolore fugiat aliquip fugiat deserunt aute laborum. Nisi eiusmod aute sit dolore officia ullamco. Esse cillum culpa duis anim labore excepteur quis cupidatat laborum aliqua laboris anim labore dolor."
-                },
-                "sentimentScore": {
-                    "N": "0.1912"
-                },
-                "date": {
-                    "S": "Wed Apr 18 2018 13:15:47 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users6"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "0895ba16-fe70-41c9-9ea8-c7ba9019b9a5",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Jamie Spence"
-                },
-                "text": {
-                    "S": "Proident enim sit sunt consectetur. Aliquip ad sint sint consequat esse sunt fugiat occaecat voluptate aliqua minim laboris. Pariatur aliquip officia id esse anim do."
-                },
-                "sentimentScore": {
-                    "N": "0.5314"
-                },
-                "date": {
-                    "S": "Tue Oct 23 2018 14:13:28 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users8"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "ddfc734c-3484-46c4-b81f-ddee3f02ef4c",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Rhoda Copeland"
-                },
-                "text": {
-                    "S": "Excepteur culpa laboris nostrud aliqua incididunt anim dolor aliqua nulla consequat sint amet deserunt. Occaecat magna ex et sit irure incididunt. Velit sint reprehenderit amet tempor eu cupidatat dolore laborum elit cupidatat irure sint."
-                },
-                "sentimentScore": {
-                    "N": "-0.0968"
-                },
-                "date": {
-                    "S": "Mon Jul 30 2018 18:10:11 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users2"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "d714edfe-aae2-4ce2-a853-60750cec1291",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Randolph Petersen"
-                },
-                "text": {
-                    "S": "Cillum et non reprehenderit tempor non. Exercitation et sit proident sint cillum aute. Ut fugiat amet Lorem sit consectetur. Ea proident consectetur Lorem eu excepteur mollit irure in excepteur adipisicing sint nostrud sint. Culpa deserunt ex dolore veniam minim ex et consectetur aute voluptate pariatur."
-                },
-                "sentimentScore": {
-                    "N": "0.5776"
-                },
-                "date": {
-                    "S": "Mon May 15 2017 20:54:45 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users2"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "bc996551-95c1-4959-9f13-242be5b3c5bf",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Moses Woodward"
-                },
-                "text": {
-                    "S": "Dolor nulla magna deserunt mollit adipisicing dolore ad aliquip est. Esse minim magna officia est labore deserunt ex. Qui Lorem enim adipisicing labore ut ex sint aliqua."
-                },
-                "sentimentScore": {
-                    "N": "0.6592"
-                },
-                "date": {
-                    "S": "Mon Aug 28 2017 20:14:35 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "169552f0-df08-4eb4-9e93-43bcff3117a5",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Carol Castro"
-                },
-                "text": {
-                    "S": "Nisi commodo deserunt amet in labore sint deserunt. Ex ea laboris commodo mollit amet sunt aliqua do ea consequat ex cupidatat elit. Incididunt anim do cupidatat veniam amet ad. Aliquip voluptate fugiat deserunt eu esse sit non consequat. Laborum duis enim ea mollit velit. Dolor occaecat minim laborum culpa cillum exercitation deserunt laboris ex nisi esse."
-                },
-                "sentimentScore": {
-                    "N": "0.2432"
-                },
-                "date": {
-                    "S": "Mon May 01 2017 20:31:45 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "23786667-ae67-4dac-b561-f986d6ac55f2",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Holland Stevens"
-                },
-                "text": {
-                    "S": "Proident dolor nostrud est in nisi voluptate et cupidatat do excepteur enim veniam. Ut sit eu ullamco ullamco. Reprehenderit elit adipisicing dolor magna nostrud culpa eu in sit. Exercitation velit elit excepteur ut laborum veniam cillum dolor et ipsum. Voluptate cillum esse est ea dolore magna nostrud tempor. Quis cillum aliquip dolor aliquip veniam nostrud culpa amet tempor proident deserunt veniam culpa."
-                },
-                "sentimentScore": {
-                    "N": "-0.1321"
-                },
-                "date": {
-                    "S": "Sat Jan 06 2018 03:21:17 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users1"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "cfb16d28-f9c9-48a4-91fd-4bd1bf7d0b71",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Cox Cotton"
-                },
-                "text": {
-                    "S": "Exercitation velit exercitation amet et sit laboris non eu aliqua elit. Occaecat aute enim fugiat officia eiusmod ut qui elit anim dolor. Commodo ex aliquip in laborum ad ex ad elit velit velit incididunt irure sunt. Nostrud labore amet incididunt minim occaecat."
-                },
-                "sentimentScore": {
-                    "N": "-0.8737"
-                },
-                "date": {
-                    "S": "Sun Jan 27 2019 07:22:33 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "0bac4233-effe-45c9-85a5-9728ae5ba330",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Paige Mooney"
-                },
-                "text": {
-                    "S": "Commodo qui officia ea amet ea nostrud. Culpa irure irure sit Lorem ex dolor ipsum quis ullamco fugiat consectetur consequat excepteur. Magna qui non culpa officia ut aliquip commodo. Ea do ullamco exercitation consectetur eiusmod eiusmod consequat elit irure do. Lorem aliquip non laboris est ut excepteur et in qui est ullamco sint culpa."
-                },
-                "sentimentScore": {
-                    "N": "0.5923"
-                },
-                "date": {
-                    "S": "Wed Jan 09 2019 03:50:53 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users0"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "53b62aca-b2f9-4b76-a29a-7344e5822657",
-        {
-            "attributes": {
-                "author": {
-                    "S": "George Morrow"
-                },
-                "text": {
-                    "S": "Amet magna exercitation qui duis excepteur occaecat tempor adipisicing. Lorem nostrud ullamco elit exercitation tempor non minim ut consequat proident minim. Aliqua exercitation et eu cupidatat labore in ad."
-                },
-                "sentimentScore": {
-                    "N": "-0.0426"
-                },
-                "date": {
-                    "S": "Sun Jan 29 2017 18:19:53 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users5"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "70bc3e34-f7d5-4483-bbf8-97e661a5c446",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Nunez Raymond"
-                },
-                "text": {
-                    "S": "Sunt veniam pariatur ullamco cillum Lorem dolor commodo eiusmod. Excepteur qui cillum quis anim dolore do non adipisicing culpa est quis exercitation. Laboris duis mollit labore ad consequat ex occaecat incididunt. Sint fugiat magna pariatur officia amet occaecat sunt reprehenderit ad minim. Dolore non incididunt minim exercitation est reprehenderit. Ullamco ullamco sit commodo est aliquip in id nulla in aliquip qui sit pariatur fugiat."
-                },
-                "sentimentScore": {
-                    "N": "-0.5523"
-                },
-                "date": {
-                    "S": "Fri Mar 29 2019 23:46:50 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users2"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "f5827aea-2de8-4b4a-b718-06ac3b4a98ce",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Tanya Leonard"
-                },
-                "text": {
-                    "S": "Officia nostrud ipsum laboris nisi incididunt pariatur enim proident consectetur adipisicing duis do enim exercitation. Sit officia commodo sint nostrud eiusmod cupidatat irure velit ea. Deserunt duis enim id aliqua enim. Et aliqua eu consequat proident. In sint occaecat nulla et occaecat elit ex ut id ut magna ipsum ipsum non. Ex Lorem excepteur officia reprehenderit in cupidatat do magna magna aliquip Lorem sunt aute."
-                },
-                "sentimentScore": {
-                    "N": "0.6862"
-                },
-                "date": {
-                    "S": "Tue Aug 15 2017 20:57:19 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users8"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "7ef2b54e-0b0b-4c8b-a4f7-d3a009f859ea",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Foster Conway"
-                },
-                "text": {
-                    "S": "Dolore deserunt nisi cupidatat id pariatur consectetur tempor amet deserunt aliquip ex. Commodo laborum excepteur voluptate culpa voluptate. Minim est dolor ullamco tempor minim incididunt officia voluptate sunt ullamco. Id reprehenderit in magna sint labore. In consequat qui elit deserunt qui elit officia do est et duis officia. Fugiat deserunt pariatur ipsum sunt irure tempor."
-                },
-                "sentimentScore": {
-                    "N": "0.937"
-                },
-                "date": {
-                    "S": "Fri Nov 10 2017 15:33:28 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users6"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "b37c12bf-bb9b-4ac4-ad31-0be01cc68df3",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Annmarie Pacheco"
-                },
-                "text": {
-                    "S": "Velit fugiat quis amet nisi culpa incididunt aute consectetur id duis id dolore. Et esse labore dolor consequat Lorem cillum ea occaecat consequat pariatur esse. Excepteur ullamco laboris culpa exercitation nulla ipsum do esse. Excepteur commodo cillum esse aliqua sit id ut non proident."
-                },
-                "sentimentScore": {
-                    "N": "-0.7435"
-                },
-                "date": {
-                    "S": "Tue Sep 12 2017 11:48:42 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users6"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "71128159-7424-418f-a8bd-8d3adb074a87",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Palmer Dillon"
-                },
-                "text": {
-                    "S": "Nisi ea non sunt esse ullamco non excepteur proident veniam reprehenderit. Minim proident irure dolore ea aliqua adipisicing labore consequat laborum. Ad ad minim sit fugiat proident excepteur qui. Fugiat Lorem eiusmod amet duis ea do eiusmod. Irure id amet ullamco deserunt. Sint sunt officia amet duis est nisi ex Lorem minim nostrud ea dolore sunt proident. Do elit quis aliqua sint ex Lorem aliquip laboris nulla."
-                },
-                "sentimentScore": {
-                    "N": "0.4765"
-                },
-                "date": {
-                    "S": "Sun Dec 30 2018 14:18:54 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users3"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "45aad2c4-46e9-4e82-95d9-5a1957d1f337",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Ginger Woodard"
-                },
-                "text": {
-                    "S": "Incididunt sint duis proident cupidatat excepteur nulla. Nisi incididunt irure duis nulla reprehenderit reprehenderit fugiat ex tempor sunt Lorem exercitation. Consequat commodo commodo tempor exercitation fugiat exercitation eu excepteur. Mollit excepteur duis non dolore pariatur. Anim proident nostrud est culpa et excepteur enim amet aliqua in. Aliquip mollit dolor voluptate elit."
-                },
-                "sentimentScore": {
-                    "N": "-0.4152"
-                },
-                "date": {
-                    "S": "Fri Apr 28 2017 18:50:27 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "9018db4b-6ac8-44d3-aef8-3e38e2bcb953",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Raquel Mclean"
-                },
-                "text": {
-                    "S": "Duis Lorem cupidatat consequat duis consequat amet voluptate consequat laborum officia officia ea. Aliquip deserunt aliqua anim ullamco ipsum mollit ut est ut nostrud aliqua ipsum ut culpa. Elit commodo est do aute aliquip qui Lorem aute. Officia laborum sit aute incididunt quis occaecat est sint do eu nisi cillum ut occaecat. Pariatur enim aute in consequat id commodo aliquip ad ad tempor pariatur sint tempor nisi."
-                },
-                "sentimentScore": {
-                    "N": "-0.2923"
-                },
-                "date": {
-                    "S": "Fri Sep 14 2018 19:48:21 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "cb79e2fa-b293-45e7-932f-35bf0a7fdb1a",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Nguyen Reed"
-                },
-                "text": {
-                    "S": "Eiusmod deserunt elit qui sit amet incididunt commodo. Eiusmod ad cupidatat excepteur consequat dolore consequat mollit. Quis excepteur reprehenderit ad nostrud aliqua pariatur exercitation sunt velit."
-                },
-                "sentimentScore": {
-                    "N": "0.6187"
-                },
-                "date": {
-                    "S": "Wed Apr 12 2017 19:54:11 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "6eb3432f-3b53-49dc-91e3-16f983be0c41",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Stacie Rodriquez"
-                },
-                "text": {
-                    "S": "Exercitation sunt ipsum cillum dolore cillum excepteur. Aliqua Lorem qui officia ex cupidatat quis excepteur do do. Commodo ex exercitation esse occaecat reprehenderit sint excepteur."
-                },
-                "sentimentScore": {
-                    "N": "0.5093"
-                },
-                "date": {
-                    "S": "Wed Mar 20 2019 16:37:01 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "f95bc9ad-063a-45b3-a12b-aac998da3b00",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Nolan Mcneil"
-                },
-                "text": {
-                    "S": "Occaecat aute commodo in quis adipisicing culpa qui ea ad velit. Non exercitation aliqua do laborum non velit irure est aliqua occaecat magna enim ex. Occaecat non aute qui eiusmod non laborum cillum est veniam id aute laborum velit."
-                },
-                "sentimentScore": {
-                    "N": "-0.3445"
-                },
-                "date": {
-                    "S": "Sun Feb 26 2017 08:33:40 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users3"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "f059eb62-ffbf-44de-88bd-db40acff30f6",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Brooks Durham"
-                },
-                "text": {
-                    "S": "Occaecat adipisicing nisi quis sint ipsum ullamco velit id. Ut exercitation officia sunt id consectetur. Consectetur id incididunt enim occaecat proident id dolor elit cillum eu laborum. Eiusmod sint ad fugiat laboris id ullamco non commodo laboris dolore proident ullamco culpa. Occaecat laborum minim do incididunt velit. Aute aliquip occaecat reprehenderit proident labore ea minim fugiat."
-                },
-                "sentimentScore": {
-                    "N": "-0.9703"
-                },
-                "date": {
-                    "S": "Sat May 13 2017 18:57:35 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users3"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "bb1f26f2-ebc5-447d-a49e-e85603cbd275",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Richards Griffith"
-                },
-                "text": {
-                    "S": "Cupidatat ut et est ullamco excepteur. Quis nostrud ea consectetur ad ea est mollit qui. Dolore ipsum velit aute do est magna nostrud occaecat exercitation velit. Irure voluptate incididunt occaecat ea voluptate dolore. Est exercitation duis eu veniam occaecat esse sit. Sunt do amet eu elit in ut consequat."
-                },
-                "sentimentScore": {
-                    "N": "0.3868"
-                },
-                "date": {
-                    "S": "Fri Mar 31 2017 02:31:55 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "4739fcb0-63a9-4cd5-9f87-ce55e842a7e7",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Ethel Sampson"
-                },
-                "text": {
-                    "S": "Do nostrud ea nisi consequat cillum fugiat consequat dolor. Minim adipisicing tempor voluptate dolor excepteur laboris. Id consectetur nostrud officia sit nulla nisi. Esse nostrud non est ea duis. Sint ullamco et commodo quis enim voluptate amet anim irure ullamco excepteur in."
-                },
-                "sentimentScore": {
-                    "N": "0.9476"
-                },
-                "date": {
-                    "S": "Tue Jan 01 2019 15:14:19 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users3"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "3cf1449e-fe57-4a53-851c-08e573c34c3c",
-        {
-            "attributes": {
-                "author": {
-                    "S": "English Nunez"
-                },
-                "text": {
-                    "S": "Dolore duis voluptate cupidatat irure aute veniam ipsum duis ipsum laboris. Duis sit aute do elit. Veniam et ad in ex reprehenderit do magna."
-                },
-                "sentimentScore": {
-                    "N": "0.9934"
-                },
-                "date": {
-                    "S": "Thu Apr 04 2019 09:52:13 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users8"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "1572b70a-03ba-4ba8-abab-59ca8e416945",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Imelda Hodges"
-                },
-                "text": {
-                    "S": "Velit adipisicing dolor cillum culpa. Quis magna officia proident voluptate. Ea ex velit ipsum cupidatat nulla."
-                },
-                "sentimentScore": {
-                    "N": "0.596"
-                },
-                "date": {
-                    "S": "Wed Jan 04 2017 09:21:15 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users10"
-                },
-                "keyword": {
-                    "S": "nike"
-                }
-            }
-        }
-    ],
-    [
-        "b3806fc9-5787-4124-9960-c65b5464894d",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Reba Gray"
-                },
-                "text": {
-                    "S": "Ut nulla ipsum aute laboris fugiat ad aliqua labore. Sunt mollit sit duis consequat adipisicing qui anim sint. Laboris tempor pariatur officia adipisicing."
-                },
-                "sentimentScore": {
-                    "N": "0.9317"
-                },
-                "date": {
-                    "S": "Thu Jan 19 2017 23:12:45 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users10"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "577e3e3b-8cd7-43b9-9804-aed68a936e36",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Joni Carney"
-                },
-                "text": {
-                    "S": "Sunt aute voluptate tempor fugiat ut deserunt. Sint in cupidatat ex irure exercitation et commodo laboris elit ut irure laborum. Aliquip Lorem voluptate elit irure mollit commodo non nostrud ut officia id aute eu. Cillum consequat adipisicing labore reprehenderit eiusmod proident Lorem velit voluptate cillum ex laboris do excepteur. Do nulla magna eu amet velit sunt mollit pariatur et esse id."
-                },
-                "sentimentScore": {
-                    "N": "-0.3955"
-                },
-                "date": {
-                    "S": "Tue Nov 28 2017 22:58:15 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users8"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "9ce1afcd-812f-4ad0-b51f-5dfce4859643",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Jeannette Clemons"
-                },
-                "text": {
-                    "S": "Sunt magna in do nostrud proident nulla. Eiusmod cillum proident laborum sunt. Ea irure aliqua ea elit sunt nulla ipsum anim. Labore ea laboris labore velit veniam culpa consectetur aliquip ex irure adipisicing. Non anim minim aliquip non amet non ad cillum veniam."
-                },
-                "sentimentScore": {
-                    "N": "0.527"
-                },
-                "date": {
-                    "S": "Tue May 29 2018 08:19:50 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users0"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "40d1cc9d-d54b-4197-a5be-1f9d95cee550",
-        {
+            "range_key": "40d1cc9d-d54b-4197-a5be-1f9d95cee550",
             "attributes": {
                 "author": {
                     "S": "Katrina Foley"
                 },
-                "text": {
-                    "S": "Aliquip nisi in qui et nostrud anim Lorem consequat. Consectetur Lorem consectetur adipisicing proident do mollit sunt qui amet officia labore. Fugiat dolore proident ea occaecat consequat magna sint."
+                "date": {
+                    "S": "2018-09-19T07:43:30.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
                 },
                 "sentimentScore": {
                     "N": "0.6225"
                 },
-                "date": {
-                    "S": "Wed Sep 19 2018 07:43:30 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users7"
-                },
-                "keyword": {
-                    "S": "microsoft"
+                "text": {
+                    "S": "Aliquip nisi in qui et nostrud anim Lorem consequat. Consectetur Lorem consectetur adipisicing proident do mollit sunt qui amet officia labore. Fugiat dolore proident ea occaecat consequat magna sint."
                 }
             }
         }
     ],
     [
-        "7a34851c-e16f-43ea-bc1c-68d8d7fe375c",
+        "users0",
         {
+            "range_key": "f8178d00-150d-4794-a668-3a5f7626b285",
             "attributes": {
                 "author": {
-                    "S": "Adele Wise"
-                },
-                "text": {
-                    "S": "Ut sunt adipisicing sit minim adipisicing excepteur qui esse dolor dolore minim pariatur culpa. Dolor nisi veniam qui ipsum laborum aliquip. Occaecat eu esse laboris elit laborum sunt pariatur elit proident quis consequat proident. Consequat occaecat cillum veniam tempor Lorem. Magna sit exercitation sunt velit Lorem amet labore aute esse velit. Ex fugiat enim aliqua velit ipsum."
-                },
-                "sentimentScore": {
-                    "N": "0.109"
+                    "S": "Susan Sweeney"
                 },
                 "date": {
-                    "S": "Tue May 02 2017 23:56:33 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users4"
+                    "S": "2017-02-10T18:45:16.000000+0000"
                 },
                 "keyword": {
-                    "S": "life"
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "0.707"
+                },
+                "text": {
+                    "S": "Tempor adipisicing pariatur id laborum sunt sint aliqua labore tempor id. Eiusmod consequat Lorem elit veniam duis tempor reprehenderit. Voluptate velit in fugiat nulla duis fugiat exercitation laboris. Enim elit sunt consequat culpa officia non do nulla aliqua do laboris. Esse dolor sunt magna occaecat tempor laborum aute Lorem voluptate officia fugiat consectetur. Lorem ut pariatur tempor ullamco aliquip."
                 }
             }
         }
     ],
     [
-        "324509da-af2b-4f38-9e91-dbb6d77ee38d",
+        "users0",
         {
+            "range_key": "fbd93719-94cd-48fc-bbe8-50cc09ab83e7",
             "attributes": {
                 "author": {
-                    "S": "Long Mcconnell"
-                },
-                "text": {
-                    "S": "Lorem elit amet quis culpa. Id amet et laborum aliquip non excepteur in do qui labore. Sit eu officia aliquip cillum exercitation ipsum commodo qui commodo aliquip. Nisi occaecat incididunt consectetur proident mollit ad deserunt nostrud adipisicing mollit. Nisi voluptate minim proident fugiat."
-                },
-                "sentimentScore": {
-                    "N": "-0.0319"
+                    "S": "Barron Moreno"
                 },
                 "date": {
-                    "S": "Mon Jul 10 2017 02:09:55 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users4"
-                },
-                "keyword": {
-                    "S": "microsoft"
-                }
-            }
-        }
-    ],
-    [
-        "31cbdf7b-a36e-4e81-808c-a6d1fcc0809b",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Jenkins Madden"
-                },
-                "text": {
-                    "S": "Aliquip magna culpa cillum commodo. Aliquip labore duis proident incididunt laborum. Adipisicing veniam cupidatat tempor est deserunt irure amet pariatur ut duis sint. Sint non enim occaecat est do ea reprehenderit nisi amet qui minim."
-                },
-                "sentimentScore": {
-                    "N": "0.2452"
-                },
-                "date": {
-                    "S": "Sun Feb 03 2019 10:37:26 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users0"
-                },
-                "keyword": {
-                    "S": "gameofthrones"
-                }
-            }
-        }
-    ],
-    [
-        "9386ec7c-674a-4ebd-8acf-fc11f599de00",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Gilda Callahan"
-                },
-                "text": {
-                    "S": "Nulla elit proident occaecat nisi qui. Aliqua ipsum nisi sunt esse do quis Lorem nostrud occaecat anim. Reprehenderit cillum ut reprehenderit veniam tempor deserunt. Excepteur officia cillum esse est adipisicing officia qui aliqua sint. Exercitation sit et proident laborum eu culpa et proident. Ut pariatur incididunt veniam laboris qui nostrud duis exercitation."
-                },
-                "sentimentScore": {
-                    "N": "-0.5923"
-                },
-                "date": {
-                    "S": "Tue Oct 02 2018 06:36:49 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
+                    "S": "2017-11-24T23:42:00.000000+0000"
                 },
                 "keyword": {
                     "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "0.2137"
+                },
+                "text": {
+                    "S": "Eiusmod incididunt sunt tempor est consectetur consectetur et eu deserunt dolore. Qui non voluptate commodo mollit occaecat occaecat. Ea enim do exercitation ipsum enim proident incididunt in in aute dolor veniam. Ullamco cillum laboris anim tempor anim enim fugiat veniam mollit ut excepteur. Et ea proident do sint reprehenderit minim fugiat esse. Elit est irure sint adipisicing laboris nulla.\r\n"
                 }
             }
         }
     ],
     [
-        "13f9811a-51e5-48b1-ad61-eb87752b6bba",
+        "users0",
         {
+            "range_key": "5fedcab1-1553-40ca-ae3c-9c6283febe2f",
+            "attributes": {
+                "author": {
+                    "S": "Noemi Camacho"
+                },
+                "date": {
+                    "S": "2018-02-22T11:42:13.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "0.4293"
+                },
+                "text": {
+                    "S": "Laboris esse elit voluptate sit fugiat sit voluptate tempor commodo exercitation id cillum nulla. Excepteur incididunt ad magna quis. Do sit nostrud duis nulla consectetur do. Officia ut exercitation officia sit esse Lorem. Eiusmod nulla quis duis commodo sit Lorem duis nostrud consequat eiusmod amet exercitation. Nisi eu officia irure enim reprehenderit sunt Lorem quis veniam. Incididunt elit fugiat occaecat nisi excepteur est sunt magna commodo consectetur."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "13f9811a-51e5-48b1-ad61-eb87752b6bba",
             "attributes": {
                 "author": {
                     "S": "Cohen Villarreal"
                 },
-                "text": {
-                    "S": "Minim nostrud ex esse sunt nisi proident sit. Ut veniam esse aliquip laboris aliquip irure aute esse duis laborum in ex magna pariatur. Proident cupidatat qui excepteur non. Consequat duis elit officia est irure. Dolore non est exercitation aliqua adipisicing."
+                "date": {
+                    "S": "2017-04-04T21:07:04.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
                 },
                 "sentimentScore": {
                     "N": "-0.6946"
                 },
-                "date": {
-                    "S": "Tue Apr 04 2017 21:07:04 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users6"
-                },
-                "keyword": {
-                    "S": "life"
+                "text": {
+                    "S": "Minim nostrud ex esse sunt nisi proident sit. Ut veniam esse aliquip laboris aliquip irure aute esse duis laborum in ex magna pariatur. Proident cupidatat qui excepteur non. Consequat duis elit officia est irure. Dolore non est exercitation aliqua adipisicing."
                 }
             }
         }
     ],
     [
-        "7928a538-ac66-4c42-882d-9752f299d521",
+        "users0",
         {
+            "range_key": "21ab3531-0643-4b14-af8d-98341e6f2b2b",
             "attributes": {
                 "author": {
-                    "S": "Mullins Smith"
-                },
-                "text": {
-                    "S": "Voluptate Lorem voluptate tempor sit esse non fugiat ad deserunt irure. Proident non in consectetur cillum exercitation ea enim fugiat labore. Ad magna cillum Lorem laborum eiusmod id magna aliquip aliquip."
-                },
-                "sentimentScore": {
-                    "N": "-0.7606"
+                    "S": "Greer Whitaker"
                 },
                 "date": {
-                    "S": "Tue Apr 11 2017 04:30:52 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users2"
+                    "S": "2017-12-20T14:44:16.000000+0000"
                 },
                 "keyword": {
-                    "S": "javascript"
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "-0.6505"
+                },
+                "text": {
+                    "S": "Ipsum voluptate ut aute incididunt et non labore dolore irure voluptate excepteur velit eiusmod. Sit pariatur laborum dolor do quis cillum Lorem eu et excepteur. Exercitation nulla irure occaecat exercitation sit eu Lorem consectetur est ullamco reprehenderit consectetur sit pariatur."
                 }
             }
         }
     ],
     [
-        "f9aa2ace-3741-4fcb-a064-c34d266f7d95",
+        "users0",
         {
-            "attributes": {
-                "author": {
-                    "S": "Araceli Combs"
-                },
-                "text": {
-                    "S": "In cupidatat dolor est in nisi commodo magna laboris. Occaecat Lorem aute nulla ex tempor pariatur consequat ipsum eu sunt sint quis tempor minim. Sint est occaecat reprehenderit duis nostrud consectetur irure ipsum ea nulla ipsum ex."
-                },
-                "sentimentScore": {
-                    "N": "0.5252"
-                },
-                "date": {
-                    "S": "Tue Apr 23 2019 08:27:12 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users10"
-                },
-                "keyword": {
-                    "S": "javascript"
-                }
-            }
-        }
-    ],
-    [
-        "dd871cdf-7ef6-4f76-a3ee-a832ea137e26",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Decker Neal"
-                },
-                "text": {
-                    "S": "Pariatur occaecat ut nisi consequat et irure sit duis enim ullamco consequat dolore nisi. Sint aliqua consectetur nulla incididunt in sint minim consectetur do veniam. Labore consectetur elit dolor nulla aute anim ex."
-                },
-                "sentimentScore": {
-                    "N": "-0.8177"
-                },
-                "date": {
-                    "S": "Tue Apr 09 2019 05:41:38 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "2e12377e-f6d6-4355-82a0-1cf38a038852",
-        {
-            "attributes": {
-                "author": {
-                    "S": "Corina Marks"
-                },
-                "text": {
-                    "S": "Laboris magna nisi consectetur minim. Proident dolore do consectetur nulla exercitation mollit ad culpa irure et. Officia est sit ad commodo minim occaecat duis voluptate anim. Fugiat ut in do voluptate magna laboris anim aute commodo officia laborum culpa elit ad. Aliqua occaecat cillum qui Lorem aliquip."
-                },
-                "sentimentScore": {
-                    "N": "-0.6787"
-                },
-                "date": {
-                    "S": "Wed Apr 05 2017 19:31:25 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users0"
-                },
-                "keyword": {
-                    "S": "life"
-                }
-            }
-        }
-    ],
-    [
-        "03191279-30c9-4c6c-b8c6-f0b54c19dce9",
-        {
+            "range_key": "03191279-30c9-4c6c-b8c6-f0b54c19dce9",
             "attributes": {
                 "author": {
                     "S": "Latoya Atkinson"
                 },
-                "text": {
-                    "S": "Ut labore pariatur in esse deserunt irure cillum velit dolor. Nisi adipisicing veniam Lorem irure mollit. Duis duis nulla ex cillum fugiat id nulla occaecat. Incididunt mollit fugiat Lorem voluptate. Eu voluptate sint qui quis tempor dolore ad. Ea esse qui officia labore do ipsum."
+                "date": {
+                    "S": "2019-05-05T20:09:11.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
                 },
                 "sentimentScore": {
                     "N": "0.9157"
                 },
-                "date": {
-                    "S": "Sun May 05 2019 20:09:11 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users6"
-                },
-                "keyword": {
-                    "S": "life"
+                "text": {
+                    "S": "Ut labore pariatur in esse deserunt irure cillum velit dolor. Nisi adipisicing veniam Lorem irure mollit. Duis duis nulla ex cillum fugiat id nulla occaecat. Incididunt mollit fugiat Lorem voluptate. Eu voluptate sint qui quis tempor dolore ad. Ea esse qui officia labore do ipsum."
                 }
             }
         }
     ],
     [
-        "8319f435-525a-449b-91c8-3053ddd80e59",
+        "users0",
         {
+            "range_key": "cb79e2fa-b293-45e7-932f-35bf0a7fdb1a",
             "attributes": {
                 "author": {
-                    "S": "Whitney Bowen"
-                },
-                "text": {
-                    "S": "Dolore elit et excepteur et sit dolor id qui. Ea incididunt aliquip enim quis mollit sint ullamco consequat. Quis do tempor magna anim do proident incididunt veniam incididunt excepteur quis."
-                },
-                "sentimentScore": {
-                    "N": "-0.5106"
+                    "S": "Nguyen Reed"
                 },
                 "date": {
-                    "S": "Thu May 24 2018 19:26:59 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users10"
+                    "S": "2017-04-12T19:54:11.000000+0000"
                 },
                 "keyword": {
-                    "S": "javascript"
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "0.6187"
+                },
+                "text": {
+                    "S": "Eiusmod deserunt elit qui sit amet incididunt commodo. Eiusmod ad cupidatat excepteur consequat dolore consequat mollit. Quis excepteur reprehenderit ad nostrud aliqua pariatur exercitation sunt velit."
                 }
             }
         }
     ],
     [
-        "4744a935-b703-40e1-b0bf-af3cc523d8bc",
+        "users0",
         {
+            "range_key": "b4f2525b-f45d-47f4-a5ec-617ebd0f9b55",
             "attributes": {
                 "author": {
-                    "S": "Simon Rasmussen"
-                },
-                "text": {
-                    "S": "Reprehenderit eu officia sunt ad. Ullamco elit magna consequat dolore ipsum enim ea. Est irure dolore sint fugiat sunt irure."
-                },
-                "sentimentScore": {
-                    "N": "-0.8116"
+                    "S": "Mara Zamora"
                 },
                 "date": {
-                    "S": "Wed Sep 20 2017 06:08:03 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users9"
+                    "S": "2018-08-27T18:43:16.000000+0000"
                 },
                 "keyword": {
                     "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.1725"
+                },
+                "text": {
+                    "S": "Ad qui voluptate eiusmod eu aute consectetur et aliquip ullamco id enim adipisicing. Ad est incididunt exercitation ad culpa velit ea excepteur. Nisi exercitation cillum tempor nostrud quis excepteur laborum proident eiusmod mollit. Et eu minim eu nisi labore proident nostrud eu."
                 }
             }
         }
     ],
     [
-        "c2ab1f1a-6da4-4572-a47b-b8b6a773f4b9",
+        "users0",
         {
+            "range_key": "5bed2afe-e9dd-4ce7-a67d-6b11058c43d9",
+            "attributes": {
+                "author": {
+                    "S": "Clark Waller"
+                },
+                "date": {
+                    "S": "2017-10-04T17:26:28.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "0.5526"
+                },
+                "text": {
+                    "S": "Lorem nostrud minim elit tempor id qui enim reprehenderit. Ex aliquip elit cillum in culpa magna dolore aliquip qui ullamco voluptate aute officia. Qui aute do in non consequat in esse culpa nulla minim velit ex."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "5e24def8-a961-463e-99d8-13481f673e37",
+            "attributes": {
+                "author": {
+                    "S": "Sherry Branch"
+                },
+                "date": {
+                    "S": "2017-11-16T15:20:57.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "-0.9875"
+                },
+                "text": {
+                    "S": "Nostrud occaecat Lorem sit nisi proident sunt est esse amet sunt magna esse anim quis. Nisi dolore in ut non voluptate culpa cupidatat consequat commodo sint. Tempor ea ea eu duis nulla incididunt. Sint aute nostrud aute aute exercitation eiusmod deserunt qui ut magna nostrud. Ad Lorem minim aliquip non commodo proident nulla cupidatat sit commodo consectetur culpa cupidatat commodo. Consectetur nostrud nisi laboris adipisicing adipisicing eiusmod."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "7757cda6-0fc9-47e0-ac33-4de0d8f5cfbb",
+            "attributes": {
+                "author": {
+                    "S": "Cecelia Patton"
+                },
+                "date": {
+                    "S": "2017-04-26T20:03:48.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "0.9234"
+                },
+                "text": {
+                    "S": "Id ullamco culpa est magna exercitation labore commodo dolor. Quis et eiusmod id nostrud. Est tempor et occaecat cupidatat laborum consectetur nulla esse enim velit. Cillum officia anim ullamco nisi consequat fugiat cillum est."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "da95ca2d-708e-4a15-9c06-380a5e9de9f0",
+            "attributes": {
+                "author": {
+                    "S": "Ramirez Ashley"
+                },
+                "date": {
+                    "S": "2017-02-09T07:04:13.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.0143"
+                },
+                "text": {
+                    "S": "Excepteur aliqua minim aliquip cupidatat duis ut quis commodo deserunt do tempor voluptate ea. Cupidatat elit aute Lorem eu sit elit qui non qui incididunt. Incididunt dolor aliquip quis anim et mollit laborum nulla minim exercitation esse irure duis. Ut minim aliquip nisi non cupidatat dolore proident sit in dolor non. Amet elit ipsum sint sunt labore cupidatat occaecat ad."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "d4e07500-1d4e-4fe1-aa66-f7574ea1be1d",
+            "attributes": {
+                "author": {
+                    "S": "Janelle Rojas"
+                },
+                "date": {
+                    "S": "2017-10-30T01:24:32.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "0.4287"
+                },
+                "text": {
+                    "S": "Duis consectetur quis Lorem reprehenderit laborum aliquip aute. Ea incididunt dolore sunt nulla cupidatat minim sit. Ad ex laboris officia mollit ipsum ullamco ad."
+                }
+            }
+        }
+    ],
+    [
+        "users00",
+        {
+            "range_key": "806e75b3-f704-431a-b821-06397b451bbb",
+            "attributes": {
+                "author": {
+                    "S": "Gilliam Fuller"
+                },
+                "date": {
+                    "S": "2019-03-06T05:43:14.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.3931"
+                },
+                "text": {
+                    "S": "Laborum quis irure esse cillum proident. Nisi reprehenderit laborum magna Lorem occaecat fugiat quis velit et adipisicing duis pariatur quis. Mollit eiusmod sunt laborum culpa magna velit commodo magna duis pariatur amet officia laboris. Occaecat labore et id excepteur nulla pariatur. Consequat voluptate consequat esse eu nostrud Lorem duis id. Enim quis nostrud dolore consectetur occaecat laborum non ad qui dolore est."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "432b2f23-fa81-4497-8948-9cd310e38af0",
+            "attributes": {
+                "author": {
+                    "S": "Marks Newton"
+                },
+                "date": {
+                    "S": "2018-04-18T13:15:47.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "0.1912"
+                },
+                "text": {
+                    "S": "Incididunt eu occaecat incididunt fugiat est aliquip. Mollit amet laborum ea exercitation eiusmod eiusmod aute sint quis eiusmod minim eu. Sunt consectetur ut dolor ullamco tempor ut excepteur adipisicing. Est excepteur excepteur fugiat dolor et eiusmod ipsum nulla. Dolore fugiat aliquip fugiat deserunt aute laborum. Nisi eiusmod aute sit dolore officia ullamco. Esse cillum culpa duis anim labore excepteur quis cupidatat laborum aliqua laboris anim labore dolor."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "c2ab1f1a-6da4-4572-a47b-b8b6a773f4b9",
             "attributes": {
                 "author": {
                     "S": "Sharon Lott"
                 },
-                "text": {
-                    "S": "Cupidatat voluptate nulla in esse. Cillum occaecat aute esse velit cupidatat esse amet esse laboris exercitation. Aute nulla do non Lorem laborum tempor ea mollit elit consectetur. In mollit ullamco est non cupidatat amet incididunt cupidatat tempor ea non ipsum. Ea do adipisicing cupidatat mollit. Consectetur ad dolor Lorem tempor in ullamco eiusmod exercitation irure enim non."
+                "date": {
+                    "S": "2019-02-08T14:34:11.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
                 },
                 "sentimentScore": {
                     "N": "-0.4528"
                 },
-                "date": {
-                    "S": "Fri Feb 08 2019 14:34:11 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users6"
-                },
-                "keyword": {
-                    "S": "life"
+                "text": {
+                    "S": "Cupidatat voluptate nulla in esse. Cillum occaecat aute esse velit cupidatat esse amet esse laboris exercitation. Aute nulla do non Lorem laborum tempor ea mollit elit consectetur. In mollit ullamco est non cupidatat amet incididunt cupidatat tempor ea non ipsum. Ea do adipisicing cupidatat mollit. Consectetur ad dolor Lorem tempor in ullamco eiusmod exercitation irure enim non."
                 }
             }
         }
     ],
     [
-        "f0528b54-5783-4848-b5bc-c0e502efec01",
+        "users0",
         {
+            "range_key": "936400d9-9e71-4d61-80cc-492756f2a289",
+            "attributes": {
+                "author": {
+                    "S": "Rowe Avery"
+                },
+                "date": {
+                    "S": "2018-01-10T18:13:06.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "-0.7951"
+                },
+                "text": {
+                    "S": "Adipisicing cupidatat anim eu ad enim quis. Occaecat sit pariatur ut adipisicing eu eiusmod fugiat consequat. Sunt eu mollit commodo ut occaecat laborum laboris consequat. Quis sit nostrud irure velit quis duis dolor ut. Exercitation eu aliquip sit elit ipsum ad ex excepteur nostrud."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "c12e7c65-b51e-439d-ae0e-4b76c0217b80",
+            "attributes": {
+                "author": {
+                    "S": "Odom Browning"
+                },
+                "date": {
+                    "S": "2018-04-30T15:43:47.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "-0.4084"
+                },
+                "text": {
+                    "S": "Do ullamco officia sit irure irure commodo ipsum id eiusmod. Irure duis dolor amet in proident. Nisi eu ut esse tempor commodo."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "cfb16d28-f9c9-48a4-91fd-4bd1bf7d0b71",
+            "attributes": {
+                "author": {
+                    "S": "Cox Cotton"
+                },
+                "date": {
+                    "S": "2019-01-27T07:22:33.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.8737"
+                },
+                "text": {
+                    "S": "Exercitation velit exercitation amet et sit laboris non eu aliqua elit. Occaecat aute enim fugiat officia eiusmod ut qui elit anim dolor. Commodo ex aliquip in laborum ad ex ad elit velit velit incididunt irure sunt. Nostrud labore amet incididunt minim occaecat."
+                }
+            }
+        }
+    ],
+    [
+        "users00",
+        {
+            "range_key": "f9aa2ace-3741-4fcb-a064-c34d266f7d95",
+            "attributes": {
+                "author": {
+                    "S": "Araceli Combs"
+                },
+                "date": {
+                    "S": "2019-04-23T08:27:12.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "0.5252"
+                },
+                "text": {
+                    "S": "In cupidatat dolor est in nisi commodo magna laboris. Occaecat Lorem aute nulla ex tempor pariatur consequat ipsum eu sunt sint quis tempor minim. Sint est occaecat reprehenderit duis nostrud consectetur irure ipsum ea nulla ipsum ex."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "0fdfbac0-7501-4a01-a53a-e480a92fb6f5",
+            "attributes": {
+                "author": {
+                    "S": "Lesley Ruiz"
+                },
+                "date": {
+                    "S": "2018-12-11T09:57:16.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.4015"
+                },
+                "text": {
+                    "S": "Nisi nostrud consequat ad magna nostrud consequat aliqua. Ipsum laborum veniam sint voluptate occaecat minim est dolore dolore in veniam cupidatat ea. Magna anim Lorem ea enim amet adipisicing anim sit nisi labore. Enim consequat culpa cupidatat aliqua Lorem."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "e11ee4b6-7c76-4490-b8f5-9f36722f11d3",
+            "attributes": {
+                "author": {
+                    "S": "Carmela Kirkland"
+                },
+                "date": {
+                    "S": "2017-09-18T16:26:54.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.69"
+                },
+                "text": {
+                    "S": "Minim Lorem ipsum quis laboris et fugiat elit dolore do laboris cillum Lorem eu. Cillum mollit laborum cupidatat ullamco consectetur dolore aliqua elit nisi ipsum sit qui culpa. Lorem pariatur proident cillum ullamco sit."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "f6fb4f17-f7a0-4d87-aa15-b5f929142c81",
+            "attributes": {
+                "author": {
+                    "S": "Holt Wheeler"
+                },
+                "date": {
+                    "S": "2017-11-15T20:28:10.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.2193"
+                },
+                "text": {
+                    "S": "Anim irure ad consequat fugiat voluptate minim elit quis do sint aliquip. Aliqua incididunt sit pariatur occaecat exercitation in sit sit laborum quis deserunt proident aute. Sit culpa mollit est esse consequat deserunt sint labore. Velit pariatur aute proident ad proident ipsum velit ad incididunt excepteur. Sint ex sint ea do minim sunt Lorem enim ullamco sint labore fugiat. Enim exercitation elit reprehenderit id aute."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "5b9deddb-ffe3-4b1c-ad1f-1f2b67fa701a",
+            "attributes": {
+                "author": {
+                    "S": "Nadine Norman"
+                },
+                "date": {
+                    "S": "2018-12-18T11:14:24.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.7371"
+                },
+                "text": {
+                    "S": "Proident aliqua amet minim duis mollit sit aute anim. Ad nulla mollit quis sint irure minim nostrud incididunt aliquip eiusmod incididunt cillum officia eu. Irure aute veniam sint cupidatat enim nisi tempor esse et esse. Consectetur pariatur nostrud dolor Lorem aliquip excepteur. Cupidatat cupidatat incididunt eiusmod culpa ut minim ullamco velit eu consequat."
+                }
+            }
+        }
+    ],
+    [
+        "users00",
+        {
+            "range_key": "0b2b8a2b-c346-4094-9b86-64e774b846fa",
+            "attributes": {
+                "author": {
+                    "S": "Lawrence Frye"
+                },
+                "date": {
+                    "S": "2018-05-22T05:47:24.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "0.5788"
+                },
+                "text": {
+                    "S": "Dolore eu excepteur anim officia nisi aute cillum aute occaecat veniam esse est. Mollit esse aliqua ipsum aliquip tempor non irure eu id sint tempor. Do ut aliqua proident laborum nisi commodo eu esse est sint."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "95cb3b77-ae2f-4e4d-8751-c4cccb48ca99",
+            "attributes": {
+                "author": {
+                    "S": "Angie Barnes"
+                },
+                "date": {
+                    "S": "2018-12-24T06:28:45.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "0.6554"
+                },
+                "text": {
+                    "S": "Sunt magna excepteur qui consectetur. Quis sunt proident duis ea quis occaecat. Magna fugiat non aliqua ad labore voluptate cillum nulla mollit velit. Tempor officia nisi duis nisi sint minim occaecat est officia adipisicing eiusmod consectetur ut."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "cf2fcc93-c730-4386-90f8-bda11857864d",
+            "attributes": {
+                "author": {
+                    "S": "Dana Whitfield"
+                },
+                "date": {
+                    "S": "2017-01-27T13:34:51.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "0.2901"
+                },
+                "text": {
+                    "S": "In commodo duis id consectetur aute excepteur sunt sint ad ex occaecat do. Ex deserunt reprehenderit voluptate sint sit tempor consequat. Est aliqua excepteur proident sit occaecat. Sit ullamco voluptate laboris labore incididunt. Labore eu ut do occaecat nulla exercitation dolore exercitation ad laboris. Laboris id ex id elit sint labore deserunt esse ut voluptate fugiat pariatur reprehenderit tempor."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "32aa2e64-36cc-454c-8e58-31c063a9bba9",
+            "attributes": {
+                "author": {
+                    "S": "Adams Castaneda"
+                },
+                "date": {
+                    "S": "2017-10-05T11:03:05.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "-0.1999"
+                },
+                "text": {
+                    "S": "Pariatur cupidatat irure voluptate ex nostrud deserunt amet officia eiusmod quis minim. Eu velit ut excepteur cupidatat adipisicing aute enim eu sunt elit incididunt aute reprehenderit. Est amet adipisicing cupidatat tempor aliqua. Pariatur magna sit dolor nisi laboris dolor anim reprehenderit et occaecat deserunt consequat. Tempor laborum laborum Lorem do. Commodo esse magna nostrud ipsum ea aliqua Lorem fugiat occaecat excepteur aute officia exercitation. Do aliquip ipsum do laboris aliquip commodo excepteur ipsum ipsum qui laborum esse."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "a032209c-3f25-4148-af53-acaeec556486",
+            "attributes": {
+                "author": {
+                    "S": "Barnett Chavez"
+                },
+                "date": {
+                    "S": "2018-05-04T12:29:21.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "0.0815"
+                },
+                "text": {
+                    "S": "Minim enim cillum sunt laborum voluptate. Quis nulla ex eu quis reprehenderit consectetur quis duis quis magna cillum mollit. Labore ipsum aute exercitation laborum."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "6eb3432f-3b53-49dc-91e3-16f983be0c41",
+            "attributes": {
+                "author": {
+                    "S": "Stacie Rodriquez"
+                },
+                "date": {
+                    "S": "2019-03-20T16:37:01.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "0.5093"
+                },
+                "text": {
+                    "S": "Exercitation sunt ipsum cillum dolore cillum excepteur. Aliqua Lorem qui officia ex cupidatat quis excepteur do do. Commodo ex exercitation esse occaecat reprehenderit sint excepteur."
+                }
+            }
+        }
+    ],
+    [
+        "users00",
+        {
+            "range_key": "f0528b54-5783-4848-b5bc-c0e502efec01",
             "attributes": {
                 "author": {
                     "S": "Annie Morris"
                 },
-                "text": {
-                    "S": "Nostrud commodo aute voluptate ex culpa nisi officia aliqua cupidatat sint deserunt. Nulla consequat veniam culpa non reprehenderit. Nisi magna reprehenderit aliquip labore. Reprehenderit reprehenderit cupidatat esse officia voluptate cillum."
+                "date": {
+                    "S": "2018-06-26T14:24:20.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
                 },
                 "sentimentScore": {
                     "N": "-0.4917"
                 },
-                "date": {
-                    "S": "Tue Jun 26 2018 14:24:20 GMT+0000 (UTC)"
-                },
-                "user": {
-                    "S": "users10"
-                },
-                "keyword": {
-                    "S": "javascript"
+                "text": {
+                    "S": "Nostrud commodo aute voluptate ex culpa nisi officia aliqua cupidatat sint deserunt. Nulla consequat veniam culpa non reprehenderit. Nisi magna reprehenderit aliquip labore. Reprehenderit reprehenderit cupidatat esse officia voluptate cillum."
                 }
             }
         }
     ],
     [
-        "e4b2f978-9871-4494-a033-1e7e5e04e3ff",
+        "users0",
         {
+            "range_key": "6806fc94-b697-4236-a0d3-e631dd25bf9f",
+            "attributes": {
+                "author": {
+                    "S": "Sondra Knowles"
+                },
+                "date": {
+                    "S": "2018-06-10T12:14:30.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "-0.467"
+                },
+                "text": {
+                    "S": "Qui officia consectetur sint ut ex velit. Velit nisi proident tempor esse id voluptate voluptate esse consequat. Commodo labore adipisicing quis labore ipsum incididunt incididunt magna reprehenderit minim. Id voluptate eiusmod anim elit irure duis qui esse aliquip. Quis cillum officia eiusmod tempor pariatur eu commodo laborum velit."
+                }
+            }
+        }
+    ],
+    [
+        "users00",
+        {
+            "range_key": "8319f435-525a-449b-91c8-3053ddd80e59",
+            "attributes": {
+                "author": {
+                    "S": "Whitney Bowen"
+                },
+                "date": {
+                    "S": "2018-05-24T19:26:59.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.5106"
+                },
+                "text": {
+                    "S": "Dolore elit et excepteur et sit dolor id qui. Ea incididunt aliquip enim quis mollit sint ullamco consequat. Quis do tempor magna anim do proident incididunt veniam incididunt excepteur quis."
+                }
+            }
+        }
+    ],
+    [
+        "users00",
+        {
+            "range_key": "44d0221f-bb58-4adf-ab61-ecdf9b900fca",
+            "attributes": {
+                "author": {
+                    "S": "Elba Taylor"
+                },
+                "date": {
+                    "S": "2017-07-29T18:10:12.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "-0.1578"
+                },
+                "text": {
+                    "S": "Minim excepteur veniam excepteur nostrud ullamco proident Lorem amet magna. Commodo anim nisi officia exercitation. Fugiat ut non consequat amet in laboris qui sunt culpa voluptate dolore dolore magna."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "77d0453f-ed76-4d27-8c7d-c1526aa28efc",
+            "attributes": {
+                "author": {
+                    "S": "Pollard Becker"
+                },
+                "date": {
+                    "S": "2018-09-19T03:41:45.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "0.8729"
+                },
+                "text": {
+                    "S": "Sit ad sint laboris laborum proident consequat. Ullamco ut in voluptate reprehenderit adipisicing adipisicing ea cupidatat magna cillum nulla consectetur deserunt. Eu proident exercitation non cillum proident do est officia reprehenderit sit. Adipisicing nostrud veniam ut anim officia nulla dolore sunt cillum quis consequat. Sint ex exercitation reprehenderit ipsum. Lorem do laboris irure occaecat qui et exercitation ex commodo esse et duis nulla."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "73186684-2268-4d5f-ac7e-596f36fcc885",
+            "attributes": {
+                "author": {
+                    "S": "Leslie Clarke"
+                },
+                "date": {
+                    "S": "2018-12-01T15:48:15.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "0.0921"
+                },
+                "text": {
+                    "S": "Irure excepteur irure Lorem sit excepteur eiusmod. Magna in ex adipisicing reprehenderit cupidatat voluptate ea et amet tempor. Nisi est aliquip qui consequat excepteur qui excepteur sint occaecat. Reprehenderit labore in ut esse occaecat est amet mollit cupidatat sint incididunt aliqua non adipisicing. Deserunt nostrud nulla dolore et. Esse et est velit cupidatat proident amet laborum id est. Est voluptate et occaecat commodo."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "0bac4233-effe-45c9-85a5-9728ae5ba330",
+            "attributes": {
+                "author": {
+                    "S": "Paige Mooney"
+                },
+                "date": {
+                    "S": "2019-01-09T03:50:53.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "0.5923"
+                },
+                "text": {
+                    "S": "Commodo qui officia ea amet ea nostrud. Culpa irure irure sit Lorem ex dolor ipsum quis ullamco fugiat consectetur consequat excepteur. Magna qui non culpa officia ut aliquip commodo. Ea do ullamco exercitation consectetur eiusmod eiusmod consequat elit irure do. Lorem aliquip non laboris est ut excepteur et in qui est ullamco sint culpa."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "ecac56bd-f161-4e81-b6a9-ef18ac8c664c",
+            "attributes": {
+                "author": {
+                    "S": "Kirk Barlow"
+                },
+                "date": {
+                    "S": "2018-01-17T19:45:11.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.0724"
+                },
+                "text": {
+                    "S": "Occaecat qui anim reprehenderit enim elit ex deserunt in cupidatat quis exercitation qui. Duis non reprehenderit sit ea eu aute. Tempor ut amet reprehenderit enim aliquip eu laborum sunt Lorem nisi Lorem. Enim dolor commodo ea consectetur proident et proident quis ut sint aliquip quis. Incididunt dolor ea aliqua consequat eu reprehenderit. Adipisicing consequat amet incididunt ullamco ut adipisicing duis enim quis."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "dd871cdf-7ef6-4f76-a3ee-a832ea137e26",
+            "attributes": {
+                "author": {
+                    "S": "Decker Neal"
+                },
+                "date": {
+                    "S": "2019-04-09T05:41:38.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "-0.8177"
+                },
+                "text": {
+                    "S": "Pariatur occaecat ut nisi consequat et irure sit duis enim ullamco consequat dolore nisi. Sint aliqua consectetur nulla incididunt in sint minim consectetur do veniam. Labore consectetur elit dolor nulla aute anim ex."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "b37c12bf-bb9b-4ac4-ad31-0be01cc68df3",
+            "attributes": {
+                "author": {
+                    "S": "Annmarie Pacheco"
+                },
+                "date": {
+                    "S": "2017-09-12T11:48:42.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "-0.7435"
+                },
+                "text": {
+                    "S": "Velit fugiat quis amet nisi culpa incididunt aute consectetur id duis id dolore. Et esse labore dolor consequat Lorem cillum ea occaecat consequat pariatur esse. Excepteur ullamco laboris culpa exercitation nulla ipsum do esse. Excepteur commodo cillum esse aliqua sit id ut non proident."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "d5f24999-b436-4e72-81da-f616e5d2a90c",
+            "attributes": {
+                "author": {
+                    "S": "Gertrude Grant"
+                },
+                "date": {
+                    "S": "2018-01-30T01:16:37.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "-0.5691"
+                },
+                "text": {
+                    "S": "Ipsum aliquip pariatur cupidatat in consequat reprehenderit do ullamco qui eu minim magna consequat id. Est elit dolor voluptate veniam officia minim commodo aliquip ullamco commodo Lorem veniam veniam. Culpa aliqua non anim amet id ullamco velit. Ipsum fugiat non cupidatat in aliquip do Lorem exercitation aute labore."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "bb1f26f2-ebc5-447d-a49e-e85603cbd275",
+            "attributes": {
+                "author": {
+                    "S": "Richards Griffith"
+                },
+                "date": {
+                    "S": "2017-03-31T02:31:55.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "0.3868"
+                },
+                "text": {
+                    "S": "Cupidatat ut et est ullamco excepteur. Quis nostrud ea consectetur ad ea est mollit qui. Dolore ipsum velit aute do est magna nostrud occaecat exercitation velit. Irure voluptate incididunt occaecat ea voluptate dolore. Est exercitation duis eu veniam occaecat esse sit. Sunt do amet eu elit in ut consequat."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "53b62aca-b2f9-4b76-a29a-7344e5822657",
+            "attributes": {
+                "author": {
+                    "S": "George Morrow"
+                },
+                "date": {
+                    "S": "2017-01-29T18:19:53.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.0426"
+                },
+                "text": {
+                    "S": "Amet magna exercitation qui duis excepteur occaecat tempor adipisicing. Lorem nostrud ullamco elit exercitation tempor non minim ut consequat proident minim. Aliqua exercitation et eu cupidatat labore in ad."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "7928a538-ac66-4c42-882d-9752f299d521",
+            "attributes": {
+                "author": {
+                    "S": "Mullins Smith"
+                },
+                "date": {
+                    "S": "2017-04-11T04:30:52.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.7606"
+                },
+                "text": {
+                    "S": "Voluptate Lorem voluptate tempor sit esse non fugiat ad deserunt irure. Proident non in consectetur cillum exercitation ea enim fugiat labore. Ad magna cillum Lorem laborum eiusmod id magna aliquip aliquip."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "9018db4b-6ac8-44d3-aef8-3e38e2bcb953",
+            "attributes": {
+                "author": {
+                    "S": "Raquel Mclean"
+                },
+                "date": {
+                    "S": "2018-09-14T19:48:21.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "-0.2923"
+                },
+                "text": {
+                    "S": "Duis Lorem cupidatat consequat duis consequat amet voluptate consequat laborum officia officia ea. Aliquip deserunt aliqua anim ullamco ipsum mollit ut est ut nostrud aliqua ipsum ut culpa. Elit commodo est do aute aliquip qui Lorem aute. Officia laborum sit aute incididunt quis occaecat est sint do eu nisi cillum ut occaecat. Pariatur enim aute in consequat id commodo aliquip ad ad tempor pariatur sint tempor nisi."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "70bc3e34-f7d5-4483-bbf8-97e661a5c446",
+            "attributes": {
+                "author": {
+                    "S": "Nunez Raymond"
+                },
+                "date": {
+                    "S": "2019-03-29T23:46:50.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.5523"
+                },
+                "text": {
+                    "S": "Sunt veniam pariatur ullamco cillum Lorem dolor commodo eiusmod. Excepteur qui cillum quis anim dolore do non adipisicing culpa est quis exercitation. Laboris duis mollit labore ad consequat ex occaecat incididunt. Sint fugiat magna pariatur officia amet occaecat sunt reprehenderit ad minim. Dolore non incididunt minim exercitation est reprehenderit. Ullamco ullamco sit commodo est aliquip in id nulla in aliquip qui sit pariatur fugiat."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "4744a935-b703-40e1-b0bf-af3cc523d8bc",
+            "attributes": {
+                "author": {
+                    "S": "Simon Rasmussen"
+                },
+                "date": {
+                    "S": "2017-09-20T06:08:03.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.8116"
+                },
+                "text": {
+                    "S": "Reprehenderit eu officia sunt ad. Ullamco elit magna consequat dolore ipsum enim ea. Est irure dolore sint fugiat sunt irure."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "57eef1ac-0c87-492d-931c-070a7de30956",
+            "attributes": {
+                "author": {
+                    "S": "Nelson Kramer"
+                },
+                "date": {
+                    "S": "2018-03-17T19:40:49.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "0.9675"
+                },
+                "text": {
+                    "S": "Consectetur eu veniam ea eiusmod est ea non. Eiusmod amet laborum incididunt ea. Exercitation anim in Lorem cillum pariatur duis Lorem amet esse velit ipsum cillum. Ullamco excepteur ad et do nostrud tempor nostrud sunt. Officia consectetur veniam mollit minim anim mollit ea."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "d714edfe-aae2-4ce2-a853-60750cec1291",
+            "attributes": {
+                "author": {
+                    "S": "Randolph Petersen"
+                },
+                "date": {
+                    "S": "2017-05-15T20:54:45.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "0.5776"
+                },
+                "text": {
+                    "S": "Cillum et non reprehenderit tempor non. Exercitation et sit proident sint cillum aute. Ut fugiat amet Lorem sit consectetur. Ea proident consectetur Lorem eu excepteur mollit irure in excepteur adipisicing sint nostrud sint. Culpa deserunt ex dolore veniam minim ex et consectetur aute voluptate pariatur."
+                }
+            }
+        }
+    ],
+    [
+        "users00",
+        {
+            "range_key": "1572b70a-03ba-4ba8-abab-59ca8e416945",
+            "attributes": {
+                "author": {
+                    "S": "Imelda Hodges"
+                },
+                "date": {
+                    "S": "2017-01-04T09:21:15.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "0.596"
+                },
+                "text": {
+                    "S": "Velit adipisicing dolor cillum culpa. Quis magna officia proident voluptate. Ea ex velit ipsum cupidatat nulla."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "3f9a7427-01ed-4234-a999-ed7c03b2c11b",
+            "attributes": {
+                "author": {
+                    "S": "Desiree Porter"
+                },
+                "date": {
+                    "S": "2017-08-21T01:22:31.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "0.8469"
+                },
+                "text": {
+                    "S": "Ad anim veniam mollit id et sint voluptate sunt voluptate eu irure excepteur ipsum. Dolore exercitation adipisicing est reprehenderit irure consequat quis do deserunt minim. Enim ea est ad enim excepteur culpa proident. Dolore quis elit cupidatat proident duis."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "678fcc29-482f-486a-bd12-524fb9853519",
+            "attributes": {
+                "author": {
+                    "S": "Cantu Buckner"
+                },
+                "date": {
+                    "S": "2018-10-18T01:10:51.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.91"
+                },
+                "text": {
+                    "S": "Labore sunt pariatur fugiat exercitation aliqua magna est aliqua esse officia laboris cillum proident. Voluptate excepteur exercitation ipsum veniam incididunt labore. Eu incididunt sunt sunt qui magna est nostrud consequat veniam."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "7a34851c-e16f-43ea-bc1c-68d8d7fe375c",
+            "attributes": {
+                "author": {
+                    "S": "Adele Wise"
+                },
+                "date": {
+                    "S": "2017-05-02T23:56:33.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "0.109"
+                },
+                "text": {
+                    "S": "Ut sunt adipisicing sit minim adipisicing excepteur qui esse dolor dolore minim pariatur culpa. Dolor nisi veniam qui ipsum laborum aliquip. Occaecat eu esse laboris elit laborum sunt pariatur elit proident quis consequat proident. Consequat occaecat cillum veniam tempor Lorem. Magna sit exercitation sunt velit Lorem amet labore aute esse velit. Ex fugiat enim aliqua velit ipsum."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "7ef2b54e-0b0b-4c8b-a4f7-d3a009f859ea",
+            "attributes": {
+                "author": {
+                    "S": "Foster Conway"
+                },
+                "date": {
+                    "S": "2017-11-10T15:33:28.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "0.937"
+                },
+                "text": {
+                    "S": "Dolore deserunt nisi cupidatat id pariatur consectetur tempor amet deserunt aliquip ex. Commodo laborum excepteur voluptate culpa voluptate. Minim est dolor ullamco tempor minim incididunt officia voluptate sunt ullamco. Id reprehenderit in magna sint labore. In consequat qui elit deserunt qui elit officia do est et duis officia. Fugiat deserunt pariatur ipsum sunt irure tempor."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "2e12377e-f6d6-4355-82a0-1cf38a038852",
+            "attributes": {
+                "author": {
+                    "S": "Corina Marks"
+                },
+                "date": {
+                    "S": "2017-04-05T19:31:25.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "-0.6787"
+                },
+                "text": {
+                    "S": "Laboris magna nisi consectetur minim. Proident dolore do consectetur nulla exercitation mollit ad culpa irure et. Officia est sit ad commodo minim occaecat duis voluptate anim. Fugiat ut in do voluptate magna laboris anim aute commodo officia laborum culpa elit ad. Aliqua occaecat cillum qui Lorem aliquip."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "3c5c5e65-d0e0-44cb-b602-6ef8de7c90c3",
+            "attributes": {
+                "author": {
+                    "S": "Goodwin Weber"
+                },
+                "date": {
+                    "S": "2019-02-04T23:54:43.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "0.668"
+                },
+                "text": {
+                    "S": "Laborum ea aute veniam id irure incididunt non consectetur occaecat sunt. Cillum dolore dolore officia culpa. Duis cillum aliquip culpa qui. Occaecat anim excepteur consectetur ipsum officia occaecat non aliqua tempor excepteur adipisicing quis qui excepteur."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "f7c8d167-6b58-491a-9376-240f553aba21",
+            "attributes": {
+                "author": {
+                    "S": "Coffey Daniel"
+                },
+                "date": {
+                    "S": "2018-10-15T19:05:35.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.1476"
+                },
+                "text": {
+                    "S": "Anim eu minim et eiusmod nisi. Amet amet eu esse nisi voluptate ipsum voluptate. Irure incididunt deserunt ullamco exercitation. Amet dolor reprehenderit id nulla laborum cupidatat voluptate in magna Lorem esse proident. Quis aliquip excepteur ipsum nisi laborum sunt laborum pariatur reprehenderit irure labore minim."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "45aad2c4-46e9-4e82-95d9-5a1957d1f337",
+            "attributes": {
+                "author": {
+                    "S": "Ginger Woodard"
+                },
+                "date": {
+                    "S": "2017-04-28T18:50:27.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.4152"
+                },
+                "text": {
+                    "S": "Incididunt sint duis proident cupidatat excepteur nulla. Nisi incididunt irure duis nulla reprehenderit reprehenderit fugiat ex tempor sunt Lorem exercitation. Consequat commodo commodo tempor exercitation fugiat exercitation eu excepteur. Mollit excepteur duis non dolore pariatur. Anim proident nostrud est culpa et excepteur enim amet aliqua in. Aliquip mollit dolor voluptate elit."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "53840ed7-93ef-4b7f-8143-8abeeb5aa7b2",
+            "attributes": {
+                "author": {
+                    "S": "Moore Hull"
+                },
+                "date": {
+                    "S": "2017-05-11T16:41:46.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "-0.5867"
+                },
+                "text": {
+                    "S": "Elit ad aliquip voluptate duis labore nisi velit veniam ad elit mollit velit laborum. Non minim aliquip excepteur et ea culpa aliqua sit aute commodo id nisi quis fugiat. Ullamco veniam et exercitation cupidatat nulla do adipisicing eu dolor aliqua cillum fugiat exercitation elit."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "917feb18-4365-46db-ab56-7f8f7913918a",
+            "attributes": {
+                "author": {
+                    "S": "Robbie Vaughan"
+                },
+                "date": {
+                    "S": "2018-07-09T08:05:21.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "-0.8138"
+                },
+                "text": {
+                    "S": "In quis ad voluptate amet amet consectetur. Fugiat cillum do dolore mollit velit amet. Fugiat aliquip et officia ea. Ad minim est exercitation labore ex sint quis ipsum commodo."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "ed52cd4a-3b57-48ed-a00b-d831cdd05059",
+            "attributes": {
+                "author": {
+                    "S": "Terry Lang"
+                },
+                "date": {
+                    "S": "2018-01-13T11:54:09.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.3475"
+                },
+                "text": {
+                    "S": "Esse id duis ut exercitation dolor esse Lorem. Do pariatur minim sint irure nisi sint ut aliquip esse exercitation nisi tempor minim deserunt. Enim fugiat incididunt qui ea qui fugiat ullamco sunt id culpa officia elit. Nulla culpa magna aliquip non do non excepteur ullamco proident reprehenderit ea nostrud ipsum Lorem."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "abeacd06-70a5-4a18-a915-00760b9ef95a",
+            "attributes": {
+                "author": {
+                    "S": "Durham Howell"
+                },
+                "date": {
+                    "S": "2017-02-22T16:50:47.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "0.7161"
+                },
+                "text": {
+                    "S": "Proident enim incididunt sit occaecat ad sit exercitation ad consequat cupidatat eiusmod. Sunt laboris reprehenderit occaecat in ex sunt incididunt qui ut aliquip laboris mollit et. Veniam officia enim minim adipisicing nulla est mollit sunt ad velit elit consequat. Laborum consequat do pariatur esse est aliquip fugiat nostrud velit aliquip non cupidatat laboris duis. Anim irure minim deserunt enim labore aliqua. Et nulla minim minim deserunt officia commodo commodo sunt magna ad dolor."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "d254c55c-3eea-4e67-be73-0ffb0f86299d",
+            "attributes": {
+                "author": {
+                    "S": "Vera Bryan"
+                },
+                "date": {
+                    "S": "2018-10-24T20:25:30.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "-0.8013"
+                },
+                "text": {
+                    "S": "Est tempor officia consectetur aute sit commodo fugiat. Aute occaecat deserunt anim cillum qui laboris nostrud nisi incididunt sint eu est aliquip officia. Do ad eu officia deserunt ex in. Proident minim dolore aliquip irure. Anim eiusmod exercitation qui officia Lorem. Voluptate fugiat elit ad velit do Lorem cupidatat sit duis proident reprehenderit cupidatat."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "7eb8ebaf-f605-4cec-b646-1be1d046450c",
+            "attributes": {
+                "author": {
+                    "S": "Mona Battle"
+                },
+                "date": {
+                    "S": "2019-02-13T00:35:48.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "0.8473"
+                },
+                "text": {
+                    "S": "Cillum mollit duis laborum Lorem cillum eiusmod adipisicing qui. Laborum dolore ea veniam aliqua et. Commodo culpa nulla veniam consequat in irure aute pariatur officia sint. Fugiat laborum nostrud fugiat dolor Lorem cillum. Tempor dolore officia sit quis non ullamco anim et nulla duis aliquip nulla."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "9386ec7c-674a-4ebd-8acf-fc11f599de00",
+            "attributes": {
+                "author": {
+                    "S": "Gilda Callahan"
+                },
+                "date": {
+                    "S": "2018-10-02T06:36:49.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.5923"
+                },
+                "text": {
+                    "S": "Nulla elit proident occaecat nisi qui. Aliqua ipsum nisi sunt esse do quis Lorem nostrud occaecat anim. Reprehenderit cillum ut reprehenderit veniam tempor deserunt. Excepteur officia cillum esse est adipisicing officia qui aliqua sint. Exercitation sit et proident laborum eu culpa et proident. Ut pariatur incididunt veniam laboris qui nostrud duis exercitation."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "31cbdf7b-a36e-4e81-808c-a6d1fcc0809b",
+            "attributes": {
+                "author": {
+                    "S": "Jenkins Madden"
+                },
+                "date": {
+                    "S": "2019-02-03T10:37:26.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "0.2452"
+                },
+                "text": {
+                    "S": "Aliquip magna culpa cillum commodo. Aliquip labore duis proident incididunt laborum. Adipisicing veniam cupidatat tempor est deserunt irure amet pariatur ut duis sint. Sint non enim occaecat est do ea reprehenderit nisi amet qui minim."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "e4b2f978-9871-4494-a033-1e7e5e04e3ff",
             "attributes": {
                 "author": {
                     "S": "Gaines Mccarty"
                 },
-                "text": {
-                    "S": "Id incididunt adipisicing irure anim incididunt proident non excepteur nisi esse esse. Officia consequat elit voluptate commodo eu eu est dolor eu sunt ea anim. Dolor ea Lorem cupidatat reprehenderit ad tempor occaecat cupidatat Lorem non. Do ullamco laborum amet excepteur tempor amet sint adipisicing amet officia. Pariatur minim Lorem ad excepteur dolore eu amet sunt eu veniam in consectetur esse."
+                "date": {
+                    "S": "2018-04-16T13:59:04.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
                 },
                 "sentimentScore": {
                     "N": "0.8354"
                 },
-                "date": {
-                    "S": "Mon Apr 16 2018 13:59:04 GMT+0000 (UTC)"
+                "text": {
+                    "S": "Id incididunt adipisicing irure anim incididunt proident non excepteur nisi esse esse. Officia consequat elit voluptate commodo eu eu est dolor eu sunt ea anim. Dolor ea Lorem cupidatat reprehenderit ad tempor occaecat cupidatat Lorem non. Do ullamco laborum amet excepteur tempor amet sint adipisicing amet officia. Pariatur minim Lorem ad excepteur dolore eu amet sunt eu veniam in consectetur esse."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "19bcc202-e653-4e6a-b747-b567defdbac8",
+            "attributes": {
+                "author": {
+                    "S": "Oneil Brown"
                 },
-                "user": {
-                    "S": "users1"
+                "date": {
+                    "S": "2017-10-09T00:43:48.000000+0000"
                 },
                 "keyword": {
                     "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "0.8426"
+                },
+                "text": {
+                    "S": "Veniam exercitation cillum non irure enim et. Incididunt velit pariatur laboris eiusmod velit proident cillum velit deserunt dolor commodo ipsum. Elit ut occaecat duis dolor proident culpa enim occaecat magna. Amet veniam incididunt reprehenderit officia enim excepteur mollit adipisicing duis qui incididunt. Ea quis sit nostrud consectetur ea proident mollit."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "71128159-7424-418f-a8bd-8d3adb074a87",
+            "attributes": {
+                "author": {
+                    "S": "Palmer Dillon"
+                },
+                "date": {
+                    "S": "2018-12-30T14:18:54.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "0.4765"
+                },
+                "text": {
+                    "S": "Nisi ea non sunt esse ullamco non excepteur proident veniam reprehenderit. Minim proident irure dolore ea aliqua adipisicing labore consequat laborum. Ad ad minim sit fugiat proident excepteur qui. Fugiat Lorem eiusmod amet duis ea do eiusmod. Irure id amet ullamco deserunt. Sint sunt officia amet duis est nisi ex Lorem minim nostrud ea dolore sunt proident. Do elit quis aliqua sint ex Lorem aliquip laboris nulla."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "5c544ea3-0252-4ace-90b2-31dad8cb09a2",
+            "attributes": {
+                "author": {
+                    "S": "Lucille Quinn"
+                },
+                "date": {
+                    "S": "2017-11-12T01:23:34.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "0.0273"
+                },
+                "text": {
+                    "S": "Sunt dolor sit irure ipsum excepteur fugiat cillum magna consectetur elit ad Lorem sunt ullamco. Dolor duis laborum proident sit cupidatat labore aliqua ad et ex commodo. Ullamco aliquip dolor nulla consectetur exercitation ipsum commodo exercitation pariatur et. Ullamco tempor sint ullamco duis sit cillum aliquip. Ad cillum id qui nisi. Quis consectetur pariatur amet Lorem fugiat labore ex cupidatat ad velit reprehenderit ullamco magna quis."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "324509da-af2b-4f38-9e91-dbb6d77ee38d",
+            "attributes": {
+                "author": {
+                    "S": "Long Mcconnell"
+                },
+                "date": {
+                    "S": "2017-07-10T02:09:55.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "-0.0319"
+                },
+                "text": {
+                    "S": "Lorem elit amet quis culpa. Id amet et laborum aliquip non excepteur in do qui labore. Sit eu officia aliquip cillum exercitation ipsum commodo qui commodo aliquip. Nisi occaecat incididunt consectetur proident mollit ad deserunt nostrud adipisicing mollit. Nisi voluptate minim proident fugiat."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "719d96a1-6f1d-468d-9853-c364b6da2c07",
+            "attributes": {
+                "author": {
+                    "S": "Watson Hurley"
+                },
+                "date": {
+                    "S": "2018-08-24T23:04:14.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "-0.0068"
+                },
+                "text": {
+                    "S": "Lorem ipsum proident sit esse pariatur id Lorem in consectetur tempor culpa. Incididunt aute sint cillum aute dolor aliquip irure non. Dolor dolore et aliquip quis voluptate dolor anim nisi duis occaecat. Esse ipsum nulla amet reprehenderit ut magna id laboris anim."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "1f19660a-49a3-4d0f-8a8f-194ceb4f5a00",
+            "attributes": {
+                "author": {
+                    "S": "Jean Schroeder"
+                },
+                "date": {
+                    "S": "2018-05-07T14:31:15.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "0.2142"
+                },
+                "text": {
+                    "S": "Occaecat elit et aliqua irure aute fugiat non occaecat consectetur excepteur incididunt amet. Esse dolor eu deserunt tempor est ea aute aliqua excepteur et laboris. Exercitation ad veniam dolore id labore dolore. Fugiat deserunt enim nulla et laboris ea reprehenderit eiusmod quis magna exercitation anim dolore. Ipsum occaecat fugiat eiusmod enim do. Laborum esse anim do do cillum magna eiusmod occaecat ea. Cupidatat ut irure officia cillum."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "bda0e3f9-3222-43cb-8c31-e12fb2b185f1",
+            "attributes": {
+                "author": {
+                    "S": "Lambert Bray"
+                },
+                "date": {
+                    "S": "2017-02-26T20:46:54.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "0.9191"
+                },
+                "text": {
+                    "S": "Velit eu excepteur occaecat cupidatat pariatur non consequat dolor non adipisicing enim incididunt. Id nulla consectetur fugiat dolor in anim. Consequat aliquip minim consequat veniam proident deserunt Lorem adipisicing excepteur sint."
+                }
+            }
+        }
+    ],
+    [
+        "users00",
+        {
+            "range_key": "b3806fc9-5787-4124-9960-c65b5464894d",
+            "attributes": {
+                "author": {
+                    "S": "Reba Gray"
+                },
+                "date": {
+                    "S": "2017-01-19T23:12:45.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "0.9317"
+                },
+                "text": {
+                    "S": "Ut nulla ipsum aute laboris fugiat ad aliqua labore. Sunt mollit sit duis consequat adipisicing qui anim sint. Laboris tempor pariatur officia adipisicing."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "bfe888f9-3ea0-42d7-9c82-59d127e88eb3",
+            "attributes": {
+                "author": {
+                    "S": "Bette Fitzgerald"
+                },
+                "date": {
+                    "S": "2017-10-14T17:08:46.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "-0.6326"
+                },
+                "text": {
+                    "S": "Aliqua enim sunt et nisi proident enim labore. Tempor proident sit excepteur quis et tempor quis sit velit ea sit. Id nostrud eu do culpa ullamco dolor sint eiusmod aute culpa reprehenderit excepteur."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "ac69acb6-fc31-42ea-a8b8-44b56d746787",
+            "attributes": {
+                "author": {
+                    "S": "Eddie Hooper"
+                },
+                "date": {
+                    "S": "2018-10-02T18:54:41.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.9696"
+                },
+                "text": {
+                    "S": "Consectetur sit dolore fugiat eiusmod nostrud pariatur culpa Lorem esse consectetur ut. Enim enim fugiat officia duis. Irure do in ex cillum amet et dolor."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "169552f0-df08-4eb4-9e93-43bcff3117a5",
+            "attributes": {
+                "author": {
+                    "S": "Carol Castro"
+                },
+                "date": {
+                    "S": "2017-05-01T20:31:45.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "0.2432"
+                },
+                "text": {
+                    "S": "Nisi commodo deserunt amet in labore sint deserunt. Ex ea laboris commodo mollit amet sunt aliqua do ea consequat ex cupidatat elit. Incididunt anim do cupidatat veniam amet ad. Aliquip voluptate fugiat deserunt eu esse sit non consequat. Laborum duis enim ea mollit velit. Dolor occaecat minim laborum culpa cillum exercitation deserunt laboris ex nisi esse."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "935d6d2f-1600-4ec7-aa46-a3aab222149f",
+            "attributes": {
+                "author": {
+                    "S": "Faulkner Jefferson"
+                },
+                "date": {
+                    "S": "2018-03-29T15:20:18.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "-0.1632"
+                },
+                "text": {
+                    "S": "Est cillum non aliqua laborum quis fugiat laboris. Reprehenderit elit culpa magna sit ad. Labore voluptate minim veniam officia fugiat incididunt. Ullamco officia consequat adipisicing nulla anim mollit ea occaecat ex duis cillum. In labore labore commodo do proident aute nulla nisi enim. Quis duis ea laborum nulla ex qui cillum fugiat nulla quis ipsum excepteur fugiat incididunt."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "5c8afb70-c744-4a30-bfdf-da363a8a480d",
+            "attributes": {
+                "author": {
+                    "S": "Robert Walter"
+                },
+                "date": {
+                    "S": "2017-01-13T17:23:31.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "0.0446"
+                },
+                "text": {
+                    "S": "Tempor elit sit ad labore est magna cupidatat irure labore non veniam quis. Velit officia esse ex adipisicing nisi do velit deserunt exercitation nostrud. Labore adipisicing exercitation et cupidatat pariatur culpa anim Lorem et reprehenderit. Irure minim duis sit quis. Dolor excepteur exercitation excepteur voluptate esse ipsum cillum duis et irure laborum sint veniam cupidatat. Dolor laboris sunt deserunt ut. In pariatur non sit ut commodo deserunt exercitation duis sit tempor cillum aliquip."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "b5ba056c-2296-40ee-bfb4-ba5799e75097",
+            "attributes": {
+                "author": {
+                    "S": "Chaney Nixon"
+                },
+                "date": {
+                    "S": "2018-01-17T23:05:26.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "-0.9133"
+                },
+                "text": {
+                    "S": "Ipsum enim ullamco Lorem laboris commodo minim duis incididunt veniam. Mollit reprehenderit sint aliquip commodo incididunt esse aute. Eu reprehenderit minim ut excepteur. Et commodo Lorem laborum voluptate fugiat mollit occaecat aute veniam. Occaecat eiusmod consectetur enim minim nulla ut consectetur laboris cupidatat cillum commodo consectetur."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "5503dbd0-c2ad-4cf3-9d8f-5ca63af92e4c",
+            "attributes": {
+                "author": {
+                    "S": "Antoinette Ellis"
+                },
+                "date": {
+                    "S": "2019-02-21T19:19:41.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "0.1141"
+                },
+                "text": {
+                    "S": "Laboris laboris quis sunt proident aliquip duis. Laboris id officia aliqua nostrud consequat velit ullamco non ex est. Commodo mollit duis est nulla cillum sint dolore veniam laboris duis magna. Irure eu commodo id sit in qui."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "f95bc9ad-063a-45b3-a12b-aac998da3b00",
+            "attributes": {
+                "author": {
+                    "S": "Nolan Mcneil"
+                },
+                "date": {
+                    "S": "2017-02-26T08:33:40.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "-0.3445"
+                },
+                "text": {
+                    "S": "Occaecat aute commodo in quis adipisicing culpa qui ea ad velit. Non exercitation aliqua do laborum non velit irure est aliqua occaecat magna enim ex. Occaecat non aute qui eiusmod non laborum cillum est veniam id aute laborum velit."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "3cf1449e-fe57-4a53-851c-08e573c34c3c",
+            "attributes": {
+                "author": {
+                    "S": "English Nunez"
+                },
+                "date": {
+                    "S": "2019-04-04T09:52:13.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "0.9934"
+                },
+                "text": {
+                    "S": "Dolore duis voluptate cupidatat irure aute veniam ipsum duis ipsum laboris. Duis sit aute do elit. Veniam et ad in ex reprehenderit do magna."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "5374cacc-1735-4596-ba6f-19e1079a021f",
+            "attributes": {
+                "author": {
+                    "S": "Calhoun Joseph"
+                },
+                "date": {
+                    "S": "2019-01-17T16:30:28.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "-0.2309"
+                },
+                "text": {
+                    "S": "Reprehenderit dolor veniam cupidatat sint cupidatat aliqua aute do consequat non eu. Velit laborum amet dolor ut consequat occaecat ad cupidatat. Mollit culpa ullamco cillum ipsum esse esse sint exercitation non non quis laborum amet reprehenderit. Sunt nulla incididunt laboris cillum id non tempor est sint consequat enim incididunt est eiusmod. Consequat labore id tempor cupidatat adipisicing eu eiusmod pariatur quis. Adipisicing elit eu est consequat occaecat ut do sunt ut reprehenderit nulla deserunt. Proident nostrud dolore excepteur eu dolore."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "9ce1afcd-812f-4ad0-b51f-5dfce4859643",
+            "attributes": {
+                "author": {
+                    "S": "Jeannette Clemons"
+                },
+                "date": {
+                    "S": "2018-05-29T08:19:50.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "0.527"
+                },
+                "text": {
+                    "S": "Sunt magna in do nostrud proident nulla. Eiusmod cillum proident laborum sunt. Ea irure aliqua ea elit sunt nulla ipsum anim. Labore ea laboris labore velit veniam culpa consectetur aliquip ex irure adipisicing. Non anim minim aliquip non amet non ad cillum veniam."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "35361fb9-04d8-41bd-b442-3f7c5238b2f2",
+            "attributes": {
+                "author": {
+                    "S": "Viola Maxwell"
+                },
+                "date": {
+                    "S": "2017-07-16T08:04:00.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "0.9815"
+                },
+                "text": {
+                    "S": "Lorem amet qui fugiat sit deserunt enim cupidatat labore ex cillum commodo duis consequat. Consectetur in sunt culpa et aliqua proident mollit ad cillum reprehenderit voluptate adipisicing esse veniam. Sint pariatur incididunt aliquip fugiat irure.\r\n"
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "e6faad80-3175-49d2-aa25-94b093e757df",
+            "attributes": {
+                "author": {
+                    "S": "Mandy Justice"
+                },
+                "date": {
+                    "S": "2017-03-19T17:39:57.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "-0.3507"
+                },
+                "text": {
+                    "S": "Cillum exercitation ut dolore adipisicing Lorem culpa ex cillum duis eiusmod tempor. Sunt nulla eu et velit magna consectetur consectetur velit consequat. Exercitation amet non veniam irure sint minim nisi. Non est labore esse in in minim aliqua est veniam enim. Aliqua proident incididunt excepteur excepteur irure pariatur labore qui. Sunt quis do irure consequat enim."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "50192e78-977e-4f83-a754-86bc7059de12",
+            "attributes": {
+                "author": {
+                    "S": "Claudette Nolan"
+                },
+                "date": {
+                    "S": "2017-09-04T11:43:10.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.3033"
+                },
+                "text": {
+                    "S": "Proident pariatur nostrud eu proident excepteur irure nostrud. Est cillum ad voluptate proident occaecat in veniam aliquip. Aliquip veniam mollit ullamco qui tempor enim quis qui culpa duis magna exercitation consequat."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "bc996551-95c1-4959-9f13-242be5b3c5bf",
+            "attributes": {
+                "author": {
+                    "S": "Moses Woodward"
+                },
+                "date": {
+                    "S": "2017-08-28T20:14:35.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "0.6592"
+                },
+                "text": {
+                    "S": "Dolor nulla magna deserunt mollit adipisicing dolore ad aliquip est. Esse minim magna officia est labore deserunt ex. Qui Lorem enim adipisicing labore ut ex sint aliqua."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "ddfc734c-3484-46c4-b81f-ddee3f02ef4c",
+            "attributes": {
+                "author": {
+                    "S": "Rhoda Copeland"
+                },
+                "date": {
+                    "S": "2018-07-30T18:10:11.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.0968"
+                },
+                "text": {
+                    "S": "Excepteur culpa laboris nostrud aliqua incididunt anim dolor aliqua nulla consequat sint amet deserunt. Occaecat magna ex et sit irure incididunt. Velit sint reprehenderit amet tempor eu cupidatat dolore laborum elit cupidatat irure sint."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "f059eb62-ffbf-44de-88bd-db40acff30f6",
+            "attributes": {
+                "author": {
+                    "S": "Brooks Durham"
+                },
+                "date": {
+                    "S": "2017-05-13T18:57:35.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "-0.9703"
+                },
+                "text": {
+                    "S": "Occaecat adipisicing nisi quis sint ipsum ullamco velit id. Ut exercitation officia sunt id consectetur. Consectetur id incididunt enim occaecat proident id dolor elit cillum eu laborum. Eiusmod sint ad fugiat laboris id ullamco non commodo laboris dolore proident ullamco culpa. Occaecat laborum minim do incididunt velit. Aute aliquip occaecat reprehenderit proident labore ea minim fugiat."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "7e7828b1-34da-4198-9df1-074ff918ff93",
+            "attributes": {
+                "author": {
+                    "S": "Dena Mueller"
+                },
+                "date": {
+                    "S": "2017-10-16T14:41:14.000000+0000"
+                },
+                "keyword": {
+                    "S": "life"
+                },
+                "sentimentScore": {
+                    "N": "-0.8207"
+                },
+                "text": {
+                    "S": "Sint mollit ea aute in cupidatat. Sit ipsum culpa ad deserunt excepteur in nisi velit ullamco esse ea commodo ex. Nulla sunt quis minim incididunt proident consectetur nulla. Nulla aliquip eiusmod tempor quis commodo Lorem ipsum. Pariatur sunt nostrud voluptate do qui laboris. Officia et magna deserunt enim adipisicing velit consequat ad minim excepteur."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "f5827aea-2de8-4b4a-b718-06ac3b4a98ce",
+            "attributes": {
+                "author": {
+                    "S": "Tanya Leonard"
+                },
+                "date": {
+                    "S": "2017-08-15T20:57:19.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "0.6862"
+                },
+                "text": {
+                    "S": "Officia nostrud ipsum laboris nisi incididunt pariatur enim proident consectetur adipisicing duis do enim exercitation. Sit officia commodo sint nostrud eiusmod cupidatat irure velit ea. Deserunt duis enim id aliqua enim. Et aliqua eu consequat proident. In sint occaecat nulla et occaecat elit ex ut id ut magna ipsum ipsum non. Ex Lorem excepteur officia reprehenderit in cupidatat do magna magna aliquip Lorem sunt aute."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "4739fcb0-63a9-4cd5-9f87-ce55e842a7e7",
+            "attributes": {
+                "author": {
+                    "S": "Ethel Sampson"
+                },
+                "date": {
+                    "S": "2019-01-01T15:14:19.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "0.9476"
+                },
+                "text": {
+                    "S": "Do nostrud ea nisi consequat cillum fugiat consequat dolor. Minim adipisicing tempor voluptate dolor excepteur laboris. Id consectetur nostrud officia sit nulla nisi. Esse nostrud non est ea duis. Sint ullamco et commodo quis enim voluptate amet anim irure ullamco excepteur in."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "05d82787-bed6-4a5e-bf88-c9de47372435",
+            "attributes": {
+                "author": {
+                    "S": "Lucinda Nichols"
+                },
+                "date": {
+                    "S": "2017-08-14T00:04:56.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "0.5554"
+                },
+                "text": {
+                    "S": "Sit magna cupidatat laboris dolore incididunt dolor officia sit laborum aute adipisicing elit proident in. Anim occaecat proident irure non amet ex voluptate laboris quis cillum. Amet elit labore in minim nostrud minim qui. Amet ad eiusmod cupidatat ipsum culpa. Lorem tempor laborum non ut officia. Enim enim ea cupidatat aute ut voluptate magna. Elit eiusmod ea ex est magna officia incididunt pariatur commodo."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "23786667-ae67-4dac-b561-f986d6ac55f2",
+            "attributes": {
+                "author": {
+                    "S": "Holland Stevens"
+                },
+                "date": {
+                    "S": "2018-01-06T03:21:17.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.1321"
+                },
+                "text": {
+                    "S": "Proident dolor nostrud est in nisi voluptate et cupidatat do excepteur enim veniam. Ut sit eu ullamco ullamco. Reprehenderit elit adipisicing dolor magna nostrud culpa eu in sit. Exercitation velit elit excepteur ut laborum veniam cillum dolor et ipsum. Voluptate cillum esse est ea dolore magna nostrud tempor. Quis cillum aliquip dolor aliquip veniam nostrud culpa amet tempor proident deserunt veniam culpa."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "0895ba16-fe70-41c9-9ea8-c7ba9019b9a5",
+            "attributes": {
+                "author": {
+                    "S": "Jamie Spence"
+                },
+                "date": {
+                    "S": "2018-10-23T14:13:28.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "0.5314"
+                },
+                "text": {
+                    "S": "Proident enim sit sunt consectetur. Aliquip ad sint sint consequat esse sunt fugiat occaecat voluptate aliqua minim laboris. Pariatur aliquip officia id esse anim do."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "577e3e3b-8cd7-43b9-9804-aed68a936e36",
+            "attributes": {
+                "author": {
+                    "S": "Joni Carney"
+                },
+                "date": {
+                    "S": "2017-11-28T22:58:15.000000+0000"
+                },
+                "keyword": {
+                    "S": "microsoft"
+                },
+                "sentimentScore": {
+                    "N": "-0.3955"
+                },
+                "text": {
+                    "S": "Sunt aute voluptate tempor fugiat ut deserunt. Sint in cupidatat ex irure exercitation et commodo laboris elit ut irure laborum. Aliquip Lorem voluptate elit irure mollit commodo non nostrud ut officia id aute eu. Cillum consequat adipisicing labore reprehenderit eiusmod proident Lorem velit voluptate cillum ex laboris do excepteur. Do nulla magna eu amet velit sunt mollit pariatur et esse id."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "5baf26f3-d6c9-4d1f-a14c-d58cee627ba4",
+            "attributes": {
+                "author": {
+                    "S": "Dawson Olson"
+                },
+                "date": {
+                    "S": "2018-11-23T02:06:33.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "-0.6063"
+                },
+                "text": {
+                    "S": "Nisi ullamco dolor Lorem commodo cillum occaecat. Fugiat aute fugiat dolore ad irure nostrud excepteur. Culpa occaecat aliquip id id ad do excepteur incididunt velit et deserunt amet laboris officia. Et sint minim anim Lorem."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "b4991480-ee33-4afc-8a9d-9541f85a1855",
+            "attributes": {
+                "author": {
+                    "S": "Brigitte Pittman"
+                },
+                "date": {
+                    "S": "2017-01-16T23:20:55.000000+0000"
+                },
+                "keyword": {
+                    "S": "nike"
+                },
+                "sentimentScore": {
+                    "N": "-0.4429"
+                },
+                "text": {
+                    "S": "Ad qui enim enim adipisicing sint pariatur cillum. Excepteur aute excepteur sit sunt adipisicing commodo pariatur consectetur culpa cillum voluptate reprehenderit. Laborum esse Lorem do occaecat aliquip eiusmod consectetur quis excepteur. Dolore duis commodo nisi eu irure aliqua cupidatat commodo nostrud adipisicing."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "146b65f7-22b5-42c3-a803-d0406966853f",
+            "attributes": {
+                "author": {
+                    "S": "Briggs Williamson"
+                },
+                "date": {
+                    "S": "2018-05-26T20:21:05.000000+0000"
+                },
+                "keyword": {
+                    "S": "gameofthrones"
+                },
+                "sentimentScore": {
+                    "N": "-0.3788"
+                },
+                "text": {
+                    "S": "Irure sunt dolor sit laboris labore aliqua ipsum elit ex tempor. Consectetur officia aute id quis mollit aliquip adipisicing cupidatat deserunt. Ea nostrud minim deserunt nisi voluptate duis pariatur est reprehenderit sit sint. Sit ullamco esse ex elit eu ut. Quis commodo adipisicing consequat officia nisi est consectetur voluptate Lorem ipsum."
+                }
+            }
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "59227029-4d0d-4061-a944-c489d2b867e9",
+            "attributes": {
+                "author": {
+                    "S": "Salinas Thornton"
+                },
+                "date": {
+                    "S": "2018-04-02T20:35:06.000000+0000"
+                },
+                "keyword": {
+                    "S": "javascript"
+                },
+                "sentimentScore": {
+                    "N": "0.1605"
+                },
+                "text": {
+                    "S": "Anim occaecat fugiat consequat do pariatur. Adipisicing deserunt cupidatat mollit laboris aute voluptate. Laborum duis voluptate ipsum proident duis. Irure aliqua dolor dolore amet exercitation labore ullamco quis qui consequat eu veniam sint fugiat. Consectetur eu deserunt eu duis laboris duis quis nostrud cillum."
                 }
             }
         }
