@@ -4,10 +4,13 @@ from pynamodb.attributes import (
 )
 
 
+DB_ADDR = "http://localhost:8000"
+
+
 class Mention(Model):
     class Meta:
-        table_name = 'mentions'
-        host = "http://localhost:8000"
+        table_name = "mentions"
+        host = DB_ADDR
 
     id = UnicodeAttribute(hash_key=True, null=False)
     author = UnicodeAttribute(null=False)
@@ -16,3 +19,12 @@ class Mention(Model):
     sentimentScore = NumberAttribute(null=False)
     keyword = UnicodeAttribute(null=False)
     user = UnicodeAttribute(null=False)
+
+
+class Keyword(Model):
+    class Meta:
+        table_name = "keywords"
+        host = DB_ADDR
+
+    user = UnicodeAttribute(hash_key=True, null=False)
+    keyword = UnicodeAttribute(range_key=True, null=False)

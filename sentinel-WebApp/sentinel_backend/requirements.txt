@@ -11,3 +11,4 @@ pytz==2019.1
 six==1.12.0
 Werkzeug==0.15.2
 pynamodb==3.3.3
+awscli==1.16.155
