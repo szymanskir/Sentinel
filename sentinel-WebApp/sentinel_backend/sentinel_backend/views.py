@@ -18,7 +18,7 @@ def get_mentions():
     until = parse_utc(request.args.get('to'), ignoretz=True)
 
     keywords = request.args.getlist('keywords')
-    
+
     mentions = _REPOSITORY.get_mentions('users0', since, until, keywords)
     return jsonify(mentions)
 
