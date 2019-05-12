@@ -1,7 +1,7 @@
 import * as moment from "moment";
 import { Mention } from "./Models/Mention";
 import config from "config";
-// import { Auth } from "aws-amplify";
+import { Auth } from "aws-amplify";
 
 
 const baseAddress = config.apiEndpoint;
@@ -49,16 +49,15 @@ class ApiClient {
 
     private async prepareRequest(path: string) {
         const request = new Request(`${baseAddress}${path}`);
-        // const token = await this.getToken();
-        const token = "token";
+        const token = await this.getToken();
         request.headers.append("Authorization", `Bearer ${token}`);
         return request;
     }
 
-    // private async getToken() {
-    //     let session = await Auth.currentSession();
-    //     return session.getAccessToken().getJwtToken();
-    // }
+    private async getToken() {
+        let session = await Auth.currentSession();
+        return session.getAccessToken().getJwtToken();
+    }
 }
 
 export const apiClient = new ApiClient();
