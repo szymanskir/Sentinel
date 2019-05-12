@@ -1,9 +1,9 @@
 from flask import jsonify, request, render_template
 from sentinel_backend import app
-from .repository import DynamoDbRepository
+from .repository import MockRepository 
 from dateutil.parser import parse as parse_utc
 
-_REPOSITORY = DynamoDbRepository()
+_REPOSITORY = MockRepository('../mock-data')
 
 
 @app.route('/')
