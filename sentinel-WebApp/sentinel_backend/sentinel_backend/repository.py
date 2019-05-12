@@ -1,6 +1,6 @@
 from typing import List
 from datetime import datetime
-from .models import Mention, Keyword
+from .models import Mention, Keyword, MentionDateIndex
 
 
 class DynamoDbRepository:
@@ -10,12 +10,20 @@ class DynamoDbRepository:
             since: datetime,
             until: datetime,
             keywords: List[str]):
-        condition = (Mention.date.between(since, until))
-        if keywords is not None:
-            condition = condition & (Mention.keyword.is_in(*keywords))
 
-        mentions = Mention.query(user, filter_condition=condition)
-        return [map_mention_to_dto(m) for m in mentions]
+        if keywords is None or len(keywords) <= 0:
+            keywords = self.get_keywords(user)
+
+        queries = [MentionDateIndex.query(
+            keyword, Mention.date.between(since, until))
+            for keyword in keywords]
+
+        mentions = []
+        for keyword in queries:
+            for m in keyword:
+                mentions.append(map_mention_to_dto(m))
+
+        return mentions
 
     def get_keywords(self, user):
         keywords = Keyword.query(user)
