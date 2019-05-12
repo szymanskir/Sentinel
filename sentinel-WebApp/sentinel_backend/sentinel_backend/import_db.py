@@ -12,20 +12,22 @@ def import_mentions(filename):
         mentions = json.load(file)
         for m in mentions:
             model = Mention(
-                m['user'],
+                m['keyword'],
                 m['id'],
 
                 author=m['author'],
                 text=m['text'],
                 date=datetime.strptime(m['date'], '%Y-%m-%dT%H:%M'),
                 sentimentScore=m['sentimentScore'],
-                keyword=m['keyword']
             )
             model.save()
+
+
+import_mentions('../../mock-data/mentions.json')
 
 
 # Mention.dump('../../mock-data/mentions-dynamo.json')
 # Keyword.dump('../../mock-data/keywords-dynamo.json')
 
-Mention.load('../../mock-data/mentions-dynamo.json')
 # Keyword.load('../../mock-data/keywords-dynamo.json')
+# Mention.load('../../mock-data/mentions-dynamo.json')
