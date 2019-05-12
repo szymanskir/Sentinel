@@ -5,13 +5,14 @@ from pynamodb.attributes import (
 )
 
 
-DB_ADDR = os.environ['DYNAMO_DB_URL']
+DB_ADDR = None  # os.environ['DYNAMO_DB_URL']
 
 
 class Mention(Model):
     class Meta:
         table_name = "mentions"
         host = DB_ADDR
+        region = 'eu-central-1'
 
     user = UnicodeAttribute(hash_key=True)
     id = UnicodeAttribute(range_key=True)
@@ -27,6 +28,7 @@ class Keyword(Model):
     class Meta:
         table_name = "keywords"
         host = DB_ADDR
+        region = 'eu-central-1'
 
     user = UnicodeAttribute(hash_key=True)
     keyword = UnicodeAttribute(range_key=True)
