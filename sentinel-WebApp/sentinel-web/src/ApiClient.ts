@@ -6,7 +6,7 @@ const baseAddress = config.apiEndpoint;
 
 class ApiClient {
 
-    async getMentions(from: moment.Moment, to: moment.Moment, keywords: string[]) {
+    async getMentionsCount(from: moment.Moment, to: moment.Moment, keywords: string[]) {
         const params = new URLSearchParams({
             from: from.toISOString(),
             to: to.toISOString(),
@@ -19,7 +19,23 @@ class ApiClient {
         const request = new Request(`${baseAddress}/mentions?${params}`);
         const response = await fetch(request);
         const json = await response.json();
-        return json as Mention[];
+        return json;
+    }
+
+    async getMentionsSentimentScores(from: moment.Moment, to: moment.Moment, keywords: string[]) {
+        const params = new URLSearchParams({
+            from: from.toISOString(),
+            to: to.toISOString(),
+        });
+
+        for (let word of keywords) {
+            params.append("keywords", word);
+        }
+
+        const request = new Request(`${baseAddress}/sentiment?${params}`);
+        const response = await fetch(request);
+        const json = await response.json();
+        return json;
     }
 
     async getAllKeywords() {

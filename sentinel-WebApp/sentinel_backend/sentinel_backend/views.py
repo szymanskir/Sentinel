@@ -1,33 +1,47 @@
 from flask import jsonify, request, render_template
 from sentinel_backend import app
-from .repository import MockRepository 
+from .repository import MockRepository
+from .visualization import create_mentions_count_plot, create_sentiment_scores_plot
 from dateutil.parser import parse as parse_utc
 
-_REPOSITORY = MockRepository('../mock-data')
+_REPOSITORY = MockRepository("../mock-data")
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    app.logger.warning('sample message')
-    return render_template('index.html')
+    app.logger.warning("sample message")
+    return render_template("index.html")
 
 
-@app.route('/mentions')
+@app.route("/mentions")
 def get_mentions():
-    since = parse_utc(request.args.get('from'), ignoretz=True)
-    until = parse_utc(request.args.get('to'), ignoretz=True)
+    since = parse_utc(request.args.get("from"), ignoretz=True)
+    until = parse_utc(request.args.get("to"), ignoretz=True)
 
-    keywords = request.args.getlist('keywords')
+    keywords = request.args.getlist("keywords")
 
-    mentions = _REPOSITORY.get_mentions('users0', since, until, keywords)
-    return jsonify(mentions)
+    mentions = _REPOSITORY.get_mentions("users0", since, until, keywords)
+    plot_data = create_mentions_count_plot(mentions)
+    return jsonify(plot_data)
 
 
-@app.route('/my-keywords')
+@app.route("/sentiment")
+def get_tions():
+    since = parse_utc(request.args.get("from"), ignoretz=True)
+    until = parse_utc(request.args.get("to"), ignoretz=True)
+
+    keywords = request.args.getlist("keywords")
+
+    mentions = _REPOSITORY.get_mentions("users0", since, until, keywords)
+    plot_data = create_sentiment_scores_plot(mentions)
+    return jsonify(plot_data)
+
+
+@app.route("/my-keywords")
 def get_my_keywords():
-    return jsonify(_REPOSITORY.get_keywords('users0'))
+    return jsonify(_REPOSITORY.get_keywords("users0"))
 
 
-@app.route('/all-keywords')
+@app.route("/all-keywords")
 def get_all_keywords():
     return jsonify(_REPOSITORY.get_all_keywords())

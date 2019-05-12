@@ -1,11 +1,9 @@
 import os
 from pynamodb.models import Model
-from pynamodb.attributes import (
-    UnicodeAttribute, NumberAttribute, UTCDateTimeAttribute
-)
+from pynamodb.attributes import UnicodeAttribute, NumberAttribute, UTCDateTimeAttribute
 
 
-DB_ADDR = os.environ['DYNAMO_DB_URL']
+DB_ADDR = os.environ["DYNAMO_DB_URL"]
 
 
 class Mention(Model):

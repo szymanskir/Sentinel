@@ -13,7 +13,8 @@ interface DashboardState {
     selectedKeywords: string[];
     from: moment.Moment;
     to: moment.Moment;
-    mentions: Mention[];
+    mentions: [];
+    sentiments: [];
 }
 
 export class Dashboard extends React.Component<{}, DashboardState> {
@@ -23,6 +24,7 @@ export class Dashboard extends React.Component<{}, DashboardState> {
             allKeywords: [],
             selectedKeywords: [],
             mentions: [],
+            sentiments: [],
             from: moment().add(-7, "days").startOf("day"),
             to: moment().startOf("day")
         };
@@ -51,13 +53,7 @@ export class Dashboard extends React.Component<{}, DashboardState> {
                 <Plot
                     style={ {width: "100%", height: "100%"} }
                     useResizeHandler={true}
-                    data={
-                        [
-                            {
-                                x: this.state.mentions.map(m => m.sentimentScore),
-                                type: "histogram",
-                            }
-                        ]}
+                    data={ this.state.sentiments }
                     layout={{ title: "Sentiment Plot", autosize: true }}
                 />
             </Grid>
@@ -65,13 +61,7 @@ export class Dashboard extends React.Component<{}, DashboardState> {
                 <Plot
                     style={ {width: "100%", height: "100%"} }
                     useResizeHandler={true}
-                    data={
-                        [
-                            {
-                                x: this.state.mentions.map(m => m.sentimentScore),
-                                type: "histogram",
-                            }
-                        ]}
+                    data={this.state.mentions}
                     layout={{ title: "Mentions count", autosize: true }}
                 />
             </Grid>
@@ -101,13 +91,21 @@ export class Dashboard extends React.Component<{}, DashboardState> {
     }
 
     private downloadMentions = async () => {
-        const mentions = await apiClient.getMentions(
+        const mentions = await apiClient.getMentionsCount(
             this.state.from,
             this.state.to,
             this.state.selectedKeywords
         );
 
         this.setState({ mentions });
+
+        const sentiments = await apiClient.getMentionsSentimentScores(
+            this.state.from,
+            this.state.to,
+            this.state.selectedKeywords
+        );
+
+        this.setState({ sentiments });
     }
 }
 
