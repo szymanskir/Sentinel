@@ -1,9 +1,9 @@
 from flask import jsonify, request, render_template
-from datetime import datetime
 from sentinel_backend import app
-from .repository import MockRepository
+from .repository import DynamoDbRepository
+from dateutil.parser import parse as parse_utc
 
-_REPOSITORY = MockRepository('../mock-data')
+_REPOSITORY = DynamoDbRepository()
 
 
 @app.route('/')
@@ -14,19 +14,20 @@ def index():
 
 @app.route('/mentions')
 def get_mentions():
-    since = datetime.strptime(request.args.get('from'), '%Y-%m-%d')
-    until = datetime.strptime(request.args.get('to'), '%Y-%m-%d')
-    keywords = request.args.get('keywords').split(',')
-    mentions = _REPOSITORY.get_mentions(since, until, keywords)
+    since = parse_utc(request.args.get('from'), ignoretz=True)
+    until = parse_utc(request.args.get('to'), ignoretz=True)
+
+    keywords = request.args.getlist('keywords')
+
+    mentions = _REPOSITORY.get_mentions('users0', since, until, keywords)
     return jsonify(mentions)
 
 
 @app.route('/my-keywords')
 def get_my_keywords():
-    user = request.args.get('user')
-    return jsonify(_REPOSITORY.get_keywords(user=user))
+    return jsonify(_REPOSITORY.get_keywords('users0'))
 
 
 @app.route('/all-keywords')
 def get_all_keywords():
-    return jsonify(_REPOSITORY.get_keywords())
+    return jsonify(_REPOSITORY.get_all_keywords())

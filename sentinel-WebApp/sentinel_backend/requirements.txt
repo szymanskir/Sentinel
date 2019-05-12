@@ -1,11 +1,12 @@
 Click==7.0
 Flask==1.0.2
+flask-cors==3.0.7
 itsdangerous==1.1.0
 Jinja2==2.10.1
 MarkupSafe==1.1.1
-numpy==1.16.3
-pandas==0.24.2
 python-dateutil==2.8.0
 pytz==2019.1
 six==1.12.0
 Werkzeug==0.15.2
+pynamodb==3.3.3
+awscli==1.16.155

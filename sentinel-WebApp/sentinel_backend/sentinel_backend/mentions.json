@@ -1,0 +1,44 @@
+[
+    [
+        "users0",
+        {
+            "range_key": "gameofthrones",
+            "attributes": {}
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "javascript",
+            "attributes": {}
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "microsoft",
+            "attributes": {}
+        }
+    ],
+    [
+        "users0",
+        {
+            "range_key": "nike",
+            "attributes": {}
+        }
+    ],
+    [
+        "users1",
+        {
+            "range_key": "life",
+            "attributes": {}
+        }
+    ],
+    [
+        "users1",
+        {
+            "range_key": "nike",
+            "attributes": {}
+        }
+    ]
+]

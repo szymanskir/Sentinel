@@ -1,0 +1,11 @@
+version: "3.6"
+services:
+  dynamodb:
+    image: instructure/dynamo-local-admin
+    volumes:
+      - database:/var/lib/dynamodb
+    ports:
+      - "8000:8000"
+
+volumes:
+  database:

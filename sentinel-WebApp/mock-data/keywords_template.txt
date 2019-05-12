@@ -1,5 +1,5 @@
 [
-    '{{repeat(1000)}}',
+    '{{repeat(50)}}',
     {
       user: function(tags) {
           return 'users' + tags.integer(0,10);
