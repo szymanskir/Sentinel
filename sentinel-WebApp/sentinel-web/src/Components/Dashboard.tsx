@@ -1,9 +1,10 @@
 import * as React from "react";
 import Plot from "react-plotly.js";
 import * as moment from "moment";
-import { FormControl, Select, InputLabel, MenuItem, Checkbox, ListItemText, TextField, Button } from "@material-ui/core";
+import { FormControl, Select, InputLabel, MenuItem, Checkbox, ListItemText, TextField, Button, AppBar, Toolbar, Typography, IconButton, Grid } from "@material-ui/core";
 import { apiClient } from "../ApiClient";
 import { Mention } from "../Models/Mention";
+import MenuIcon from "@material-ui/icons/Menu";
 
 
 
@@ -33,6 +34,48 @@ export class Dashboard extends React.Component<{}, DashboardState> {
 
     render() {
         return <>
+        <Grid container spacing={24} justify="center" alignItems="center" direction="column">
+            <Grid item xs={12}>
+                <AppBar position="fixed">
+                    <Toolbar>
+                        <IconButton color="inherit">
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="h6" color="inherit">
+                            Sentinel
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+            </Grid>
+            <Grid item xs={10}>
+                <Plot
+                    style={ {width: "100%", height: "100%"} }
+                    useResizeHandler={true}
+                    data={
+                        [
+                            {
+                                x: this.state.mentions.map(m => m.sentimentScore),
+                                type: "histogram",
+                            }
+                        ]}
+                    layout={{ title: "Sentiment Plot", autosize: true }}
+                />
+            </Grid>
+            <Grid item xs={10}>
+                <Plot
+                    style={ {width: "100%", height: "100%"} }
+                    useResizeHandler={true}
+                    data={
+                        [
+                            {
+                                x: this.state.mentions.map(m => m.sentimentScore),
+                                type: "histogram",
+                            }
+                        ]}
+                    layout={{ title: "Mentions count", autosize: true }}
+                />
+            </Grid>
+        </Grid>
             <DashboardParamsSelector
                 allKeywords={this.state.allKeywords}
                 selectedKeywords={this.state.selectedKeywords}
@@ -49,20 +92,6 @@ export class Dashboard extends React.Component<{}, DashboardState> {
                 color="primary">
                 Fetch
                 </Button>
-
-            <br />
-
-            <Plot
-                data={
-                    [
-                        {
-                            x: this.state.mentions.map(m => m.sentimentScore),
-                            type: "histogram",
-                        }
-                    ]}
-                layout={{ title: "A Fancy Plot" }
-                }
-            />
         </>;
     }
 
