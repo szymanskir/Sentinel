@@ -8,7 +8,7 @@ Keyword.create_table(read_capacity_units=25, write_capacity_units=25)
 
 
 def import_mentions(filename):
-    with open(filename, 'r') as file:
+    with open(filename, "r") as file:
         mentions = json.load(file)
         for m in mentions:
             model = Mention(
