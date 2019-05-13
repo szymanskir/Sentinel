@@ -36,36 +36,36 @@ export class Dashboard extends React.Component<{}, DashboardState> {
 
     render() {
         return <>
-        <Grid container spacing={24} justify="center" alignItems="center" direction="column">
-            <Grid item xs={12}>
-                <AppBar position="fixed">
-                    <Toolbar>
-                        <IconButton color="inherit">
-                            <MenuIcon/>
-                        </IconButton>
-                        <Typography variant="h6" color="inherit">
-                            Sentinel
+            <Grid container spacing={24} justify="center" alignItems="center" direction="column">
+                <Grid item xs={12}>
+                    <AppBar position="fixed">
+                        <Toolbar>
+                            <IconButton color="inherit">
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography variant="h6" color="inherit">
+                                Sentinel
                         </Typography>
-                    </Toolbar>
-                </AppBar>
+                        </Toolbar>
+                    </AppBar>
+                </Grid>
+                <Grid item xs={10}>
+                    <Plot
+                        style={{ width: "100%", height: "100%" }}
+                        useResizeHandler={true}
+                        data={this.state.sentiments}
+                        layout={{ title: "Sentiment Plot", autosize: true }}
+                    />
+                </Grid>
+                <Grid item xs={10}>
+                    <Plot
+                        style={{ width: "100%", height: "100%" }}
+                        useResizeHandler={true}
+                        data={this.state.mentions}
+                        layout={{ title: "Mentions count", autosize: true }}
+                    />
+                </Grid>
             </Grid>
-            <Grid item xs={10}>
-                <Plot
-                    style={ {width: "100%", height: "100%"} }
-                    useResizeHandler={true}
-                    data={ this.state.sentiments }
-                    layout={{ title: "Sentiment Plot", autosize: true }}
-                />
-            </Grid>
-            <Grid item xs={10}>
-                <Plot
-                    style={ {width: "100%", height: "100%"} }
-                    useResizeHandler={true}
-                    data={this.state.mentions}
-                    layout={{ title: "Mentions count", autosize: true }}
-                />
-            </Grid>
-        </Grid>
             <DashboardParamsSelector
                 allKeywords={this.state.allKeywords}
                 selectedKeywords={this.state.selectedKeywords}
@@ -91,21 +91,22 @@ export class Dashboard extends React.Component<{}, DashboardState> {
     }
 
     private downloadMentions = async () => {
-        const mentions = await apiClient.getMentionsCount(
+        const mentionsPromise = apiClient.getMentionsCount(
             this.state.from,
             this.state.to,
             this.state.selectedKeywords
         );
 
-        this.setState({ mentions });
-
-        const sentiments = await apiClient.getMentionsSentimentScores(
+        const sentimentsPromise = apiClient.getMentionsSentimentScores(
             this.state.from,
             this.state.to,
             this.state.selectedKeywords
         );
 
-        this.setState({ sentiments });
+        const mentions = await mentionsPromise;
+        const sentiments = await sentimentsPromise;
+
+        this.setState({ sentiments, mentions });
     }
 }
 

@@ -18,7 +18,7 @@ class ApiClient {
             params.append("keywords", word);
         }
 
-        const request = await this.prepareRequest(`/mentions-count?${params}`);
+        const request = await this.prepareRequest(`/mentions?${params}`);
         const response = await fetch(request);
         const json = await response.json();
         return json;
@@ -34,7 +34,7 @@ class ApiClient {
             params.append("keywords", word);
         }
 
-        const request = new Request(`${baseAddress}/sentiment?${params}`);
+        const request = await this.prepareRequest(`/sentiment?${params}`);
         const response = await fetch(request);
         const json = await response.json();
         return json;

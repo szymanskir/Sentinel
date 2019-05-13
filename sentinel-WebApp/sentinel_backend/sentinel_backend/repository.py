@@ -78,10 +78,11 @@ class MockRepository:
         is_mention_from_time_period = (mentions_data_dates >= since) & (
             mentions_data_dates <= until
         )
+        # import pdb; pdb.set_trace()
         is_mention_from_keywords = (
             self._mentions_data.keyword.isin(keywords)
             if keywords
-            else self.mentions == self.mentions
+            else self._mentions_data.keyword == self._mentions_data.keyword
         )
         requested_data = self._mentions_data[
             is_mention_from_time_period & is_mention_from_keywords

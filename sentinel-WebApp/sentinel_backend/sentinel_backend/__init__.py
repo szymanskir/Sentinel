@@ -5,6 +5,7 @@ from flask_cognito import CognitoAuth
 
 app = Flask(__name__)
 app.config.from_object("sentinel_backend.default_settings")
+app.config.from_envvar("SENTINEL_BACKEND_SETTINGS")
 
 CORS(app)
 
