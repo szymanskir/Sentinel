@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from typing import List
 from datetime import datetime
-from .models import Mention, Keyword, MentionDateIndex
+from sentinel_common.db_models import Mention, Keyword, MentionDateIndex
 
 
 class DynamoDbRepository:

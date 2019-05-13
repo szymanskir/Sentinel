@@ -24,3 +24,4 @@ Werkzeug==0.15.2
 pynamodb==3.3.3
 awscli==1.16.155
 Flask-Cognito==1.13
+-e ../sentinel_common

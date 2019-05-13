@@ -15,8 +15,8 @@
     "typescript": "^3.4.5"
   },
   "scripts": {
-    "dev": "webpack-dev-server -d --config ./build/webpack.dev.js",
-    "build": "webpack --mode=production --config ./build/webpack.prod.js"
+    "dev": "webpack-dev-server -d --config ./config/webpack.dev.js",
+    "build": "webpack --mode=production --config ./config/webpack.prod.js"
   },
   "eslintConfig": {
     "extends": "react-app"
