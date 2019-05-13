@@ -21,3 +21,6 @@ s3transfer==0.2.0
 six==1.12.0
 urllib3==1.24.3
 Werkzeug==0.15.2
+pynamodb==3.3.3
+awscli==1.16.155
+Flask-Cognito==1.13

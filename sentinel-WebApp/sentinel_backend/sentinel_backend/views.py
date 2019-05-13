@@ -1,10 +1,15 @@
 from flask import jsonify, request, render_template
+from flask_cognito import cognito_auth_required
 from sentinel_backend import app
-from .repository import MockRepository
-from .visualization import create_mentions_count_plot, create_sentiment_scores_plot
+from .repository import DynamoDbRepository
+from .visualization import (
+    create_mentions_count_plot,
+    create_sentiment_scores_plot)
+
 from dateutil.parser import parse as parse_utc
 
-_REPOSITORY = MockRepository("../mock-data")
+# _REPOSITORY = MockRepository("../mock-data")
+_REPOSITORY = DynamoDbRepository()
 
 
 @app.route("/")
@@ -14,6 +19,7 @@ def index():
 
 
 @app.route("/mentions")
+@cognito_auth_required
 def get_mentions():
     since = parse_utc(request.args.get("from"), ignoretz=True)
     until = parse_utc(request.args.get("to"), ignoretz=True)
@@ -26,6 +32,7 @@ def get_mentions():
 
 
 @app.route("/sentiment")
+@cognito_auth_required
 def get_tions():
     since = parse_utc(request.args.get("from"), ignoretz=True)
     until = parse_utc(request.args.get("to"), ignoretz=True)
@@ -38,6 +45,7 @@ def get_tions():
 
 
 @app.route("/my-keywords")
+@cognito_auth_required
 def get_my_keywords():
     return jsonify(_REPOSITORY.get_keywords("users0"))
 

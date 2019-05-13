@@ -25,7 +25,7 @@ class DynamoDbRepository:
             for m in keyword:
                 mentions.append(map_mention_to_dto(m))
 
-        return mentions
+        return pd.DataFrame.from_records(mentions)
 
     def get_keywords(self, user):
         keywords = Keyword.query(user)
@@ -40,7 +40,7 @@ def map_mention_to_dto(m: Mention) -> dict:
     return {
         "author": m.author,
         "text": m.text,
-        "date": m.date.isoformat(),
+        "date": m.date,
         "sentimentScore": m.sentimentScore,
         "keyword": m.keyword,
     }
@@ -78,10 +78,11 @@ class MockRepository:
         is_mention_from_time_period = (mentions_data_dates >= since) & (
             mentions_data_dates <= until
         )
+        # import pdb; pdb.set_trace()
         is_mention_from_keywords = (
             self._mentions_data.keyword.isin(keywords)
             if keywords
-            else self.mentions == self.mentions
+            else self._mentions_data.keyword == self._mentions_data.keyword
         )
         requested_data = self._mentions_data[
             is_mention_from_time_period & is_mention_from_keywords

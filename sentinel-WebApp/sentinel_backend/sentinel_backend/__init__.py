@@ -1,11 +1,21 @@
 import os
 from flask import Flask
 from flask_cors import CORS
+from flask_cognito import CognitoAuth
 
 app = Flask(__name__)
 app.config.from_object("sentinel_backend.default_settings")
+app.config.from_envvar("SENTINEL_BACKEND_SETTINGS")
 
 CORS(app)
+
+cogauth = CognitoAuth(app)
+
+
+@cogauth.identity_handler
+def lookup_cognito_user(payload):
+    return payload['username']
+
 
 if not app.debug:
     import logging

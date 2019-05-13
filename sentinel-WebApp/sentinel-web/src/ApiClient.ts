@@ -1,6 +1,8 @@
 import * as moment from "moment";
 import { Mention } from "./Models/Mention";
 import config from "config";
+import { Auth } from "aws-amplify";
+
 
 const baseAddress = config.apiEndpoint;
 
@@ -16,7 +18,7 @@ class ApiClient {
             params.append("keywords", word);
         }
 
-        const request = new Request(`${baseAddress}/mentions?${params}`);
+        const request = await this.prepareRequest(`/mentions?${params}`);
         const response = await fetch(request);
         const json = await response.json();
         return json;
@@ -32,17 +34,29 @@ class ApiClient {
             params.append("keywords", word);
         }
 
-        const request = new Request(`${baseAddress}/sentiment?${params}`);
+        const request = await this.prepareRequest(`/sentiment?${params}`);
         const response = await fetch(request);
         const json = await response.json();
         return json;
     }
 
     async getAllKeywords() {
-        const request = new Request(`${baseAddress}/my-keywords`);
+        const request = await this.prepareRequest("/my-keywords");
         const response = await fetch(request);
         const json = await response.json();
         return json as string[];
+    }
+
+    private async prepareRequest(path: string) {
+        const request = new Request(`${baseAddress}${path}`);
+        const token = await this.getToken();
+        request.headers.append("Authorization", `Bearer ${token}`);
+        return request;
+    }
+
+    private async getToken() {
+        let session = await Auth.currentSession();
+        return session.getAccessToken().getJwtToken();
     }
 }
 

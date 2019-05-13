@@ -95,6 +95,13 @@ module.exports = {
             options: {
                 name: "images/[name]-[hash:5].[ext]"
             }
+        },
+        {
+            test: /\.css$/,
+            use: [
+                "style-loader",
+                "css-loader"
+            ]
         }
         ]
     }
