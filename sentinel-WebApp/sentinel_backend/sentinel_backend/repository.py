@@ -25,7 +25,7 @@ class DynamoDbRepository:
             for m in keyword:
                 mentions.append(map_mention_to_dto(m))
 
-        return mentions
+        return pd.DataFrame.from_records(mentions)
 
     def get_keywords(self, user):
         keywords = Keyword.query(user)
@@ -40,7 +40,7 @@ def map_mention_to_dto(m: Mention) -> dict:
     return {
         "author": m.author,
         "text": m.text,
-        "date": m.date.isoformat(),
+        "date": m.date,
         "sentimentScore": m.sentimentScore,
         "keyword": m.keyword,
     }
