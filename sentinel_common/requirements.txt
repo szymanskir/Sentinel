@@ -1,0 +1,2 @@
+pydantic==0.23
+pynamodb==3.3.3
