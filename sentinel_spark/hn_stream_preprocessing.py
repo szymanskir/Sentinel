@@ -1,9 +1,6 @@
-from pyspark.sql.types import *
-from pyspark import SparkContext, SparkConf
+from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
-import os
-from sentinel_common.mentions import Mention
 from sentinel_spark.data_manipulation.text_preprocessing import clean_article_text
 from sentinel_spark.data_manipulation.stream_utils import to_mention, clean_mention_text
 from textblob import TextBlob
