@@ -1,11 +1,44 @@
-language: python
-sudo: required
-dist: xenial
-python: "3.6.7"
-cache: 
-  pip: true
-install:
-  - make requirements
-script:
-  - make tests
-  - make lint
+matrix:
+  include:
+    - language: python
+      env: COMMAND=sentinel_connectors
+      sudo: required
+      dist: xenial
+      python: "3.6.7"
+      cache: 
+        pip: true
+      before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_connectors/|sentinel_common/|\.travis.yml)' || exit 0
+        - cd sentinel_connectors
+      install:
+        - make requirements
+      script:
+        - make tests
+        - make lint
+
+    - language: python
+      env: COMMAND=sentinel_backend
+      sudo: required
+      dist: xenial
+      python: "3.6.7"
+      cache: 
+        pip: true
+      before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_backend/|sentinel_common/|\.travis.yml)' || exit 0
+        - cd sentinel_backend
+      install:
+        - make venv
+      script:
+        - make lint
+      
+    - language: node_js
+      env: COMMAND=sentinel_web
+      node_js:
+        - 12.2
+      before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_web/|sentinel_common/|\.travis.yml)' || exit 0
+        - cd sentinel_web
+      install:
+        - yarn install
+      script:
+        - yarn build
