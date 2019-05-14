@@ -27,8 +27,8 @@ clean:
 
 ## Lint using flake8 nad check types using mypy
 lint:
-	flake8 sentinel_connectors
-	mypy sentinel_connectors --ignore-missing-imports
+	flake8 sentinel_spark
+	mypy sentinel_spark --ignore-missing-imports
 
 ## Create virtual environment:
 create_environment:
