@@ -8,6 +8,7 @@ matrix:
       cache: 
         pip: true
       before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_connectors/|sentinel_common/|\.travis.yml)' || exit 0
         - cd sentinel_connectors
       install:
         - make requirements
@@ -23,6 +24,7 @@ matrix:
       cache: 
         pip: true
       before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_backend/|sentinel_common/|\.travis.yml)' || exit 0
         - cd sentinel_backend
       install:
         - make venv
@@ -34,6 +36,7 @@ matrix:
       node_js:
         - 12.2
       before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_web/|sentinel_common/|\.travis.yml)' || exit 0
         - cd sentinel_web
       install:
         - yarn install
