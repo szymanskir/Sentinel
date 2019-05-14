@@ -1,15 +1,11 @@
 import os
 from pynamodb.models import Model
-from pynamodb.attributes import (
-    UnicodeAttribute, NumberAttribute, UTCDateTimeAttribute
-)
-from pynamodb.indexes import (
-    LocalSecondaryIndex, AllProjection
-)
+from pynamodb.attributes import UnicodeAttribute, NumberAttribute, UTCDateTimeAttribute
+from pynamodb.indexes import LocalSecondaryIndex, AllProjection
 
 
-DB_ADDR = os.environ.get('DYNAMO_DB_URL')
-DB_REGION = os.environ.get('DYNAMO_DB_REGION')
+DB_ADDR = os.environ.get("DYNAMO_DB_URL")
+DB_REGION = os.environ.get("DYNAMO_DB_REGION")
 
 
 class MentionDateIndex(LocalSecondaryIndex):
