@@ -1,4 +1,6 @@
 kafka-python==1.4.6
 nltk==3.4.1
 textblob==0.15.3
+beautifulsoup4==4.7.1
+
 -e ../sentinel_common
