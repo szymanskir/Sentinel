@@ -13,7 +13,7 @@ VENV_NAME = .env
 # COMMANDS                                                                      #
 #################################################################################
 
-## Install Python Dependencies
+## Install Python dependencies
 requirements: 
 	$(PYTHON_INTERPRETER) setup.py install
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
