@@ -2,8 +2,8 @@ from pyspark import SparkContext, SparkConf
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
 import os
-from sentinel.models.mentions import Mention
-from sentinel.data_manipulation.stream_utils import to_mention
+from sentinel_common.mentions import Mention
+from sentinel_spark.data_manipulation.stream_utils import to_mention
 import json
 from textblob import TextBlob
 import datetime

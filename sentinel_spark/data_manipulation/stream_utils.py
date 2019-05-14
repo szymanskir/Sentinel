@@ -1,4 +1,4 @@
-from sentinel.models.mentions import Mention
+from sentinel_common.mentions import Mention
 import json
 
 def to_mention(data_tuple):
