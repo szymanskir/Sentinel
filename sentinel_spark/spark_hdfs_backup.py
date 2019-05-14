@@ -3,6 +3,7 @@ from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
 import os
 from sentinel.models.mentions import Mention
+from sentinel.data_manipulation.stream_utils import to_mention
 import json
 from textblob import TextBlob
 import datetime
@@ -12,34 +13,24 @@ sc.setLogLevel("WARN")
 ssc = StreamingContext(sc, 500)
 
 kafka_params = {"bootstrap.servers": "sandbox-hdp.hortonworks.com:6667"}
+kafka_stream = KafkaUtils.createDirectStream(ssc, ["hacker-news", "google-news", "twitter", "reddit"], kafka_params)
 
+parsed_stream = kafka_stream.window(500, 500).map(lambda x: to_mention(x))
 
-def to_mention(data_tuple):
-    _, mention_raw = data_tuple
-    return json.loads(mention_raw)
-
-
-kafka_stream = KafkaUtils.createDirectStream(ssc, ["hacker-news", "reddit", "twitter", "google-news"], kafka_params)
-
-
-parsed_stream = kafka_stream.window(500, 500) \
-                            .map(lambda x: to_mention(x)) \
-
-def tpprint(val):
+def dump_to_hdfs(val):
     """
-    Print the first num elements of each RDD generated in this DStream.
-    @param num: the number of elements from the first will be printed.
+    Dump dstream content to hdfs
     """
-    def takeAndPrint(time, rdd):
+    def save_as_pickle(time, rdd):
         print("########################")
         print("Time: %s" % time)
         print("########################")
-        rdd.saveAsPickleFile(f"hdfs:///user/root/data/mentions-{time.timestamp()}", 500)
+        rdd.saveAsPickleFile(f"hdfs:///user/root/pickles/mentions-{time.timestamp()}", 500)
         print("...")
         print("")
-    val.foreachRDD(takeAndPrint)
+    val.foreachRDD(save_as_pickle)
 
-tpprint(parsed_stream)
+dump_to_hdfs(parsed_stream)
 
 ssc.start()
 ssc.awaitTermination()

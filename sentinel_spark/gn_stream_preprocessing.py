@@ -15,11 +15,11 @@ ssc = StreamingContext(sc, 3)
 
 kafka_params = {"bootstrap.servers": "sandbox-hdp.hortonworks.com:6667"}
 
-kafka_stream = KafkaUtils.createDirectStream(ssc, ["hacker-news"], kafka_params)
-hacker_news_mentions_cleaned = kafka_stream.map(lambda x: to_mention(x)).map(lambda x: clean_mention_text(x, clean_article_text))
-hacker_news_mentions_enriched = hacker_news_mentions_cleaned.map(lambda x: (x, TextBlob(x.text).sentiment.polarity))
+kafka_stream = KafkaUtils.createDirectStream(ssc, ["google-news"], kafka_params)
+google_news_mentions_cleaned = kafka_stream.map(lambda x: to_mention(x)).map(lambda x: clean_mention_text(x, clean_article_text))
+google_news_mentions_enriched = google_news_mentions_cleaned.map(lambda x: (x, TextBlob(x.text).sentiment.polarity))
 
-hacker_news_mentions_enriched.pprint()
+google_news_mentions_enriched.pprint()
 
 ssc.start()
 ssc.awaitTermination()
