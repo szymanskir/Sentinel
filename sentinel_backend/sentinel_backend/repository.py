@@ -7,18 +7,16 @@ from sentinel_common.db_models import Mention, Keyword, MentionDateIndex
 
 class DynamoDbRepository:
     def get_mentions(
-            self,
-            user: str,
-            since: datetime,
-            until: datetime,
-            keywords: List[str]):
+        self, user: str, since: datetime, until: datetime, keywords: List[str]
+    ):
 
         if keywords is None or len(keywords) <= 0:
             keywords = self.get_keywords(user)
 
-        queries = [MentionDateIndex.query(
-            keyword, Mention.date.between(since, until))
-            for keyword in keywords]
+        queries = [
+            MentionDateIndex.query(keyword, Mention.date.between(since, until))
+            for keyword in keywords
+        ]
 
         mentions = []
         for keyword in queries:

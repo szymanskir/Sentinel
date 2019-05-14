@@ -14,7 +14,7 @@ cogauth = CognitoAuth(app)
 
 @cogauth.identity_handler
 def lookup_cognito_user(payload):
-    return payload['username']
+    return payload["username"]
 
 
 if not app.debug:
@@ -31,4 +31,4 @@ if not app.debug:
     )
     app.logger.addHandler(file_handler)
 
-import sentinel_backend.views
+import sentinel_backend.views  # noqa: E402,F401

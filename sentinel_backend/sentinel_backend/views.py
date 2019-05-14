@@ -2,9 +2,7 @@ from flask import jsonify, request, render_template
 from flask_cognito import cognito_auth_required
 from sentinel_backend import app
 from .repository import DynamoDbRepository
-from .visualization import (
-    create_mentions_count_plot,
-    create_sentiment_scores_plot)
+from .visualization import create_mentions_count_plot, create_sentiment_scores_plot
 
 from dateutil.parser import parse as parse_utc
 
