@@ -3,7 +3,6 @@ from .keyword_finder import KeywordFinder
 from abc import ABC
 from typing import Set
 import threading
-import time
 import logging
 import sentinel_common.db_models
 
