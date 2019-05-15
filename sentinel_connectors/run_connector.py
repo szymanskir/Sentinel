@@ -1,5 +1,7 @@
 import click
 import logging
+import kafka
+import json
 import os
 import os.path
 import sys
@@ -13,6 +15,28 @@ from sentinel_connectors.utils import read_config
 LOGGER = logging.getLogger("main")
 LOG_DIRECTORY = "logs"
 CURRENT_DATETIME = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+KAFKA_URL = "sandbox-hdp.hortonworks.com:6667"
+
+
+def ensure_topics_exist():
+    all_topics = ["reddit", "twitter", "google-news", "hacker-news"]
+
+    admin = kafka.admin.KafkaAdminClient(bootstrap_servers=[KAFKA_URL])
+    client = kafka.KafkaClient([KAFKA_URL])
+    existing_topics = client.topics
+    topics = [
+        kafka.admin.NewTopic(topic, 1, 1)
+        for topic in all_topics
+        if topic not in existing_topics
+    ]
+    admin.create_topics(topics)
+
+
+LOGGER = logging.getLogger("main")
+producer = kafka.KafkaProducer(
+    bootstrap_servers=[KAFKA_URL],
+    value_serializer=lambda m: json.dumps(m).encode("utf8"),
+)
 
 
 def setup_logger(filename: str):
@@ -66,12 +90,14 @@ def stream(config_file, source, keywords):
     config = read_config(config_file)
     factory = StreamConnectorFactory()
     connector = factory.create_stream_connector(source, config)
+    ensure_topics_exist()
 
     def stream_mentions():
         while True:
             try:
                 for mention in connector.stream_comments():
                     if keyword_manager.any_match(mention.text):
+                        producer.send(mention.source, mention.to_json())
                         LOGGER.info(f"HIT: {mention.text[:30]}")
                     else:
                         LOGGER.info(f"MISS: {mention.text[:30]}")

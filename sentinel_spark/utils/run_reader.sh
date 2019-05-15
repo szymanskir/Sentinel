@@ -1,0 +1,1 @@
+/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8-assembly_2.11:2.4.3 /shared/Sentinel/sentinel_spark/spark_reader.py
