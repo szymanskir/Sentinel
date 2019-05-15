@@ -5,6 +5,7 @@ from typing import Set
 import threading
 import time
 import logging
+import sentinel_common.db_models
 
 
 class KeywordManager(ABC):
@@ -48,6 +49,6 @@ class DynamicKeywordManager(KeywordManager):
             self._exit_event.wait(self.SLEEP_TIME)
 
     def _get_keywords(self) -> Set[str]:
-        # simulate redis / db call
-        time.sleep(0.1)
-        return set(["the"])
+        return set(
+            [x.keyword for x in sentinel_common.db_models.Keyword.scan() if x.keyword]
+        )

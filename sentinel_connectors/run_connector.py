@@ -9,7 +9,10 @@ import sys
 from datetime import datetime
 from sentinel_connectors.historical import HistoricalConnectorFactory
 from sentinel_connectors.stream import StreamConnectorFactory
-from sentinel_connectors.keyword_manager import ConstKeywordManager, DynamicKeywordManager
+from sentinel_connectors.keyword_manager import (
+    ConstKeywordManager,
+    DynamicKeywordManager,
+)
 from sentinel_connectors.utils import read_config
 
 LOGGER = logging.getLogger("main")
@@ -48,6 +51,9 @@ def setup_logger(filename: str):
         datefmt="%Y-%m-%d %H:%M:%S",
     )
     logging.getLogger("main").addHandler(logging.StreamHandler(sys.stdout))
+    logging.getLogger(f"{DynamicKeywordManager.__name__}").addHandler(
+        logging.StreamHandler(sys.stdout)
+    )
 
 
 @click.group()
