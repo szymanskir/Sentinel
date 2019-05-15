@@ -42,7 +42,6 @@ python-twitter==3.5
 requests==2.21.0
 requests-oauthlib==1.2.0
 rope==0.14.0
-sentinel==0.1.0
 six==1.12.0
 soupsieve==1.9.1
 toml==0.10.0
