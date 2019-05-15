@@ -22,10 +22,7 @@ def to_db_mention(
 def find_all_keywords(text: str, keywords: Set[str]) -> List[str]:
     text_without_punc = re.sub(r"[^\w\s]", "", text)
     queried_text = text_without_punc.split()
-    found_words = list()
-    for word in queried_text:
-        if word in keywords:
-            found_words.append(word)
+    found_words = [word for word in queried_text if word in keywords]
 
     return found_words
 

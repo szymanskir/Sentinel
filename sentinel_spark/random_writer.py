@@ -4,6 +4,7 @@ from sentinel_common.mentions import Mention, HackerNewsMetadata
 import random, string
 from datetime import datetime
 import time
+import logging
 
 KAFKA_URL = "sandbox-hdp.hortonworks.com:6667"
 
@@ -116,7 +117,7 @@ def main():
             metadata=HackerNewsMetadata(author="YOLO author"),
         )
         producer.send("hacker-news", mention.to_json())
-        print(f"SENT: {sample_text}")
+        logging.info(f"SENT: {sample_text}")
         time.sleep(random.uniform(0, 1))
 
 
