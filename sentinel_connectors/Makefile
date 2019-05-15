@@ -42,29 +42,32 @@ tests:
 # PROJECT RULES                                                                 #
 #################################################################################
 
+SINK ?= kafka
+all:;: '$(SINK)'
+
 reddit_sample:
-	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source reddit
+	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source reddit --sink $(SINK)
 
 reddit_historical_sample:
-	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source reddit --keywords madagascar --since 2019-04-19 --until 2019-04-20
+	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source reddit --keywords madagascar --since 2019-04-19 --until 2019-04-20 --sink $(SINK)
 
 hn_sample:
-	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source hacker-news
+	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source hacker-news --sink $(SINK)
 
 hn_historical_sample:
-	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source hacker-news --keywords microsoft --since 2019-04-19 --until 2019-04-20
+	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source hacker-news --keywords microsoft --since 2019-04-19 --until 2019-04-20 --sink $(SINK)
 
 gn_sample:
-	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source google-news
+	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source google-news --sink $(SINK)
 
 gn_historical_sample:
-	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source google-news --keywords microsoft --since $(shell date +'%Y-%m-%d' --date='-1 day') --until $(shell date +'%Y-%m-%d')
+	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source google-news --keywords microsoft --since $(shell date +'%Y-%m-%d' --date='-1 day') --until $(shell date +'%Y-%m-%d') --sink $(SINK)
 
 twitter_sample:
-	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source twitter
+	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source twitter --sink $(SINK)
 
 twitter_historical_sample:
-	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source twitter --keywords nike --since $(shell date +'%Y-%m-%d' --date='-1 day') --until $(shell date +'%Y-%m-%d')
+	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source twitter --keywords nike --since $(shell date +'%Y-%m-%d' --date='-1 day') --until $(shell date +'%Y-%m-%d') --sink $(SINK)
 
 #################################################################################
 # Self Documenting Commands                                                     #
