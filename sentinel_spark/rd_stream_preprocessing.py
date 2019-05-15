@@ -1,10 +1,8 @@
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
-from sentinel_spark.data_manipulation.text_preprocessing \
-    import clean_comment_text
-from sentinel_spark.data_manipulation.stream_utils \
-    import to_mention, clean_mention_text
+from sentinel_spark.data_manipulation.text_preprocessing import clean_comment_text
+from sentinel_spark.data_manipulation.stream_utils import to_mention, clean_mention_text
 from textblob import TextBlob
 
 from sentinel_spark.db_writer import save_to_db
