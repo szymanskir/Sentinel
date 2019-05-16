@@ -16,7 +16,9 @@ from .hn_common import clean_html
 from .reddit_common import map_reddit_comment, filter_removed_comments
 from .gn_common import create_gn_mention
 from .secrets_manager import (
-    SecretsManager, RedditSecretsManager, GoogleNewsSecretsManager, TwitterSecretsManager
+    RedditSecretsManager,
+    GoogleNewsSecretsManager,
+    TwitterSecretsManager
 )
 
 
@@ -29,7 +31,7 @@ class IHistoricalConnector(metaclass=ABCMeta):
 
 class HistoricalConnectorFactory:
     def create_historical_connector(
-        self, source: str, config: Dict[Any, Any]
+        self, source: str
     ) -> IHistoricalConnector:
         creation_strategy = {
             "twitter": (TwitterHistoricalConnector, RedditSecretsManager()),
@@ -39,11 +41,11 @@ class HistoricalConnectorFactory:
         }
         factory_method, secrets_manager = creation_strategy[source]
 
-        return factory_method(config, secrets_manager)
+        return factory_method(secrets_manager)
 
 
 class TwitterHistoricalConnector(IHistoricalConnector):
-    def __init__(self, secrets_manager: SecretsManager):
+    def __init__(self, secrets_manager: TwitterSecretsManager):
         secrets = secrets_manager.get_secrets()
         auth = tweepy.OAuthHandler(
             secrets["TWITTER_CONSUMER_KEY"],
@@ -104,7 +106,7 @@ class TwitterHistoricalConnector(IHistoricalConnector):
 
 
 class HackerNewsHistoricalConnector(IHistoricalConnector):
-    def __init__(self, secrets_manager: SecretsManager):
+    def __init__(self, secrets_manager: Any):
         pass
 
     def download_mentions(
@@ -150,7 +152,7 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
 
 
 class GoogleNewsHistoricalConnector(IHistoricalConnector):
-    def __init__(self, secrets_manager: SecretsManager):
+    def __init__(self, secrets_manager: GoogleNewsSecretsManager):
         secrets = secrets_manager.get_secrets()
         self._api_client = NewsApiClient(
             api_key=secrets["GOOGLE_NEWS_API_KEY"]
@@ -186,7 +188,7 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
 
 
 class RedditHistoricalConnector(IHistoricalConnector):
-    def __init__(self, secrets_manager: SecretsManager):
+    def __init__(self, secrets_manager: RedditSecretsManager):
         secrets = secrets_manager.get_secrets()
         reddit = praw.Reddit(
             user_agent="Comment Extraction (by /u/balindwalinstalin)",

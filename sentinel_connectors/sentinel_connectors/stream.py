@@ -8,12 +8,15 @@ from datetime import datetime
 from typing import Any, Dict, Iterator
 from newsapi import NewsApiClient
 from pydantic import ValidationError
-from functools import partial
 
 from .gn_common import create_gn_mention
 from .hn_common import clean_html
 from .reddit_common import map_reddit_comment
-from .secrets_manager import SecretsManager, RedditSecretsManager, GoogleNewsSecretsManager, TwitterSecretsManager
+from .secrets_manager import (
+    RedditSecretsManager,
+    GoogleNewsSecretsManager,
+    TwitterSecretsManager
+)
 
 from sentinel_common.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
 import twitter
@@ -39,7 +42,7 @@ class StreamConnectorFactory:
 
 
 class RedditStreamConnector(IStreamConnector):
-    def __init__(self, secrets_manager: SecretsManager):
+    def __init__(self, secrets_manager: RedditSecretsManager):
         secrets = secrets_manager.get_secrets()
         self.reddit = praw.Reddit(
             user_agent="Comment Extraction (by /u/balindwalinstalin)",
@@ -57,7 +60,7 @@ class RedditStreamConnector(IStreamConnector):
 
 
 class HackerNewsStreamConnector(IStreamConnector):
-    def __init__(self, secrets_manager: SecretsManager):
+    def __init__(self, secrets_manager: Any):
         self._comments_stream_url = "http://api.hnstream.com/comments/stream/"
 
     def stream_comments(self) -> Iterator[Mention]:
@@ -89,7 +92,7 @@ class HackerNewsStreamConnector(IStreamConnector):
 
 
 class GoogleNewsStreamConnector(IStreamConnector):
-    def __init__(self, secrets_manager: SecretsManager):
+    def __init__(self, secrets_manager: GoogleNewsSecretsManager):
         secrets = secrets_manager.get_secrets()
         self._api_client = NewsApiClient(
             api_key=secrets["GOOGLE_NEWS_API_KEY"]
@@ -151,7 +154,7 @@ class GoogleNewsStreamConnector(IStreamConnector):
 
 
 class TwitterStreamConnector(IStreamConnector):
-    def __init__(self, secrets_manager: SecretsManager):
+    def __init__(self, secrets_manager: TwitterSecretsManager):
         secrets = secrets_manager.get_secrets()
         self.api = self._get_api_connection(secrets)
 
