@@ -43,25 +43,25 @@ tests:
 #################################################################################
 
 reddit_sample:
-	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source reddit --keywords life,Paris
+	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source reddit
 
 reddit_historical_sample:
 	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source reddit --keywords madagascar --since 2019-04-19 --until 2019-04-20
 
 hn_sample:
-	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source hacker-news --keywords microsoft
+	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source hacker-news
 
 hn_historical_sample:
 	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source hacker-news --keywords microsoft --since 2019-04-19 --until 2019-04-20
 
 gn_sample:
-	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source google-news --keywords microsoft
+	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source google-news
 
 gn_historical_sample:
 	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source google-news --keywords microsoft --since $(shell date +'%Y-%m-%d' --date='-1 day') --until $(shell date +'%Y-%m-%d')
 
 twitter_sample:
-	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source twitter --keywords nasa
+	$(PYTHON_INTERPRETER) run_connector.py stream config.ini --source twitter
 
 twitter_historical_sample:
 	$(PYTHON_INTERPRETER) run_connector.py historical config.ini --source twitter --keywords nike --since $(shell date +'%Y-%m-%d' --date='-1 day') --until $(shell date +'%Y-%m-%d')
