@@ -8,13 +8,7 @@ from sentinel_connectors.historical import GoogleNewsHistoricalConnector
 from sentinel_connectors.stream import GoogleNewsStreamConnector
 from sentinel_connectors.gn_common import create_gn_mention, create_gn_mention_metadata 
 from sentinel_connectors.utils import read_jsonpickle
-
-
-MOCK_CONFIG = {
-    'Default': {
-        'GOOGLE_NEWS_API_KEY': 'XXX'
-    }
-}
+from sentinel_connectors.secrets_manager import GoogleNewsSecretsManager
 
 
 def get_gn_articles():
@@ -51,7 +45,7 @@ def test_GoogleNewsHistoricalConnector_download_mentions():
         "_search_news",
         return_value=mock_comments(),
     ):
-        connector = GoogleNewsHistoricalConnector(config=MOCK_CONFIG)
+        connector = GoogleNewsHistoricalConnector(GoogleNewsSecretsManager())
         result = [mention for mention in connector.download_mentions(keywords='microsoft', since=datetime(2019, 4, 4), until=datetime(2019, 4, 5))]
 
     expected = get_gn_articles()
@@ -71,7 +65,7 @@ def test_GoogleNewsStreamConnector_download_mentions():
         "_listen_top_stories",
         return_value=mock_comments(),
     ):
-        connector = GoogleNewsStreamConnector(config=MOCK_CONFIG)
+        connector = GoogleNewsStreamConnector(GoogleNewsSecretsManager())
         result = [mention for mention in connector.stream_comments()]
 
     expected = get_gn_articles()
@@ -91,7 +85,7 @@ def test_GoogleNewsStreamConnector_duplicates_filtering():
         return_value="bbc.com"
     )
     def execute_test(mock_stream_connector):
-        connector = GoogleNewsStreamConnector(config=MOCK_CONFIG)
+        connector = GoogleNewsStreamConnector(GoogleNewsSecretsManager())
         with patch.object(
             NewsApiClient,
             "get_top_headlines",

@@ -4,13 +4,7 @@ from unittest.mock import patch
 from datetime import datetime
 from os.path import join, dirname, realpath
 from sentinel_connectors.utils import read_jsonpickle
-
-MOCK_CONFIG = {
-    "Default": {
-        "TWITTER_CONSUMER_KEY": "MOCK_KEY",
-        "TWITTER_CONSUMER_SECRET": "MOCK_SECRET",
-    }
-}
+from sentinel_connectors.secrets_manager import TwitterSecretsManager
 
 
 def get_tweets_pkl():
@@ -57,7 +51,7 @@ def test_TwitterStreamConnector_download_mentions(tweets_test_case):
         _get_stream=mock_get_stream,
         _get_api_connection=mock_get_api_connection,
     ):
-        connector = TwitterStreamConnector(config=MOCK_CONFIG)
+        connector = TwitterStreamConnector(TwitterSecretsManager())
         mention_generator = connector.stream_comments()
         mention_list = [mention for mention in mention_generator]
 

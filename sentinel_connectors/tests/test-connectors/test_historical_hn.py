@@ -53,7 +53,7 @@ def test_HackerNewsHistoricalConnector_download_mentions(hn_comments):
     with patch.object(
         HackerNewsHistoricalConnector, "_search", return_value=mock_search()
     ):
-        connector = HackerNewsHistoricalConnector(config=MOCK_CONFIG)
+        connector = HackerNewsHistoricalConnector(None)
         mention_generator = connector.download_mentions(
             ["microsoft"], datetime(2019, 4, 10), datetime(2019, 4, 13)
         )

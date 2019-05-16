@@ -9,7 +9,7 @@ from sentinel_connectors.reddit_common import (
 from sentinel_connectors.historical import RedditHistoricalConnector
 from sentinel_connectors.utils import read_pickle
 from datetime import datetime
-
+from sentinel_connectors.secrets_manager import  RedditSecretsManager
 
 MOCK_CONFIG = MOCK_CONFIG = {
     "Default": {"REDDIT_CLIENT_ID": "*******", "REDDIT_CLIENT_SECRET": "*******"}
@@ -59,7 +59,7 @@ def test_RedditHistoricalConnector_merging_comments(reddit_comments):
         "_fetch_comments",
         return_value=[reddit_comments[:3], reddit_comments[3:]],
     ):
-        connector = RedditHistoricalConnector(config=MOCK_CONFIG)
+        connector = RedditHistoricalConnector(RedditSecretsManager())
         results = connector.download_mentions(
             ["life"], datetime(2019, 4, 15), datetime(2019, 4, 20)
         )
@@ -87,7 +87,7 @@ def test_RedditHistoricalConnector_deduplicates_comments(reddit_comments):
     with patch.object(
         RedditHistoricalConnector, "_fetch_comments", return_value=[reddit_comments]
     ):
-        connector = RedditHistoricalConnector(config=MOCK_CONFIG)
+        connector = RedditHistoricalConnector(RedditSecretsManager())
 
         results = connector.download_mentions(
             ["life"], datetime(2019, 4, 15), datetime(2019, 4, 20)

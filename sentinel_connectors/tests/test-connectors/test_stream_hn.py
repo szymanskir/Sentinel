@@ -7,7 +7,6 @@ from sentinel_connectors.utils import read_jsonpickle
 from sentinel_connectors.hn_common import clean_html
 
 
-MOCK_CONFIG = dict()
 
 
 def get_hn_comments_jsonpkl():
@@ -42,7 +41,7 @@ def test_HackerNewsStreamConnector_stream_comments(hn_comments):
         "_stream_comments",
         return_value=mock_stream_comments(),
     ):
-        connector = HackerNewsStreamConnector(config=MOCK_CONFIG)
+        connector = HackerNewsStreamConnector(None)
         result = [mention for mention in connector.stream_comments()]
 
     expected = [
