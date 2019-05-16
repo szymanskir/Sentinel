@@ -80,18 +80,16 @@ def historical(config_file, source, keywords, since, until, sink):
 
 
 @main.command()
-@click.argument("config_file", type=click.Path(exists=True))
 @click.option("--source", required=True)
 @click.option("--keywords", type=click.STRING)
 @click.option("--sink", type=click.Choice(["kafka", "kinesis"]))
-def stream(config_file, source, keywords, sink):
+def stream(source, keywords, sink):
     setup_logger(
         os.path.join(LOG_DIRECTORY, f"logs_stream_{source}_{CURRENT_DATETIME}.log")
     )
 
-    config = read_config(config_file)
     factory = StreamConnectorFactory()
-    connector = factory.create_stream_connector(source, config)
+    connector = factory.create_stream_connector(source)
     sink = get_sink(sink)
 
     def stream_mentions():
