@@ -55,17 +55,15 @@ def main():
 
 
 @main.command()
-@click.argument("config_file", type=click.Path(exists=True))
 @click.option("--source", required=True)
 @click.option("--keywords", type=click.STRING, required=True)
 @click.option("--since", type=click.DateTime(), required=True)
 @click.option("--until", type=click.DateTime(), default=str(datetime.today().date()))
 @click.option("--sink", type=click.Choice(["kafka", "kinesis"]))
-def historical(config_file, source, keywords, since, until, sink):
+def historical(source, keywords, since, until, sink):
     setup_logger(
         os.path.join(LOG_DIRECTORY, f"logs_historical_{source}_{CURRENT_DATETIME}.log")
     )
-    config = read_config(config_file)
     keywords = keywords.split(",")
     factory = HistoricalConnectorFactory()
     connector = factory.create_historical_connector(source, config)
