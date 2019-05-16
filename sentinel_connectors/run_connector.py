@@ -1,6 +1,5 @@
 import click
 import logging
-import kafka
 import json
 import os
 import os.path
@@ -14,32 +13,16 @@ from sentinel_connectors.keyword_manager import (
     DynamicKeywordManager,
 )
 from sentinel_connectors.utils import read_config
+from sentinel_connectors.sinks import (
+    IDataSink,
+    KafkaSink,
+    KinesisSink,
+    SinkNotAvailableError,
+)
 
 LOGGER = logging.getLogger("main")
 LOG_DIRECTORY = "logs"
 CURRENT_DATETIME = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-KAFKA_URL = "sandbox-hdp.hortonworks.com:6667"
-
-
-def ensure_topics_exist():
-    all_topics = ["reddit", "twitter", "google-news", "hacker-news"]
-
-    admin = kafka.admin.KafkaAdminClient(bootstrap_servers=[KAFKA_URL])
-    client = kafka.KafkaClient([KAFKA_URL])
-    existing_topics = client.topics
-    topics = [
-        kafka.admin.NewTopic(topic, 1, 1)
-        for topic in all_topics
-        if topic not in existing_topics
-    ]
-    admin.create_topics(topics)
-
-
-LOGGER = logging.getLogger("main")
-producer = kafka.KafkaProducer(
-    bootstrap_servers=[KAFKA_URL],
-    value_serializer=lambda m: json.dumps(m).encode("utf8"),
-)
 
 
 def setup_logger(filename: str):
@@ -56,6 +39,15 @@ def setup_logger(filename: str):
     )
 
 
+def get_sink(sink: str):
+    if sink == "kafka":
+        return KafkaSink()
+    elif sink == "kinesis":
+        return KinesisSink()
+    else:
+        raise ValueError(f"Unsupported sink: {sink}")
+
+
 @click.group()
 def main():
     if not os.path.isdir(LOG_DIRECTORY):
@@ -68,7 +60,8 @@ def main():
 @click.option("--keywords", type=click.STRING, required=True)
 @click.option("--since", type=click.DateTime(), required=True)
 @click.option("--until", type=click.DateTime(), default=str(datetime.today().date()))
-def historical(config_file, source, keywords, since, until):
+@click.option("--sink", type=click.Choice(["kafka", "kinesis"]))
+def historical(config_file, source, keywords, since, until, sink):
     setup_logger(
         os.path.join(LOG_DIRECTORY, f"logs_historical_{source}_{CURRENT_DATETIME}.log")
     )
@@ -76,9 +69,11 @@ def historical(config_file, source, keywords, since, until):
     keywords = keywords.split(",")
     factory = HistoricalConnectorFactory()
     connector = factory.create_historical_connector(source, config)
+    sink = get_sink(sink)
 
     try:
         for mention in connector.download_mentions(keywords, since, until):
+            sink.put(mention)
             LOGGER.info(f"TEXT:{mention.text}")
     except Exception as e:
         LOGGER.error(e)
@@ -88,7 +83,8 @@ def historical(config_file, source, keywords, since, until):
 @click.argument("config_file", type=click.Path(exists=True))
 @click.option("--source", required=True)
 @click.option("--keywords", type=click.STRING)
-def stream(config_file, source, keywords):
+@click.option("--sink", type=click.Choice(["kafka", "kinesis"]))
+def stream(config_file, source, keywords, sink):
     setup_logger(
         os.path.join(LOG_DIRECTORY, f"logs_stream_{source}_{CURRENT_DATETIME}.log")
     )
@@ -96,17 +92,19 @@ def stream(config_file, source, keywords):
     config = read_config(config_file)
     factory = StreamConnectorFactory()
     connector = factory.create_stream_connector(source, config)
-    ensure_topics_exist()
+    sink = get_sink(sink)
 
     def stream_mentions():
         while True:
             try:
                 for mention in connector.stream_comments():
                     if keyword_manager.any_match(mention.text):
-                        producer.send(mention.source, mention.to_json())
+                        sink.put(mention)
                         LOGGER.info(f"HIT: {mention.text[:30]}")
                     else:
                         LOGGER.info(f"MISS: {mention.text[:30]}")
+            except SinkNotAvailableError as e:
+                raise RuntimeError from e
             except Exception as e:
                 LOGGER.error(e)
 
