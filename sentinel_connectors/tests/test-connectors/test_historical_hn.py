@@ -7,10 +7,11 @@ from sentinel_connectors.utils import read_jsonpickle
 from sentinel_connectors.historical import HackerNewsHistoricalConnector
 from sentinel_connectors.hn_common import clean_html
 
-MOCK_CONFIG = dict()
 
 def get_hn_comments_jsonpkl():
-    hn_comments_jsonpkl_path = join(dirname(realpath(__file__)), "hn-historical_comments.json")
+    hn_comments_jsonpkl_path = join(
+        dirname(realpath(__file__)), "hn-historical_comments.json"
+    )
     return read_jsonpickle(hn_comments_jsonpkl_path)
 
 
@@ -25,7 +26,9 @@ def hn_comments():
 
 @pytest.fixture
 def hacker_news_comment_json():
-    hn_comments_russia_json_pkl_path = join(dirname(realpath(__file__)), "hn-historical-russia.json")
+    hn_comments_russia_json_pkl_path = join(
+        dirname(realpath(__file__)), "hn-historical-russia.json"
+    )
     return read_jsonpickle(hn_comments_russia_json_pkl_path)
 
 

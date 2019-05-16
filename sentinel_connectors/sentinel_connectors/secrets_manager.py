@@ -49,14 +49,13 @@ class SecretsManager(ABC):
                 raise e
         except Exception as e:
             self._logger.error(e)
+            raise e
 
-        else:
-            # Decrypts secret using the associated KMS CMK.
-            if 'SecretString' in get_secret_value_response:
-                self._logger.info(
-                    f"Secret with id: {self._secret_id} recovered successfully"
-                )
-                secret = get_secret_value_response['SecretString']
+        # Decrypts secret using the associated KMS CMK.
+        self._logger.info(
+            f"Secret with id: {self._secret_id} recovered successfully"
+        )
+        secret = get_secret_value_response['SecretString']
         return json.loads(secret)
 
 

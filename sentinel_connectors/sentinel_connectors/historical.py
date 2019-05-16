@@ -21,6 +21,11 @@ from .secrets_manager import (
     TwitterSecretsManager
 )
 
+MOCK_CONFIG = {
+    "TWITTER_CONSUMER_KEY": "MOCK_KEY",
+    "TWITTER_CONSUMER_SECRET": "MOCK_SECRET",
+}
+
 
 class IHistoricalConnector(metaclass=ABCMeta):
     def download_mentions(
