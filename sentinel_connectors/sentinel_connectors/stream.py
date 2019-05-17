@@ -12,6 +12,11 @@ from pydantic import ValidationError
 from .gn_common import create_gn_mention
 from .hn_common import clean_html
 from .reddit_common import map_reddit_comment
+from .secrets_manager import (
+    RedditSecretsManager,
+    GoogleNewsSecretsManager,
+    TwitterSecretsManager
+)
 
 from sentinel_common.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
 import twitter
@@ -23,26 +28,26 @@ class IStreamConnector(metaclass=ABCMeta):
 
 
 class StreamConnectorFactory:
-    def create_stream_connector(
-        self, source: str, config: Dict[Any, Any]
-    ) -> IStreamConnector:
+    def create_stream_connector(self, source: str) -> IStreamConnector:
         creation_strategy = {
-            "reddit": RedditStreamConnector,
-            "hacker-news": HackerNewsStreamConnector,
-            "google-news": GoogleNewsStreamConnector,
-            "twitter": TwitterStreamConnector,
+            "reddit": (RedditStreamConnector, RedditSecretsManager()),
+            "hacker-news": (HackerNewsStreamConnector, None),
+            "google-news": (GoogleNewsStreamConnector, GoogleNewsSecretsManager()),
+            "twitter": (TwitterStreamConnector, TwitterSecretsManager()),
         }
-        factory_method = creation_strategy[source]
 
-        return factory_method(config)
+        factory_method, secret_manager = creation_strategy[source]
+
+        return factory_method(secret_manager)
 
 
 class RedditStreamConnector(IStreamConnector):
-    def __init__(self, config: Dict[Any, Any]):
+    def __init__(self, secrets_manager: RedditSecretsManager):
+        secrets = secrets_manager.get_secrets()
         self.reddit = praw.Reddit(
             user_agent="Comment Extraction (by /u/balindwalinstalin)",
-            client_id=config["Default"]["REDDIT_CLIENT_ID"],
-            client_secret=config["Default"]["REDDIT_CLIENT_SECRET"],
+            client_id=secrets["REDDIT_CLIENT_ID"],
+            client_secret=secrets["REDDIT_CLIENT_SECRET"],
         )
 
     def stream_comments(self, subreddits=None):
@@ -55,7 +60,7 @@ class RedditStreamConnector(IStreamConnector):
 
 
 class HackerNewsStreamConnector(IStreamConnector):
-    def __init__(self, config: Dict[Any, Any]):
+    def __init__(self, secrets_manager: Any):
         self._comments_stream_url = "http://api.hnstream.com/comments/stream/"
 
     def stream_comments(self) -> Iterator[Mention]:
@@ -87,9 +92,10 @@ class HackerNewsStreamConnector(IStreamConnector):
 
 
 class GoogleNewsStreamConnector(IStreamConnector):
-    def __init__(self, config: Dict[Any, Any]):
+    def __init__(self, secrets_manager: GoogleNewsSecretsManager):
+        secrets = secrets_manager.get_secrets()
         self._api_client = NewsApiClient(
-            api_key=config["Default"]["GOOGLE_NEWS_API_KEY"]
+            api_key=secrets["GOOGLE_NEWS_API_KEY"]
         )
         self._REQUEST_INTERVAL = 60 * 5
         self._PAGE_SIZE = 100
@@ -148,16 +154,16 @@ class GoogleNewsStreamConnector(IStreamConnector):
 
 
 class TwitterStreamConnector(IStreamConnector):
-    def __init__(self, config: Dict[Any, Any]):
-        self.api = self._get_api_connection(config)
+    def __init__(self, secrets_manager: TwitterSecretsManager):
+        secrets = secrets_manager.get_secrets()
+        self.api = self._get_api_connection(secrets)
 
-    def _get_api_connection(self, config: Dict[Any, Any]):
-        cfg_def = config["Default"]
+    def _get_api_connection(self, secrets: Dict[Any, Any]):
         return twitter.Api(
-            consumer_key=cfg_def["TWITTER_CONSUMER_KEY"],
-            consumer_secret=cfg_def["TWITTER_CONSUMER_SECRET"],
-            access_token_key=cfg_def["TWITTER_ACCESS_TOKEN"],
-            access_token_secret=cfg_def["TWITTER_ACCESS_TOKEN_SECRET"],
+            consumer_key=secrets["TWITTER_CONSUMER_KEY"],
+            consumer_secret=secrets["TWITTER_CONSUMER_SECRET"],
+            access_token_key=secrets["TWITTER_ACCESS_TOKEN"],
+            access_token_secret=secrets["TWITTER_ACCESS_TOKEN_SECRET"],
             sleep_on_rate_limit=True,
         )
 

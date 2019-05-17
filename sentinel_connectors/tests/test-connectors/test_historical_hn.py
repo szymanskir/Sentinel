@@ -7,10 +7,11 @@ from sentinel_connectors.utils import read_jsonpickle
 from sentinel_connectors.historical import HackerNewsHistoricalConnector
 from sentinel_connectors.hn_common import clean_html
 
-MOCK_CONFIG = dict()
 
 def get_hn_comments_jsonpkl():
-    hn_comments_jsonpkl_path = join(dirname(realpath(__file__)), "hn-historical_comments.json")
+    hn_comments_jsonpkl_path = join(
+        dirname(realpath(__file__)), "hn-historical_comments.json"
+    )
     return read_jsonpickle(hn_comments_jsonpkl_path)
 
 
@@ -25,7 +26,9 @@ def hn_comments():
 
 @pytest.fixture
 def hacker_news_comment_json():
-    hn_comments_russia_json_pkl_path = join(dirname(realpath(__file__)), "hn-historical-russia.json")
+    hn_comments_russia_json_pkl_path = join(
+        dirname(realpath(__file__)), "hn-historical-russia.json"
+    )
     return read_jsonpickle(hn_comments_russia_json_pkl_path)
 
 
@@ -53,7 +56,7 @@ def test_HackerNewsHistoricalConnector_download_mentions(hn_comments):
     with patch.object(
         HackerNewsHistoricalConnector, "_search", return_value=mock_search()
     ):
-        connector = HackerNewsHistoricalConnector(config=MOCK_CONFIG)
+        connector = HackerNewsHistoricalConnector(None)
         mention_generator = connector.download_mentions(
             ["microsoft"], datetime(2019, 4, 10), datetime(2019, 4, 13)
         )

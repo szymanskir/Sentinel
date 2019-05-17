@@ -15,6 +15,16 @@ from sentinel_common.mentions import Mention, HackerNewsMetadata, TwitterMention
 from .hn_common import clean_html
 from .reddit_common import map_reddit_comment, filter_removed_comments
 from .gn_common import create_gn_mention
+from .secrets_manager import (
+    RedditSecretsManager,
+    GoogleNewsSecretsManager,
+    TwitterSecretsManager
+)
+
+MOCK_CONFIG = {
+    "TWITTER_CONSUMER_KEY": "MOCK_KEY",
+    "TWITTER_CONSUMER_SECRET": "MOCK_SECRET",
+}
 
 
 class IHistoricalConnector(metaclass=ABCMeta):
@@ -26,24 +36,25 @@ class IHistoricalConnector(metaclass=ABCMeta):
 
 class HistoricalConnectorFactory:
     def create_historical_connector(
-        self, source: str, config: Dict[Any, Any]
+        self, source: str
     ) -> IHistoricalConnector:
         creation_strategy = {
-            "twitter": TwitterHistoricalConnector,
-            "hacker-news": HackerNewsHistoricalConnector,
-            "google-news": GoogleNewsHistoricalConnector,
-            "reddit": RedditHistoricalConnector,
+            "twitter": (TwitterHistoricalConnector, RedditSecretsManager()),
+            "hacker-news": (HackerNewsHistoricalConnector, None),
+            "google-news": (GoogleNewsHistoricalConnector, GoogleNewsSecretsManager()),
+            "reddit": (RedditHistoricalConnector, TwitterSecretsManager()),
         }
-        factory_method = creation_strategy[source]
+        factory_method, secrets_manager = creation_strategy[source]
 
-        return factory_method(config)
+        return factory_method(secrets_manager)
 
 
 class TwitterHistoricalConnector(IHistoricalConnector):
-    def __init__(self, config: Dict[Any, Any]):
+    def __init__(self, secrets_manager: TwitterSecretsManager):
+        secrets = secrets_manager.get_secrets()
         auth = tweepy.OAuthHandler(
-            config["Default"]["TWITTER_CONSUMER_KEY"],
-            config["Default"]["TWITTER_CONSUMER_SECRET"],
+            secrets["TWITTER_CONSUMER_KEY"],
+            secrets["TWITTER_CONSUMER_SECRET"],
         )
         self.api = tweepy.API(auth, wait_on_rate_limit=True)
 
@@ -100,7 +111,7 @@ class TwitterHistoricalConnector(IHistoricalConnector):
 
 
 class HackerNewsHistoricalConnector(IHistoricalConnector):
-    def __init__(self, config: Dict[Any, Any]):
+    def __init__(self, secrets_manager: Any):
         pass
 
     def download_mentions(
@@ -146,9 +157,10 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
 
 
 class GoogleNewsHistoricalConnector(IHistoricalConnector):
-    def __init__(self, config: Dict[Any, Any]):
+    def __init__(self, secrets_manager: GoogleNewsSecretsManager):
+        secrets = secrets_manager.get_secrets()
         self._api_client = NewsApiClient(
-            api_key=config["Default"]["GOOGLE_NEWS_API_KEY"]
+            api_key=secrets["GOOGLE_NEWS_API_KEY"]
         )
         self._PAGE_SIZE = 100
 
@@ -181,11 +193,12 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
 
 
 class RedditHistoricalConnector(IHistoricalConnector):
-    def __init__(self, config: Dict[Any, Any]):
+    def __init__(self, secrets_manager: RedditSecretsManager):
+        secrets = secrets_manager.get_secrets()
         reddit = praw.Reddit(
             user_agent="Comment Extraction (by /u/balindwalinstalin)",
-            client_id=config["Default"]["REDDIT_CLIENT_ID"],
-            client_secret=config["Default"]["REDDIT_CLIENT_SECRET"],
+            client_id=secrets["REDDIT_CLIENT_ID"],
+            client_secret=secrets["REDDIT_CLIENT_SECRET"],
         )
         self.reddit = psaw.PushshiftAPI(reddit)
 
