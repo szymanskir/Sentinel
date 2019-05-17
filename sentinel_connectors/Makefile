@@ -16,7 +16,7 @@ VENV_NAME = .env
 ## Install Python dependencies
 requirements: 
 	$(PYTHON_INTERPRETER) setup.py install
-	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
+	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt --disable-pip-version-check
 
 
 ## Delete all compiled Python files

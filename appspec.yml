@@ -1,0 +1,29 @@
+version: 0.0
+os: linux
+files:
+- source: /sentinel_connectors
+  destination: /home/ec2-user/sentinel/sentinel_connectors
+- source: /sentinel_common
+  destination: /home/ec2-user/sentinel/sentinel_common
+
+permissions:
+- object: /
+  pattern: "**"
+  owner: ec2-user
+  group: ec2-user
+
+hooks:
+  AfterInstall:
+    - location: /sentinel_connectors/scripts/install_dependencies
+      timeout: 120
+      runas: ec2-user
+
+  ApplicationStart:
+    - location: /sentinel_connectors/scripts/start_connectors
+      timeout: 60
+      runas: ec2-user
+
+  ApplicationStop:
+    - location: /sentinel_connectors/scripts/stop_connectors
+      timeout: 60
+      runas: ec2-user

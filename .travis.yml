@@ -8,13 +8,22 @@ matrix:
       cache: 
         pip: true
       before_install:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_connectors/|sentinel_common/|\.travis.yml)' || exit 0
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_connectors/|sentinel_common/|\.travis.yml|\.appspec.yml)' || exit 0
         - cd sentinel_connectors
       install:
         - make requirements
       script:
         - make tests
         - make lint
+      deploy:
+        - provider: codedeploy
+          revision_type: github
+          application: sentinel-connectors
+          deployment_group: sentinel-connectors-depgrp
+          region: eu-central-1
+          wait_until_deployed: true
+          on:
+            branch: dev
 
     - language: python
       env: COMMAND=sentinel_backend
