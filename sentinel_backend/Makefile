@@ -12,7 +12,7 @@ run: venv
 	FLASK_APP=sentinel_backend SENTINEL_BACKEND_SETTINGS=../settings.cfg venv/bin/flask run
 
 prod:
-	FLASK_APP=sentinel_backend SENTINEL_BACKEND_SETTINGS=../settings.cfg flask run
+	FLASK_APP=sentinel_backend SENTINEL_BACKEND_SETTINGS=../settings.cfg flask run --host=0.0.0.0 
 
 test: venv
 	SENTINEL_BACKEND_SETTINGS=../settings.cfg venv/bin/python -m unittest discover -s tests
