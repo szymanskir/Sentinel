@@ -13,7 +13,7 @@ def create_mentions_count_plot(mentions_data: pd.DataFrame):
             "x": [str(x.to_pydatetime()) for x in data["date"]],
             "y": data["counts"].tolist(),
             "type": "scatter",
-            "mode": "lines+points",
+            "mode": "lines+markers",
             "name": keyword,
         }
 
@@ -30,7 +30,7 @@ def create_sentiment_scores_plot(mentions_data: pd.DataFrame):
             "x": [str(x.to_pydatetime()) for x in data["date"]],
             "y": data["sentimentScore"].tolist(),
             "type": "scatter",
-            "mode": "lines+points",
+            "mode": "lines+markers",
             "name": keyword,
         }
 
