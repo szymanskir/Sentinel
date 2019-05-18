@@ -1,7 +1,12 @@
 venv/
 *.pyc
 *.egg-info/
+build/
 dist/
 settings.cfg
 *.log*
 .mypy_cache/*
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
