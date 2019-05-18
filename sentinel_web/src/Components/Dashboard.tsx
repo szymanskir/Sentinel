@@ -5,6 +5,7 @@ import { apiClient } from "../ApiClient";
 import MenuIcon from "@material-ui/icons/Menu";
 import DashboardPlot from "./DashboardPlot";
 import DashboardParamsSelector from "./DashboardParamsSelector";
+import CommentsTable from "./CommentsTable";
 
 
 interface DashboardState {
@@ -13,6 +14,7 @@ interface DashboardState {
     from: moment.Moment;
     to: moment.Moment;
     mentions: [];
+    mentionsCount: [];
     sentiments: [];
 }
 
@@ -23,6 +25,7 @@ export class Dashboard extends React.Component<{}, DashboardState> {
             allKeywords: [],
             selectedKeywords: [],
             mentions: [],
+            mentionsCount: [],
             sentiments: [],
             from: moment().add(-7, "days").startOf("day"),
             to: moment().startOf("day")
@@ -48,47 +51,47 @@ export class Dashboard extends React.Component<{}, DashboardState> {
                 </Toolbar>
             </AppBar>
 
-            <Grid container spacing={8}>
-                <Grid container item xs={5} spacing={8} direction="column" alignItems="center">
-                    <Grid item>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h5" component="h6">
-                                    Settings
+            <Grid container spacing={8} direction="column" alignItems="center">
+                <Grid container item xs={12} spacing={8} >
+                    <Grid container item spacing={8} xs={5} direction="column">
+                        <Grid item>
+                            <Card>
+                                <CardContent>
+                                    <Typography variant="h5" component="h6">
+                                        Settings
                                 </Typography>
-                                <DashboardParamsSelector
-                                    allKeywords={this.state.allKeywords}
-                                    selectedKeywords={this.state.selectedKeywords}
-                                    from={this.state.from}
-                                    to={this.state.to}
-                                    onSelectedKeywordsChanged={selectedKeywords => this.setState({ selectedKeywords })}
-                                    onFromChanged={from => this.setState({ from })}
-                                    onToChanged={to => this.setState({ to })}
-                                />
-                                <Button
-                                    variant="contained"
-                                    onClick={this.downloadMentions}
-                                    color="primary">
-                                    Fetch
-                        </Button>
-                            </CardContent>
-                        </Card>
+                                    <DashboardParamsSelector
+                                        allKeywords={this.state.allKeywords}
+                                        selectedKeywords={this.state.selectedKeywords}
+                                        from={this.state.from}
+                                        to={this.state.to}
+                                        onSelectedKeywordsChanged={selectedKeywords => this.setState({ selectedKeywords })}
+                                        onFromChanged={from => this.setState({ from })}
+                                        onToChanged={to => this.setState({ to })}
+                                    />
+                                    <Button
+                                        variant="contained"
+                                        onClick={this.downloadMentions}
+                                        color="primary">
+                                        Fetch
+                                </Button>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                        <Grid container item direction="column">
+                            <CommentsTable  mentions={this.state.mentions} />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={5}>
-                    </Grid>
-                </Grid>
-
-                <Grid container item xs={7} spacing={8} direction="column">
-                    <Grid item>
+                    <Grid container item spacing={8} xs={7} direction="column">
+                        <Grid item>
                         <DashboardPlot title="Sentiment plot" plotData={this.state.sentiments} />
-                    </Grid>
-                    <Grid item>
-                        <DashboardPlot title="Mentions count" plotData={this.state.mentions} />
+                        </Grid>
+                        <Grid item>
+                            <DashboardPlot title="Mentions count" plotData={this.state.mentionsCount} />
+                        </Grid>
                     </Grid>
                 </Grid>
-
             </Grid>
-
         </div>;
     }
 
@@ -98,7 +101,7 @@ export class Dashboard extends React.Component<{}, DashboardState> {
     }
 
     private downloadMentions = async () => {
-        const mentionsPromise = apiClient.getMentionsCount(
+        const mentionsCountPromise = apiClient.getMentionsCount(
             this.state.from,
             this.state.to,
             this.state.selectedKeywords
@@ -110,9 +113,16 @@ export class Dashboard extends React.Component<{}, DashboardState> {
             this.state.selectedKeywords
         );
 
+        const mentionsPromise = apiClient.getMentions(
+            this.state.from,
+            this.state.to,
+            this.state.selectedKeywords
+        );
+
         const mentions = await mentionsPromise;
+        const mentionsCount = await mentionsCountPromise;
         const sentiments = await sentimentsPromise;
 
-        this.setState({ sentiments, mentions });
+        this.setState({ mentions: mentions, sentiments, mentionsCount: mentionsCount });
     }
 }
