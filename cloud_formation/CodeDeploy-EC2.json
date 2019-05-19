@@ -30,6 +30,7 @@
               "",
               [
                 "#!/bin/bash -ex\n",
+                "sudo yum install -y python36 python36-virtualenv python36-pip",
                 "yum update -y aws-cfn-bootstrap\n",
                 "yum install -y aws-cli\n",
                 "# Helper function.\n",
