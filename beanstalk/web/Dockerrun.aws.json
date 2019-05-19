@@ -1,7 +1,7 @@
 {
     "AWSEBDockerrunVersion": "1",
     "Image": {
-        "Name": "balindwalinstalin/sentinel-web:0.0.1-dev",
+        "Name": "balindwalinstalin/sentinel-web:latest",
         "Update": "true"
     },
     "Ports": [
