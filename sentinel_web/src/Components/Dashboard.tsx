@@ -123,6 +123,6 @@ export class Dashboard extends React.Component<{}, DashboardState> {
         const mentionsCount = await mentionsCountPromise;
         const sentiments = await sentimentsPromise;
 
-        this.setState({ mentions: mentions, sentiments, mentionsCount: mentionsCount });
+        this.setState({ mentions, sentiments, mentionsCount });
     }
 }

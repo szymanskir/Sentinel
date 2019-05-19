@@ -5,11 +5,7 @@ export interface CommentsTableProps {
     mentions: any;
 }
 
-export interface CommentsTableState {
-
-}
-
-class CommentsTable extends React.Component<CommentsTableProps, CommentsTableState> {
+class CommentsTable extends React.Component<CommentsTableProps> {
     render() {
         const columns = ["author", "sentimentScore", "keyword", "date"];
         const options = {
