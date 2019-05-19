@@ -1,0 +1,49 @@
+service: lambda-test-1 # NOTE: update this with your service name
+
+provider:
+  name: aws
+  runtime: python3.6
+  region: eu-central-1
+  environment:
+    DYNAMO_DB_REGION: eu-central-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - kinesis:DescribeStream
+        - kinesis:DescribeStreamSummary
+        - kinesis:GetRecords
+        - kinesis:GetShardIterator
+        - kinesis:ListShards
+        - kinesis:ListStreams
+        - kinesis:SubscribeToShard
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: "*"
+      
+
+      
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - stream:
+          type: kinesis
+          arn:
+            Fn::Join:
+              - ":"
+              - - arn
+                - aws
+                - kinesis
+                - eu-central-1
+                - 848201210986
+                - stream/sentinel-stream
+          batchSize: 2
+          
+plugins:
+  - serverless-python-requirements
+custom:
+  pythonRequirements:
+    pythonBin: ./.env/bin/python
+    dockerizePip: non-linux
