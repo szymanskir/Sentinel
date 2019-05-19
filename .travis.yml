@@ -75,7 +75,7 @@ matrix:
         provider: elasticbeanstalk
         region: "eu-central-1"
         app: "sentinel-web"
-        env: "sentinel-web-env"
+        env: "sentinel-web-env-1"
         zip_file: sentinel-web.zip
         bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
 
