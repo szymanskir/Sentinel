@@ -12,6 +12,7 @@
     "ConnectorsDeploymentGroup": {
       "Type": "AWS::CodeDeploy::DeploymentGroup",
       "Properties": {
+        "DeploymentGroupName": "sentinel-connectors-depgrp",
         "ApplicationName": {
           "Ref": "ConnectorsApplication"
         },
