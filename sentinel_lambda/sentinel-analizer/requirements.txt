@@ -1,1 +1,2 @@
 ../../sentinel_common
+boto3==1.9.148

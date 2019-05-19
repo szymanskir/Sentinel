@@ -1,4 +1,4 @@
-service: lambda-test-1 # NOTE: update this with your service name
+service: sentinel-analizer # NOTE: update this with your service name
 
 provider:
   name: aws
@@ -20,13 +20,15 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:*
+        - comprehend:DetectDominantLanguage
+        - comprehend:DetectSentiment
       Resource: "*"
       
 
       
 functions:
-  hello:
-    handler: handler.hello
+  analize_and_save:
+    handler: handler.analize_and_save
     events:
       - stream:
           type: kinesis
