@@ -3,7 +3,6 @@ venv/
 *.egg-info/
 build/
 dist/
-settings.cfg
 *.log*
 .mypy_cache/*
 # Elastic Beanstalk Files

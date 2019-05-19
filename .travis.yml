@@ -38,7 +38,9 @@ matrix:
       before_deploy:
         - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWD
         - docker push balindwalinstalin/sentinel-backend:latest
-        - zip -j sentinel-backend.zip beanstalk/backend/Dockerrun.aws.json
+        - cd beanstalk/backend
+        - zip -r ../../sentinel-backend.zip .
+        - cd ../..
 
       deploy:
         provider: elasticbeanstalk
