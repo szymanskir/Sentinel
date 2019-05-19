@@ -4,7 +4,7 @@ import os
 import boto3
 from datetime import datetime
 from sentinel_common.mentions import Mention
-from db_writer import save_to_db
+from sentinel_common.db_writer import save_to_db
 
 client = boto3.client('comprehend')
 def analize_and_save(event, context):
