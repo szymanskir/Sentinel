@@ -5,7 +5,7 @@ matrix:
       sudo: required
       dist: xenial
       python: "3.6.7"
-      cache: 
+      cache:
         pip: true
       before_install:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_connectors/|sentinel_common/|\.travis.yml)' || exit 0
@@ -21,7 +21,7 @@ matrix:
       sudo: required
       dist: xenial
       python: "3.6.7"
-      cache: 
+      cache:
         pip: true
       before_install:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_backend/|sentinel_common/|\.travis.yml)' || exit 0
@@ -30,7 +30,24 @@ matrix:
         - make venv
       script:
         - make lint
-      
+
+      before_deploy:
+        - cd ..
+        - zip sentinel-backend.zip beanstalk/backend/Dockerrun.aws.json
+
+      deploy:
+        provider: elasticbeanstalk
+        region: "eu-central-1"
+        app: "sentinel-backend"
+        env: "sentinel-backend-test"
+        zip_file: beanstalk/sentinel-backend.zip
+        bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
+        bucket_path: "sentinel-backend"
+        #specify when you want to deploy (we want to deploy only when we push code to master branch)
+        on:
+          branch: improvement/dockerize-backend
+        skip_cleanup: true
+
     - language: node_js
       env: COMMAND=sentinel_web
       node_js:
