@@ -147,6 +147,28 @@
                 "s3:Get*"
               ],
               "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "secretsmanager:GetResourcePolicy",
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+                "secretsmanager:ListSecretVersionIds"
+              ],
+              "Resource": [
+                "*"
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": "kinesis:*",
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": "dynamodb:*",
+              "Resource": "*"
             }
           ]
         },

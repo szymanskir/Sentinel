@@ -1,0 +1,338 @@
+{
+    "Description": "Create and deploys Sentinel connectors. `sentinel-connectors-app` must already exists, because of GitHub authorization.",
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "CommitId": {
+            "Description": "Commit id of version to deploy",
+            "Type": "String",
+            "AllowedPattern": "[\\x20-\\x7E]*",
+            "ConstraintDescription": "Can contain only ASCII characters."
+        },
+        "Repository": {
+            "Description": "Repository name",
+            "Type": "String",
+            "Default": "szymanskir/Sentinel",
+            "AllowedPattern": "[\\x20-\\x7E]*",
+            "ConstraintDescription": "Can contain only ASCII characters."
+        }
+    },
+    "Resources": {
+        "LinuxEC2Instance": {
+            "Type": "AWS::EC2::Instance",
+            "Metadata": {
+                "AWS::CloudFormation::Init": {
+                    "services": {
+                        "sysvint": {
+                            "codedeploy-agent": {
+                                "enabled": "true",
+                                "ensureRunning": "true"
+                            }
+                        }
+                    }
+                }
+            },
+            "Properties": {
+                "ImageId": "ami-03a71cec707bfc3d7",
+                "InstanceType": "t2.micro",
+                "SecurityGroups": [
+                    {
+                        "Ref": "SecurityGroup"
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -ex\n",
+                                "sudo yum install -y python36 python36-virtualenv python36-pip",
+                                "yum update -y aws-cfn-bootstrap\n",
+                                "yum install -y aws-cli\n",
+                                "# Helper function.\n",
+                                "function error_exit\n",
+                                "{\n",
+                                "  /opt/aws/bin/cfn-signal -e 1 -r \"$1\" '",
+                                {
+                                    "Ref": "WaitHandle"
+                                },
+                                "'\n",
+                                "  exit 1\n",
+                                "}\n",
+                                "# Install the AWS CodeDeploy Agent.\n",
+                                "cd /home/ec2-user/\n",
+                                "aws s3 cp 's3://aws-codedeploy-us-east-1/latest/codedeploy-agent.noarch.rpm' . || error_exit 'Failed to download AWS CodeDeploy Agent.'\n",
+                                "yum -y install codedeploy-agent.noarch.rpm || error_exit 'Failed to install AWS CodeDeploy Agent.' \n",
+                                "/opt/aws/bin/cfn-init -s ",
+                                {
+                                    "Ref": "AWS::StackId"
+                                },
+                                " -r LinuxEC2Instance --region ",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                " || error_exit 'Failed to run cfn-init.'\n",
+                                "# All is well, so signal success.\n",
+                                "/opt/aws/bin/cfn-signal -e 0 -r \"AWS CodeDeploy Agent setup complete.\" '",
+                                {
+                                    "Ref": "WaitHandle"
+                                },
+                                "'\n"
+                            ]
+                        ]
+                    }
+                },
+                "KeyName": "sentinel-connectors-key_pair",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "CodeDeployEnabledInstance"
+                    }
+                ],
+                "IamInstanceProfile": {
+                    "Ref": "InstanceRoleInstanceProfile"
+                }
+            }
+        },
+        "WaitHandle": {
+            "Type": "AWS::CloudFormation::WaitConditionHandle"
+        },
+        "WaitCondition": {
+            "Type": "AWS::CloudFormation::WaitCondition",
+            "Properties": {
+                "Count": 1,
+                "Handle": {
+                    "Ref": "WaitHandle"
+                },
+                "Timeout": "900"
+            }
+        },
+        "SecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Enable HTTP access via port 80 and SSH access.",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "80",
+                        "ToPort": "80",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 22,
+                        "ToPort": 22,
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            }
+        },
+        "InstanceRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/"
+            }
+        },
+        "InstanceRolePolicies": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName": "InstanceRole",
+                "PolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "autoscaling:Describe*",
+                                "cloudformation:Describe*",
+                                "cloudformation:GetTemplate",
+                                "s3:Get*"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "secretsmanager:GetResourcePolicy",
+                                "secretsmanager:GetSecretValue",
+                                "secretsmanager:DescribeSecret",
+                                "secretsmanager:ListSecretVersionIds"
+                            ],
+                            "Resource": [
+                                "*"
+                            ]
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": "kinesis:*",
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": "dynamodb:*",
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Roles": [
+                    {
+                        "Ref": "InstanceRole"
+                    }
+                ]
+            }
+        },
+        "InstanceRoleInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "InstanceRole"
+                    }
+                ]
+            }
+        },
+        "KinesisStream": {
+            "Type": "AWS::Kinesis::Stream",
+            "Properties": {
+                "Name": "sentinel-stream",
+                "ShardCount": 1
+            }
+        },
+        "ConnectorsDeploymentGroup": {
+            "Type": "AWS::CodeDeploy::DeploymentGroup",
+            "Properties": {
+                "DeploymentGroupName": "sentinel-connectors-depgrp",
+                "ApplicationName": "sentinel-connectors-app",
+                "Ec2TagFilters": [
+                    {
+                        "Key": "Name",
+                        "Value": "CodeDeployEnabledInstance",
+                        "Type": "KEY_AND_VALUE"
+                    }
+                ],
+                "ServiceRoleArn": {
+                    "Fn::GetAtt": [
+                        "CodeDeployRole",
+                        "Arn"
+                    ]
+                },
+                "Deployment": {
+                    "Description": "An initial deployment",
+                    "IgnoreApplicationStopFailures": "true",
+                    "Revision": {
+                        "RevisionType": "GitHub",
+                        "GitHubLocation": {
+                            "CommitId": {
+                                "Ref": "CommitId"
+                            },
+                            "Repository": {
+                                "Ref": "Repository"
+                            }
+                        }
+                    }
+                }
+            },
+            "DependsOn": [
+                "CodeDeployRole",
+                "KinesisStream",
+                "LinuxEC2Instance"
+            ]
+        },
+        "CodeDeployRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "codedeploy.amazonaws.com"
+                                ]
+                            },
+                            "Action": "sts:AssumeRole"
+                        }
+                    ]
+                },
+                "Path": "/"
+            }
+        },
+        "CodeDeployRolePolicy": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName": "CodeDeployPolicy",
+                "PolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Resource": [
+                                "*"
+                            ],
+                            "Action": [
+                                "autoscaling:CompleteLifecycleAction",
+                                "autoscaling:DeleteLifecycleHook",
+                                "autoscaling:DescribeAutoScalingGroups",
+                                "autoscaling:DescribeLifecycleHooks",
+                                "autoscaling:PutLifecycleHook",
+                                "autoscaling:RecordLifecycleActionHeartbeat",
+                                "autoscaling:CreateAutoScalingGroup",
+                                "autoscaling:UpdateAutoScalingGroup",
+                                "autoscaling:EnableMetricsCollection",
+                                "autoscaling:DescribeAutoScalingGroups",
+                                "autoscaling:DescribePolicies",
+                                "autoscaling:DescribeScheduledActions",
+                                "autoscaling:DescribeNotificationConfigurations",
+                                "autoscaling:DescribeLifecycleHooks",
+                                "autoscaling:SuspendProcesses",
+                                "autoscaling:ResumeProcesses",
+                                "autoscaling:AttachLoadBalancers",
+                                "autoscaling:PutScalingPolicy",
+                                "autoscaling:PutScheduledUpdateGroupAction",
+                                "autoscaling:PutNotificationConfiguration",
+                                "autoscaling:PutLifecycleHook",
+                                "autoscaling:DescribeScalingActivities",
+                                "autoscaling:DeleteAutoScalingGroup",
+                                "ec2:DescribeInstances",
+                                "ec2:DescribeInstanceStatus",
+                                "ec2:TerminateInstances",
+                                "tag:GetTags",
+                                "tag:GetResources",
+                                "sns:Publish",
+                                "cloudwatch:DescribeAlarms",
+                                "cloudwatch:PutMetricAlarm",
+                                "elasticloadbalancing:DescribeLoadBalancers",
+                                "elasticloadbalancing:DescribeInstanceHealth",
+                                "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+                                "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
+                                "elasticloadbalancing:DescribeTargetGroups",
+                                "elasticloadbalancing:DescribeTargetHealth",
+                                "elasticloadbalancing:RegisterTargets",
+                                "elasticloadbalancing:DeregisterTargets"
+                            ]
+                        }
+                    ]
+                },
+                "Roles": [
+                    {
+                        "Ref": "CodeDeployRole"
+                    }
+                ]
+            }
+        }
+    }
+}
