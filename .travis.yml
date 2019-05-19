@@ -60,10 +60,9 @@ matrix:
         - 12.2
       before_install:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(beanstalk/web|sentinel_web/|sentinel_common/|\.travis.yml)' || exit 0
-        - cd sentinel_web
 
       script:
-        - docker build -f release/Dockerfile -t balindwalinstalin/sentinel-web:latest .
+        - docker build -f sentinel_web/release/Dockerfile -t balindwalinstalin/sentinel-web:latest sentinel_web
 
       before_deploy:
         - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWD
