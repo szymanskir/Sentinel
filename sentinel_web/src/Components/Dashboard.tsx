@@ -6,9 +6,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import DashboardPlot from "./DashboardPlot";
 import DashboardParamsSelector from "./DashboardParamsSelector";
 import CommentsTable from "./CommentsTable";
+import DashboardDrawer from "./DashboardDrawer";
 
 
 interface DashboardState {
+    isDrawerOpen: boolean;
     allKeywords: string[];
     selectedKeywords: string[];
     from: moment.Moment;
@@ -22,6 +24,7 @@ export class Dashboard extends React.Component<{}, DashboardState> {
     constructor(props: {}) {
         super(props);
         this.state = {
+            isDrawerOpen: false,
             allKeywords: [],
             selectedKeywords: [],
             mentions: [],
@@ -40,9 +43,10 @@ export class Dashboard extends React.Component<{}, DashboardState> {
 
     render() {
         return <div className="flex-grow-1">
+            <DashboardDrawer isOpen={this.state.isDrawerOpen} onDrawerClose={() => this.toggleDrawer(false)}/>
             <AppBar position="fixed">
                 <Toolbar>
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" onClick={() => this.toggleDrawer(true)}>
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" color="inherit">
@@ -93,6 +97,10 @@ export class Dashboard extends React.Component<{}, DashboardState> {
                 </Grid>
             </Grid>
         </div>;
+    }
+
+    private toggleDrawer = async (shouldDrawerBeOpened: boolean) => {
+        this.setState({ isDrawerOpen: shouldDrawerBeOpened });
     }
 
     private downloadKeywords = async () => {
