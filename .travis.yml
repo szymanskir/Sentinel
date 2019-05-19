@@ -49,7 +49,7 @@ matrix:
         env: "SentinelBackend-env-1"
         zip_file: sentinel-backend.zip
         bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
-        # bucket_path: "sentinel-backend"
+        #  bucket_path: "sentinel-backend"
 
         on:
           branch: improvement/dockerize-backend
