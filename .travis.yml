@@ -19,6 +19,8 @@ matrix:
     - language: python
       env: COMMAND=sentinel_backend
       sudo: required
+      services:
+        - docker
       dist: xenial
       python: "3.6.7"
       cache:
@@ -30,19 +32,22 @@ matrix:
         - make venv
       script:
         - make lint
+        - cd ..
+        - docker build -f sentinel_backend/Dockerfile -t balindwalinstalin/sentinel-backend:latest .
 
       before_deploy:
-        - cd ..
-        - zip sentinel-backend.zip beanstalk/backend/Dockerrun.aws.json
+        - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWD
+        - docker push balindwalinstalin/sentinel-backend:latest
+        - zip -j sentinel-backend.zip beanstalk/backend/Dockerrun.aws.json
 
       deploy:
         provider: elasticbeanstalk
         region: "eu-central-1"
         app: "sentinel-backend"
-        env: "SentinelBackend-env"
+        env: "SentinelBackend-env-1"
         zip_file: sentinel-backend.zip
         bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
-        bucket_path: "sentinel-backend"
+        # bucket_path: "sentinel-backend"
 
         on:
           branch: improvement/dockerize-backend
