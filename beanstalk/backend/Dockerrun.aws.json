@@ -1,0 +1,12 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+        "Name": "balindwalinstalin/sentinel-backend:latest",
+        "Update": "true"
+    },
+    "Ports": [
+        {
+            "ContainerPort": "5000"
+        }
+    ]
+}
