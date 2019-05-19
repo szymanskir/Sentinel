@@ -44,7 +44,7 @@ def get_mentions_count():
 
 @app.route("/sentiment")
 @cognito_auth_required
-def get_tions():
+def get_sentiment():
     since = parse_utc(request.args.get("from"), ignoretz=True)
     until = parse_utc(request.args.get("to"), ignoretz=True)
 
@@ -53,6 +53,23 @@ def get_tions():
     mentions = _REPOSITORY.get_mentions("users0", since, until, keywords)
     plot_data = create_sentiment_scores_plot(mentions)
     return jsonify(plot_data)
+
+
+@app.route("/keywords/add")
+@cognito_auth_required
+def add_keyword():
+    keyword = request.args.get("keyword")
+    _REPOSITORY.add_keyword(keyword, "users0")
+    return jsonify(success=True)
+
+
+@app.route("/keywords/delete")
+@cognito_auth_required
+def update_keyword():
+    keyword = request.args.get("keyword")
+    _REPOSITORY.delete_keyword(keyword, "users0")
+    return jsonify(success=True)
+
 
 
 @app.route("/my-keywords")

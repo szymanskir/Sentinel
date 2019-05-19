@@ -33,6 +33,14 @@ class DynamoDbRepository:
         keywords = Keyword.scan()
         return list(set([k.keyword for k in keywords]))
 
+    def add_keyword(self, keyword, user):
+        model = Keyword(user, keyword)
+        model.save()
+
+    def delete_keyword(self, keyword, user):
+        model = Keyword(user, keyword)
+        model.delete()
+
 
 def map_mention_to_dto(m: Mention) -> dict:
     return {

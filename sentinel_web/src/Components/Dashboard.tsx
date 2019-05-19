@@ -5,6 +5,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import AnnouncementIcon from "@material-ui/icons/Announcement";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { OverviewTabItem } from "./OverviewTabItem";
+import KeywordsTabItem from "./KeywordsTabItem";
 
 
 interface DashboardState {
@@ -46,7 +47,7 @@ export class Dashboard extends React.Component<{}, DashboardState> {
             </Drawer>
             <div>
                 <Route exact path="/" component={OverviewTabItem}/>
-                <Route path="/keywords"/>
+                <Route path="/keywords" component={KeywordsTabItem}/>
             </div>
                 </Router>
         </div>;

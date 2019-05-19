@@ -8,6 +8,24 @@ const baseAddress = config.apiEndpoint;
 
 class ApiClient {
 
+    async addKeyword(keyword: string) {
+        const params = new URLSearchParams({
+            keyword: keyword
+        });
+
+        const request = await this.prepareRequest(`/keywords/add?${params}`);
+        const response = await fetch(request);
+    }
+
+    async deleteKeyword(keyword: string) {
+        const params = new URLSearchParams({
+            keyword: keyword
+        });
+
+        const request = await this.prepareRequest(`/keywords/delete?${params}`);
+        const response = await fetch(request);
+    }
+
     async getMentionsCount(from: moment.Moment, to: moment.Moment, keywords: string[]) {
         const params = new URLSearchParams({
             from: from.toISOString(),

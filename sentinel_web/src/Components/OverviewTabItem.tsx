@@ -86,10 +86,6 @@ export class OverviewTabItem extends React.Component<{}, OverviewTabItemState> {
         </div>;
     }
 
-    private toggleDrawer = async (shouldDrawerBeOpened: boolean) => {
-        this.setState({ isDrawerOpen: shouldDrawerBeOpened });
-    }
-
     private downloadKeywords = async () => {
         const keywords = await apiClient.getAllKeywords();
         this.setState({ allKeywords: keywords });
