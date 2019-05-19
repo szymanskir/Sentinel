@@ -26,7 +26,7 @@ matrix:
       cache:
         pip: true
       before_install:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_backend/|sentinel_common/|\.travis.yml)' || exit 0
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(beanstalk/backend|sentinel_backend/|sentinel_common/|\.travis.yml)' || exit 0
         - cd sentinel_backend
       install:
         - make venv
@@ -49,7 +49,6 @@ matrix:
         env: "SentinelBackend-env-1"
         zip_file: sentinel-backend.zip
         bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
-        #  bucket_path: "sentinel-backend"
 
         on:
           branch: improvement/dockerize-backend
@@ -60,9 +59,27 @@ matrix:
       node_js:
         - 12.2
       before_install:
-        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_web/|sentinel_common/|\.travis.yml)' || exit 0
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(beanstalk/web|sentinel_web/|sentinel_common/|\.travis.yml)' || exit 0
         - cd sentinel_web
-      install:
-        - yarn install
+
       script:
-        - yarn build
+        - docker build -f release/Dockerfile -t balindwalinstalin/sentinel-web:latest .
+
+      before_deploy:
+        - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWD
+        - docker push balindwalinstalin/sentinel-web:latest
+        - cd beanstalk/web
+        - zip -r ../../sentinel-web.zip .
+        - cd ../..
+
+      deploy:
+        provider: elasticbeanstalk
+        region: "eu-central-1"
+        app: "sentinel-web"
+        env: "sentinel-web-env"
+        zip_file: sentinel-web.zip
+        bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
+
+        on:
+          branch: improvement/dockerize-backend
+        skip_cleanup: true
