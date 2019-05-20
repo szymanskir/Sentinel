@@ -51,7 +51,7 @@ matrix:
         - npm install -g serverless
         - npm install --save serverless-python-requirements
       script:
-        
+        - echo script_dummy
       after_script:
         - cd sentinel-analizer
         - test $TRAVIS_BRANCH = "feature/sentinel_lambda_ci" && test $TRAVIS_PULL_REQUEST = "false" && serverless deploy -v --aws-s3-accelerate
