@@ -22,7 +22,7 @@ def analize_and_save(event, context):
     result = save_to_db(data)
 
     for mention_db in result:
-        print(f"{mention_db}")
+        print(f"{mention_db} .")
 
     body = {
         "message": f"{result}",
