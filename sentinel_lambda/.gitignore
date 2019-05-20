@@ -15,8 +15,9 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+src/
 
 # Serverless directories
-.serverless
-node_modules/
-.env/
+sentinel-analizer/.serverless
+sentinel-analizer/.env
+sentinel-analizer/node_modules
