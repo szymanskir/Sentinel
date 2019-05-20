@@ -8,6 +8,7 @@ from datetime import datetime
     "obj",
     [
         TwitterMentionMetadata(
+            user_id=2782689,
             followers_count=1,
             statuses_count=2,
             friends_count=3,
@@ -50,6 +51,7 @@ def test_HackerNewsMetadata(obj):
             download_date=datetime(2019, 4, 13),
             source="twitter",
             metadata=TwitterMentionMetadata(
+                user_id=2899563827,
                 followers_count=1,
                 statuses_count=2,
                 friends_count=3,

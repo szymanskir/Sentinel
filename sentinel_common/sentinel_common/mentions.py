@@ -5,6 +5,7 @@ from datetime import datetime
 
 
 class TwitterMentionMetadata(BaseModel):
+    user_id: int
     followers_count: int
     statuses_count: int
     friends_count: int

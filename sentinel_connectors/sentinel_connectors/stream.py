@@ -15,7 +15,7 @@ from .reddit_common import map_reddit_comment
 from .secrets_manager import (
     RedditSecretsManager,
     GoogleNewsSecretsManager,
-    TwitterSecretsManager
+    TwitterSecretsManager,
 )
 
 from sentinel_common.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
@@ -94,9 +94,7 @@ class HackerNewsStreamConnector(IStreamConnector):
 class GoogleNewsStreamConnector(IStreamConnector):
     def __init__(self, secrets_manager: GoogleNewsSecretsManager):
         secrets = secrets_manager.get_secrets()
-        self._api_client = NewsApiClient(
-            api_key=secrets["GOOGLE_NEWS_API_KEY"]
-        )
+        self._api_client = NewsApiClient(api_key=secrets["GOOGLE_NEWS_API_KEY"])
         self._REQUEST_INTERVAL = 60 * 5
         self._PAGE_SIZE = 100
         self._all_news_sources = None
@@ -169,6 +167,7 @@ class TwitterStreamConnector(IStreamConnector):
 
     def stream_comments(self) -> Iterator[Mention]:
         for tweet in self._get_stream():
+            # print(tweet)
             twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
             url = f"https://twitter.com/statuses/{tweet['id_str']}"
             yield Mention(
@@ -197,6 +196,7 @@ class TwitterStreamConnector(IStreamConnector):
     ) -> TwitterMentionMetadata:
         user_dict = status_dict["user"]
         return TwitterMentionMetadata(
+            user_id=user_dict["id"],
             followers_count=user_dict["followers_count"],
             statuses_count=user_dict["statuses_count"],
             friends_count=user_dict["friends_count"],

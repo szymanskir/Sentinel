@@ -18,7 +18,7 @@ from .gn_common import create_gn_mention
 from .secrets_manager import (
     RedditSecretsManager,
     GoogleNewsSecretsManager,
-    TwitterSecretsManager
+    TwitterSecretsManager,
 )
 
 MOCK_CONFIG = {
@@ -35,9 +35,7 @@ class IHistoricalConnector(metaclass=ABCMeta):
 
 
 class HistoricalConnectorFactory:
-    def create_historical_connector(
-        self, source: str
-    ) -> IHistoricalConnector:
+    def create_historical_connector(self, source: str) -> IHistoricalConnector:
         creation_strategy = {
             "twitter": (TwitterHistoricalConnector, RedditSecretsManager()),
             "hacker-news": (HackerNewsHistoricalConnector, None),
@@ -53,8 +51,7 @@ class TwitterHistoricalConnector(IHistoricalConnector):
     def __init__(self, secrets_manager: TwitterSecretsManager):
         secrets = secrets_manager.get_secrets()
         auth = tweepy.OAuthHandler(
-            secrets["TWITTER_CONSUMER_KEY"],
-            secrets["TWITTER_CONSUMER_SECRET"],
+            secrets["TWITTER_CONSUMER_KEY"], secrets["TWITTER_CONSUMER_SECRET"]
         )
         self.api = tweepy.API(auth, wait_on_rate_limit=True)
 
@@ -101,6 +98,7 @@ class TwitterHistoricalConnector(IHistoricalConnector):
     ) -> TwitterMentionMetadata:
         user_json = status_json.user
         return TwitterMentionMetadata(
+            user_id=user_json.id,
             followers_count=user_json.followers_count,
             statuses_count=user_json.statuses_count,
             friends_count=user_json.friends_count,
@@ -159,9 +157,7 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
 class GoogleNewsHistoricalConnector(IHistoricalConnector):
     def __init__(self, secrets_manager: GoogleNewsSecretsManager):
         secrets = secrets_manager.get_secrets()
-        self._api_client = NewsApiClient(
-            api_key=secrets["GOOGLE_NEWS_API_KEY"]
-        )
+        self._api_client = NewsApiClient(api_key=secrets["GOOGLE_NEWS_API_KEY"])
         self._PAGE_SIZE = 100
 
     def _create_query(self, keywords: List[str]) -> str:
