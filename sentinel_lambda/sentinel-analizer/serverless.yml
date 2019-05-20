@@ -20,6 +20,9 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:*
+      Resource: "*"
+    - Effect: Allow
+      Action:
         - comprehend:DetectDominantLanguage
         - comprehend:DetectSentiment
       Resource: "*"
