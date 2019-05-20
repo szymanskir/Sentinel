@@ -1,13 +1,13 @@
 from flask import jsonify, request, render_template
-from flask_cognito import cognito_auth_required
+from flask_cognito import cognito_auth_required, current_user
 from sentinel_backend import app
-from .repository import DynamoDbRepository
+from .repository import KeywordRepository, MentionRepository
 from .visualization import create_mentions_count_plot, create_sentiment_scores_plot
 
 from dateutil.parser import parse as parse_utc
 
-# _REPOSITORY = MockRepository("../mock-data")
-_REPOSITORY = DynamoDbRepository()
+_KEYWORD_REPOSITORY = KeywordRepository()
+_MENTION_REPOSITORY = MentionRepository()
 
 
 @app.route("/")
@@ -24,7 +24,7 @@ def get_mentions():
 
     keywords = request.args.getlist("keywords")
 
-    mentions = _REPOSITORY.get_mentions("users0", since, until, keywords)
+    mentions = _MENTION_REPOSITORY.get_mentions(str(current_user), since, until, keywords)
     mentions.date = [str(x) for x in mentions["date"]]
     return mentions.to_json(orient='records')
 
@@ -37,7 +37,7 @@ def get_mentions_count():
 
     keywords = request.args.getlist("keywords")
 
-    mentions = _REPOSITORY.get_mentions("users0", since, until, keywords)
+    mentions = _MENTION_REPOSITORY.get_mentions(str(current_user), since, until, keywords)
     plot_data = create_mentions_count_plot(mentions)
     return jsonify(plot_data)
 
@@ -50,7 +50,7 @@ def get_sentiment():
 
     keywords = request.args.getlist("keywords")
 
-    mentions = _REPOSITORY.get_mentions("users0", since, until, keywords)
+    mentions = _MENTION_REPOSITORY.get_mentions(str(current_user), since, until, keywords)
     plot_data = create_sentiment_scores_plot(mentions)
     return jsonify(plot_data)
 
@@ -59,25 +59,28 @@ def get_sentiment():
 @cognito_auth_required
 def add_keyword():
     keyword = request.args.get("keyword")
-    _REPOSITORY.add_keyword(keyword, "users0")
+    _KEYWORD_REPOSITORY.add(keyword, str(current_user))
     return jsonify(success=True)
 
 
 @app.route("/keywords/delete")
 @cognito_auth_required
-def update_keyword():
+def delete_keyword():
     keyword = request.args.get("keyword")
-    _REPOSITORY.delete_keyword(keyword, "users0")
+    _KEYWORD_REPOSITORY.delete(keyword, str(current_user))
     return jsonify(success=True)
 
+
+@app.route("/keywords/update")
+@cognito_auth_required
+def update_keyword():
+    old_keyword = request.args.get("old_keyword")
+    current_keyword = request.args.get("current_keyword")
+    _KEYWORD_REPOSITORY.update(old_keyword, current_keyword, str(current_user))
+    return jsonify(success=True)
 
 
 @app.route("/my-keywords")
 @cognito_auth_required
 def get_my_keywords():
-    return jsonify(_REPOSITORY.get_keywords("users0"))
-
-
-@app.route("/all-keywords")
-def get_all_keywords():
-    return jsonify(_REPOSITORY.get_all_keywords())
+    return jsonify(_KEYWORD_REPOSITORY.get_by_user(str(current_user)))

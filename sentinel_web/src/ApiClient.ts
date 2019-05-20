@@ -17,6 +17,16 @@ class ApiClient {
         const response = await fetch(request);
     }
 
+    async updateKeyword(oldKeyword: string, currentKeyword: string) {
+        const params = new URLSearchParams({
+            old_keyword: oldKeyword,
+            current_keyword: currentKeyword
+        });
+
+        const request = await this.prepareRequest(`/keywords/update?${params}`);
+        const response = await fetch(request);
+    }
+
     async deleteKeyword(keyword: string) {
         const params = new URLSearchParams({
             keyword: keyword

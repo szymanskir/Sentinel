@@ -36,7 +36,7 @@ class KeywordListItem extends React.Component<KeywordListItemProps, KeywordsList
                 <TextField defaultValue={this.props.name} placeholder={"Enter keyword..."} onChange={(event) => this.saveKeywordItemName(event)}/>
             </ListItemText>
             <ListItemSecondaryAction>
-                <Button onClick={() => this.props.onEndEditCallback(this.state.keywordItemName)}>
+                <Button onClick={() => this.props.onEndEditCallback(this.props.name, this.state.keywordItemName)}>
                     <CheckIcon />
                     Ok
                 </Button>

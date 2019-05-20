@@ -35,22 +35,19 @@ class KeywordsTabItem extends React.Component<KeywordsTabItemProps, KeywordsTabI
         };
     }
 
-    private createEndEditCallback(index: number): (keyword: string) => void {
-        return (keyword: string) => {
-            this.state.keywords[index].keyword = keyword;
-            this.state.keywords[index].isEditable = false;
-            this.setState({
-                    keywords: this.state.keywords,
-            });
+    private createEndEditCallback(index: number): (oldKeyword: string, currentKeyword: string) => void {
+        return async (oldKeyword: string, currentKeyword: string) => {
+            await apiClient.updateKeyword(oldKeyword, currentKeyword);
+            this.downloadKeywords();
         };
     }
 
     private createOnDeleteCallback(index: number): () => void {
-        return () => {
+        return async () => {
             const keyword = this.state.keywords[index].keyword;
-            apiClient.deleteKeyword(keyword);
+            await apiClient.deleteKeyword(keyword);
             this.downloadKeywords();
-        }
+        };
     }
 
     private addKeyword() {
