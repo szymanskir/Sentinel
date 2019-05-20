@@ -48,6 +48,7 @@ matrix:
         - npm --version
       install:
         - cd sentinel-analizer
+        - python -m venv .env
         - npm install -g serverless
         - npm install --save serverless-python-requirements
       script:
