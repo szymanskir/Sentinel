@@ -2,7 +2,7 @@ from sentinel_common.db_models import Keyword
 from typing import List
 
 
-class KeywordRepository():
+class KeywordRepository:
     def get_by_user(self, user: str) -> List[str]:
         keywords = Keyword.query(user)
         return [k.keyword for k in keywords]

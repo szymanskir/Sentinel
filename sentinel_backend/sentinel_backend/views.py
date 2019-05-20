@@ -24,9 +24,11 @@ def get_mentions():
 
     keywords = request.args.getlist("keywords")
 
-    mentions = _MENTION_REPOSITORY.get_mentions(str(current_user), since, until, keywords)
+    mentions = _MENTION_REPOSITORY.get_mentions(
+        str(current_user), since, until, keywords
+    )
     mentions.date = [str(x) for x in mentions["date"]]
-    return mentions.to_json(orient='records')
+    return mentions.to_json(orient="records")
 
 
 @app.route("/mentions-count")
@@ -37,7 +39,9 @@ def get_mentions_count():
 
     keywords = request.args.getlist("keywords")
 
-    mentions = _MENTION_REPOSITORY.get_mentions(str(current_user), since, until, keywords)
+    mentions = _MENTION_REPOSITORY.get_mentions(
+        str(current_user), since, until, keywords
+    )
     plot_data = create_mentions_count_plot(mentions)
     return jsonify(plot_data)
 
@@ -50,7 +54,9 @@ def get_sentiment():
 
     keywords = request.args.getlist("keywords")
 
-    mentions = _MENTION_REPOSITORY.get_mentions(str(current_user), since, until, keywords)
+    mentions = _MENTION_REPOSITORY.get_mentions(
+        str(current_user), since, until, keywords
+    )
     plot_data = create_sentiment_scores_plot(mentions)
     return jsonify(plot_data)
 

@@ -31,4 +31,4 @@ if not app.debug:
     )
     app.logger.addHandler(file_handler)
 
-import sentinel_backend.views # noqa: E402,F401
+import sentinel_backend.views  # noqa: E402,F401
