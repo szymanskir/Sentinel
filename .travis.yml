@@ -31,6 +31,28 @@ matrix:
       script:
         - make lint
       
+    - language: python
+      env: COMMAND=sentinel_lambda
+      sudo: required
+      dist: xenial
+      python: "3.6.7"
+      cache: 
+        directories:
+          - node_modules
+        pip: true
+      before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_lambda/|sentinel_common/|\.travis.yml)' || exit 0
+        - cd sentinel_lambda
+        - nvm install 6
+        - node --version
+        - npm --version
+      install:
+        - npm install -g serverless
+        - npm install --save serverless-python-requirements
+      after_script:
+        - cd sentinel-analizer
+        - test $TRAVIS_BRANCH = "feature/sentinel_lambda_ci" && test $TRAVIS_PULL_REQUEST = "false" && serverless deploy -v --aws-s3-accelerate
+
     - language: node_js
       env: COMMAND=sentinel_web
       node_js:
