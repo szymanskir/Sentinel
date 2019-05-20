@@ -46,7 +46,12 @@ class RedditMetadata(BaseModel):
 
 
 class Mention(BaseModel):
-    id: Optional[UUID] = uuid4()
+    def __init__(self, **kwargs):
+        if "id" not in kwargs:
+            kwargs["id"] = uuid4()
+        BaseModel.__init__(self, **kwargs)
+
+    id: Optional[UUID]
     text: str
     url: Optional[UrlStr]
     creation_date: datetime
