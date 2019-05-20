@@ -25,6 +25,19 @@ def get_mentions():
     keywords = request.args.getlist("keywords")
 
     mentions = _REPOSITORY.get_mentions("users0", since, until, keywords)
+    mentions.date = [str(x) for x in mentions["date"]]
+    return mentions.to_json(orient='records')
+
+
+@app.route("/mentions-count")
+@cognito_auth_required
+def get_mentions_count():
+    since = parse_utc(request.args.get("from"), ignoretz=True)
+    until = parse_utc(request.args.get("to"), ignoretz=True)
+
+    keywords = request.args.getlist("keywords")
+
+    mentions = _REPOSITORY.get_mentions("users0", since, until, keywords)
     plot_data = create_mentions_count_plot(mentions)
     return jsonify(plot_data)
 

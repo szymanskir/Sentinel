@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /home/ec2-user/sentinel/sentinel_connectors
+make create_environment
+source .env/bin/activate
+make requirements

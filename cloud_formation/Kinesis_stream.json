@@ -1,0 +1,13 @@
+{
+  "Description": "Create Kinesis stream",
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "KinesisStream": {
+      "Type": "AWS::Kinesis::Stream",
+      "Properties": {
+        "Name": "sentinel-stream",
+        "ShardCount": 1
+      }
+    }
+  }
+}

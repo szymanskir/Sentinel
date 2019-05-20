@@ -14,10 +14,7 @@ class SecretsManager(ABC):
         session = boto3.session.Session()
         region_name = session.region_name
         session = boto3.session.Session()
-        client = session.client(
-            service_name='secretsmanager',
-            region_name=region_name
-        )
+        client = session.client(service_name="secretsmanager", region_name=region_name)
 
         try:
             get_secret_value_response = client.get_secret_value(
@@ -27,10 +24,8 @@ class SecretsManager(ABC):
             self._logger.error(e)
             raise e
 
-        self._logger.info(
-            f"Secret with id: {self._secret_id} recovered successfully"
-        )
-        secret = get_secret_value_response['SecretString']
+        self._logger.info(f"Secret with id: {self._secret_id} recovered successfully")
+        secret = get_secret_value_response["SecretString"]
         return json.loads(secret)
 
 

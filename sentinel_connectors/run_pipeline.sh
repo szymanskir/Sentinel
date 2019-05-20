@@ -7,7 +7,7 @@ PYTHON_INTERPRETER=python3.6
 echo Starting producers...
 for topic in "${topics[@]}"; do
     echo Starting $topic producer
-    $PYTHON_INTERPRETER run_connector.py stream config.ini --source $topic --keywords $KEYWORDS &
+    $PYTHON_INTERPRETER run_connector.py stream --source $topic --sink kinesis &
 done
 
 echo Starting consumers...

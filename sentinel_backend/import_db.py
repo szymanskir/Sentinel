@@ -1,5 +1,5 @@
 import json
-from models import Keyword, Mention
+from sentinel_common.db_models import Keyword, Mention
 from datetime import datetime
 
 
@@ -21,12 +21,17 @@ def import_mentions(filename):
             )
             model.save()
 
+def import_keywords(filename):
+    with open(filename, "r") as file:
+        keywords = json.load(file)
+        for k in keywords:
+            model = Keyword(
+                        k["user"],
+                        k["keyword"]
+                    )
+            model.save()
+    
 
-import_mentions("../../mock-data/mentions.json")
 
-
-# Mention.dump('../../mock-data/mentions-dynamo.json')
-# Keyword.dump('../../mock-data/keywords-dynamo.json')
-
-# Keyword.load('../../mock-data/keywords-dynamo.json')
-# Mention.load('../../mock-data/mentions-dynamo.json')
+import_mentions("../dynamo-dev/mock-data/mentions.json")
+import_keywords("../dynamo-dev/mock-data/keywords.json")

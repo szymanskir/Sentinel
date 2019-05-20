@@ -18,6 +18,22 @@ class ApiClient {
             params.append("keywords", word);
         }
 
+        const request = await this.prepareRequest(`/mentions-count?${params}`);
+        const response = await fetch(request);
+        const json = await response.json();
+        return json;
+    }
+
+    async getMentions(from: moment.Moment, to: moment.Moment, keywords: string[]) {
+        const params = new URLSearchParams({
+            from: from.toISOString(),
+            to: to.toISOString(),
+        });
+
+        for (let word of keywords) {
+            params.append("keywords", word);
+        }
+
         const request = await this.prepareRequest(`/mentions?${params}`);
         const response = await fetch(request);
         const json = await response.json();

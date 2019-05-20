@@ -1,0 +1,4 @@
+node_modules/
+release/Dockerfile
+release/start_docker.sh
+release/build.sh
