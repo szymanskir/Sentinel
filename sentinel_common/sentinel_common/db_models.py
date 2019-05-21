@@ -18,6 +18,8 @@ class MentionDateIndex(GlobalSecondaryIndex):
         projection = AllProjection()
         host = DB_ADDR
         region = DB_REGION
+        read_capacity_units = 25
+        write_capacity_units = 25
 
     keyword = UnicodeAttribute(hash_key=True)
     origin_date = UTCDateTimeAttribute(range_key=True)
