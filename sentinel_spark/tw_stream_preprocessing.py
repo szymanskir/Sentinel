@@ -5,7 +5,7 @@ from sentinel_spark.data_manipulation.text_preprocessing import clean_comment_te
 from sentinel_spark.data_manipulation.stream_utils import to_mention, clean_mention_text
 from textblob import TextBlob
 
-from sentinel_spark.db_writer import save_to_db
+from sentinel_common.db_writer import save_to_db
 
 sc = SparkContext.getOrCreate()
 sc.setLogLevel("WARN")

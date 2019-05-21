@@ -1,7 +1,7 @@
-import sentinel_common.db_models
 from uuid import uuid4
 from datetime import datetime
-from sentinel_common.mentions import Mention
+import sentinel_common.db_models
+from .mentions import Mention
 from typing import Iterable, List, Tuple, Set
 import re
 
