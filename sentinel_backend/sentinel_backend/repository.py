@@ -14,7 +14,7 @@ class DynamoDbRepository:
             keywords = self.get_keywords(user)
 
         queries = [
-            MentionDateIndex.query(keyword, MentionDb.date.between(since, until))
+            MentionDateIndex.query(keyword, MentionDb.origin_date.between(since, until))
             for keyword in keywords
         ]
 
@@ -37,10 +37,15 @@ class DynamoDbRepository:
 def map_mention_to_dto(m: MentionDb) -> dict:
     return {
         "author": m.author,
-        "text": m.text,
-        "date": m.date,
-        "sentiment_score": m.sentiment_score,
+        "origin_date": m.origin_date,
         "keyword": m.keyword,
+        "id": m.id,
+        "download_date": m.download_date,
+        "text": m.text,
+        "url": m.url,
+        "source": m.source,
+        "sentiment_score": m.sentiment_score,
+        "metadata": m.metadata,
     }
 
 

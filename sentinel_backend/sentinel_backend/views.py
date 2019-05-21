@@ -25,7 +25,10 @@ def get_mentions():
     keywords = request.args.getlist("keywords")
 
     mentions = _REPOSITORY.get_mentions("users0", since, until, keywords)
-    mentions.date = [str(x) for x in mentions["date"]]
+    # import pdb
+
+    # pdb.set_trace()
+    mentions.origin_date = [str(x) for x in mentions["origin_date"]]
     return mentions.to_json(orient="records")
 
 

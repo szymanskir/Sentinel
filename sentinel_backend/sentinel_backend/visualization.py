@@ -10,7 +10,7 @@ def create_mentions_count_plot(mentions_data: pd.DataFrame):
     def create_single_keyword_plot_data(keyword):
         data = plot_data[plot_data.keyword == keyword]
         return {
-            "x": [str(x.to_pydatetime()) for x in data["date"]],
+            "x": [str(x.to_pydatetime()) for x in data["origin_date"]],
             "y": data["counts"].tolist(),
             "type": "scatter",
             "mode": "lines+markers",
@@ -27,7 +27,7 @@ def create_sentiment_scores_plot(mentions_data: pd.DataFrame):
     def create_single_keyword_plot_data(keyword):
         data = plot_data[plot_data.keyword == keyword]
         return {
-            "x": [str(x.to_pydatetime()) for x in data["date"]],
+            "x": [str(x.to_pydatetime()) for x in data["origin_date"]],
             "y": data["sentiment_score"].tolist(),
             "type": "scatter",
             "mode": "lines+markers",

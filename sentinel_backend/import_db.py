@@ -12,12 +12,18 @@ def import_mentions(filename):
         mentions = json.load(file)
         for m in mentions:
             model = MentionDb(
-                m["keyword"],
-                m["id"],
-                author=m["author"],
+                m["author"],
+                datetime.strptime(m["origin_date"], "%Y-%m-%dT%H:%M:%S"),
+                keyword=m["keyword"],
+                id=m["id"],
                 text=m["text"],
-                date=datetime.strptime(m["date"], "%Y-%m-%dT%H:%M"),
+                url=m["url"],
+                source=m["source"],
                 sentiment_score=m["sentiment_score"],
+                metadata=m["metadata"],
+                download_date=datetime.strptime(
+                    m["download_date"], "%Y-%m-%dT%H:%M:%S"
+                ),
             )
             model.save()
 
@@ -26,9 +32,15 @@ def import_keywords(filename):
     with open(filename, "r") as file:
         keywords = json.load(file)
         for k in keywords:
-            model = KeywordDb(k["user"], k["keyword"])
+            model = KeywordDb(
+                k["user"],
+                k["keyword"],
+                creation_date=datetime.strptime(
+                    k["creation_date"], "%Y-%m-%dT%H:%M:%S"
+                ),
+            )
             model.save()
 
 
 import_mentions("../dynamo-dev/mock-data/mentions.json")
-import_keywords("../dynamo-dev/mock-data/keywords.json")
+# import_keywords("../dynamo-dev/mock-data/keywords.json")
