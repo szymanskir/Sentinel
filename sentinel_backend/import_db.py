@@ -3,8 +3,8 @@ from sentinel_common.db_models import KeywordDb, MentionDb
 from datetime import datetime
 
 
-MentionDb.create_table(read_capacity_units=25, write_capacity_units=25)
-KeywordDb.create_table(read_capacity_units=25, write_capacity_units=25)
+MentionDb.create_table(wait=True, read_capacity_units=25, write_capacity_units=25)
+KeywordDb.create_table(wait=True, read_capacity_units=25, write_capacity_units=25)
 
 
 def import_mentions(filename):
@@ -42,5 +42,5 @@ def import_keywords(filename):
             model.save()
 
 
-import_mentions("../dynamo-dev/mock-data/mentions.json")
+# import_mentions("../dynamo-dev/mock-data/mentions.json")
 # import_keywords("../dynamo-dev/mock-data/keywords.json")
