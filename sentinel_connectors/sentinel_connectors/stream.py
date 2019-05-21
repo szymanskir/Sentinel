@@ -18,7 +18,7 @@ from .secrets_manager import (
     TwitterSecretsManager,
 )
 
-from sentinel_common.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
+from sentinel_common.mentions import Mention, HackerNewsMetadata, TwitterMetadata
 import twitter
 
 
@@ -193,9 +193,9 @@ class TwitterStreamConnector(IStreamConnector):
     @staticmethod
     def create_twitter_mention_metadata(
         status_dict: Dict[Any, Any]
-    ) -> TwitterMentionMetadata:
+    ) -> TwitterMetadata:
         user_dict = status_dict["user"]
-        return TwitterMentionMetadata(
+        return TwitterMetadata(
             user_id=user_dict["id"],
             followers_count=user_dict["followers_count"],
             statuses_count=user_dict["statuses_count"],

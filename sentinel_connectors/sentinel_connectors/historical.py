@@ -11,7 +11,7 @@ from typing import Iterator, List, Dict, Any, Set
 from itertools import chain
 from pydantic import ValidationError
 
-from sentinel_common.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
+from sentinel_common.mentions import Mention, HackerNewsMetadata, TwitterMetadata
 from .hn_common import clean_html
 from .reddit_common import map_reddit_comment, filter_removed_comments
 from .gn_common import create_gn_mention
@@ -95,9 +95,9 @@ class TwitterHistoricalConnector(IHistoricalConnector):
     @staticmethod
     def create_twitter_mention_metadata(
         status_json: tweepy.models.Status
-    ) -> TwitterMentionMetadata:
+    ) -> TwitterMetadata:
         user_json = status_json.user
-        return TwitterMentionMetadata(
+        return TwitterMetadata(
             user_id=user_json.id,
             followers_count=user_json.followers_count,
             statuses_count=user_json.statuses_count,

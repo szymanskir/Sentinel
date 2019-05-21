@@ -4,7 +4,7 @@ from pydantic import BaseModel, UrlStr
 from datetime import datetime
 
 
-class TwitterMentionMetadata(BaseModel):
+class TwitterMetadata(BaseModel):
     user_id: int
     followers_count: int
     statuses_count: int
@@ -58,7 +58,7 @@ class Mention(BaseModel):
     download_date: datetime
     source: str
     metadata: Union[
-        TwitterMentionMetadata, GoogleNewsMetadata, HackerNewsMetadata, RedditMetadata
+        TwitterMetadata, GoogleNewsMetadata, HackerNewsMetadata, RedditMetadata
     ]
 
     class Config:

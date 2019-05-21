@@ -1,13 +1,13 @@
 import pytest
 
-from sentinel_common.mentions import TwitterMentionMetadata, HackerNewsMetadata, Mention
+from sentinel_common.mentions import TwitterMetadata, HackerNewsMetadata, Mention
 from datetime import datetime
 
 
 @pytest.mark.parametrize(
     "obj",
     [
-        TwitterMentionMetadata(
+        TwitterMetadata(
             user_id=2782689,
             followers_count=1,
             statuses_count=2,
@@ -20,7 +20,7 @@ from datetime import datetime
 )
 def test_TwitterMentionMetadata(obj):
     json_rep = obj.json()
-    recreated_obj = TwitterMentionMetadata.parse_raw(json_rep)
+    recreated_obj = TwitterMetadata.parse_raw(json_rep)
     assert recreated_obj == obj
 
 
@@ -50,7 +50,7 @@ def test_HackerNewsMetadata(obj):
             origin_date=datetime(2019, 4, 13),
             download_date=datetime(2019, 4, 13),
             source="twitter",
-            metadata=TwitterMentionMetadata(
+            metadata=TwitterMetadata(
                 user_id=2899563827,
                 followers_count=1,
                 statuses_count=2,
