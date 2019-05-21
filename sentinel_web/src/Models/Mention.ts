@@ -1,7 +1,7 @@
 export interface Mention {
     author: string;
     text: string;
-    sentimentScore: number;
+    sentiment_score: number;
     date: string;
     keyword: string;
     user: string;

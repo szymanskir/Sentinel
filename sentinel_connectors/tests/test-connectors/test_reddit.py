@@ -12,10 +12,9 @@ from datetime import datetime
 from sentinel_connectors.secrets_manager import RedditSecretsManager
 
 MOCK_CONFIG = MOCK_CONFIG = {
-    "REDDIT_CLIENT_ID": "*******", 
-    "REDDIT_CLIENT_SECRET": "*******"
+    "REDDIT_CLIENT_ID": "*******",
+    "REDDIT_CLIENT_SECRET": "*******",
 }
-
 
 
 # pickle contains 5 good comments and 1 deleted, without body and author
@@ -40,7 +39,7 @@ def test_map_reddit_comment(reddit_comments):
 
     assert result.text == expected_text
     assert result.url == expected_url
-    assert result.creation_date.timestamp() == 1555365599
+    assert result.origin_date.timestamp() == 1555365599
     assert result.download_date is not None
     assert result.source == "reddit"
 
@@ -60,9 +59,7 @@ def test_RedditHistoricalConnector_merging_comments(reddit_comments):
         RedditHistoricalConnector,
         "_fetch_comments",
         return_value=[reddit_comments[:3], reddit_comments[3:]],
-    ), patch.object(
-        RedditSecretsManager, "get_secrets", return_value=MOCK_CONFIG
-    ):
+    ), patch.object(RedditSecretsManager, "get_secrets", return_value=MOCK_CONFIG):
         connector = RedditHistoricalConnector(RedditSecretsManager())
         results = connector.download_mentions(
             ["life"], datetime(2019, 4, 15), datetime(2019, 4, 20)
@@ -73,7 +70,7 @@ def test_RedditHistoricalConnector_merging_comments(reddit_comments):
         for exp, act in zip(reddit_comments, results):
             assert act.text == exp.body
             assert act.url == "https://reddit.com" + exp.permalink
-            assert act.creation_date.timestamp() == int(exp.created_utc)
+            assert act.origin_date.timestamp() == int(exp.created_utc)
             assert act.download_date is not None
             assert act.source == "reddit"
 
@@ -90,9 +87,7 @@ def test_RedditHistoricalConnector_deduplicates_comments(reddit_comments):
 
     with patch.object(
         RedditHistoricalConnector, "_fetch_comments", return_value=[reddit_comments]
-    ), patch.object(
-        RedditSecretsManager, "get_secrets", return_value=MOCK_CONFIG
-    ):
+    ), patch.object(RedditSecretsManager, "get_secrets", return_value=MOCK_CONFIG):
         connector = RedditHistoricalConnector(RedditSecretsManager())
 
         results = connector.download_mentions(

@@ -112,7 +112,7 @@ def main():
             text=sample_text,
             url="https://www.google.com",
             source="hacker-news",
-            creation_date=datetime.utcnow(),
+            origin_date=datetime.utcnow(),
             download_date=datetime.utcnow(),
             metadata=HackerNewsMetadata(author="YOLO author"),
         )

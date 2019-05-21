@@ -26,7 +26,7 @@ def get_mentions():
 
     mentions = _REPOSITORY.get_mentions("users0", since, until, keywords)
     mentions.date = [str(x) for x in mentions["date"]]
-    return mentions.to_json(orient='records')
+    return mentions.to_json(orient="records")
 
 
 @app.route("/mentions-count")

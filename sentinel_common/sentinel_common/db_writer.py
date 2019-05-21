@@ -8,14 +8,14 @@ import re
 
 def to_db_mention(
     mention: Mention, keyword: str, sentiment_score: int
-) -> sentinel_common.db_models.Mention:
-    return sentinel_common.db_models.Mention(
+) -> sentinel_common.db_models.MentionDb:
+    return sentinel_common.db_models.MentionDb(
         keyword,
         str(uuid4()),
         author="authorPlaceholder",
         text=mention.text,
-        date=mention.creation_date,
-        sentimentScore=sentiment_score,
+        date=mention.origin_date,
+        sentiment_score=sentiment_score,
     )
 
 
@@ -29,14 +29,14 @@ def find_all_keywords(text: str, keywords: Set[str]) -> List[str]:
 
 def save_to_db(
     mentionsWithScores: Iterable[Tuple[Mention, int]]
-) -> List[sentinel_common.db_models.Mention]:
+) -> List[sentinel_common.db_models.MentionDb]:
     """
     Write all items in the partition to the database. 
     Should be called with `mapPartitions`.
     """
     entities = list()
     keywords = set(
-        [x.keyword for x in sentinel_common.db_models.Keyword.scan() if x.keyword]
+        [x.keyword for x in sentinel_common.db_models.KeywordDb.scan() if x.keyword]
     )
     for mention, score in mentionsWithScores:
         for keyword in find_all_keywords(mention.text, keywords):

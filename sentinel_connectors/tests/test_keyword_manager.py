@@ -1,7 +1,10 @@
 import pytest
 from unittest.mock import patch
 
-from sentinel_connectors.keyword_manager import ConstKeywordManager, DynamicKeywordManager
+from sentinel_connectors.keyword_manager import (
+    ConstKeywordManager,
+    DynamicKeywordManager,
+)
 
 
 def test_DynamicKeywordManager():
@@ -36,4 +39,3 @@ def test_DynamicKeywordManager():
         DynamicKeywordManager, "_get_keywords", side_effect=mock_keywords
     ):
         dkm._update_keywords()
-

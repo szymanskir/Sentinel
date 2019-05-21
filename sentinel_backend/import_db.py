@@ -1,36 +1,33 @@
 import json
-from sentinel_common.db_models import Keyword, Mention
+from sentinel_common.db_models import KeywordDb, MentionDb
 from datetime import datetime
 
 
-Mention.create_table(read_capacity_units=25, write_capacity_units=25)
-Keyword.create_table(read_capacity_units=25, write_capacity_units=25)
+MentionDb.create_table(read_capacity_units=25, write_capacity_units=25)
+KeywordDb.create_table(read_capacity_units=25, write_capacity_units=25)
 
 
 def import_mentions(filename):
     with open(filename, "r") as file:
         mentions = json.load(file)
         for m in mentions:
-            model = Mention(
+            model = MentionDb(
                 m["keyword"],
                 m["id"],
                 author=m["author"],
                 text=m["text"],
                 date=datetime.strptime(m["date"], "%Y-%m-%dT%H:%M"),
-                sentimentScore=m["sentimentScore"],
+                sentiment_score=m["sentiment_score"],
             )
             model.save()
+
 
 def import_keywords(filename):
     with open(filename, "r") as file:
         keywords = json.load(file)
         for k in keywords:
-            model = Keyword(
-                        k["user"],
-                        k["keyword"]
-                    )
+            model = KeywordDb(k["user"], k["keyword"])
             model.save()
-    
 
 
 import_mentions("../dynamo-dev/mock-data/mentions.json")

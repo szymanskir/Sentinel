@@ -28,7 +28,7 @@ def create_sentiment_scores_plot(mentions_data: pd.DataFrame):
         data = plot_data[plot_data.keyword == keyword]
         return {
             "x": [str(x.to_pydatetime()) for x in data["date"]],
-            "y": data["sentimentScore"].tolist(),
+            "y": data["sentiment_score"].tolist(),
             "type": "scatter",
             "mode": "lines+markers",
             "name": keyword,

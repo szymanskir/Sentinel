@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from typing import List
 from datetime import datetime
-from sentinel_common.db_models import Mention, Keyword, MentionDateIndex
+from sentinel_common.db_models import MentionDb, KeywordDb, MentionDateIndex
 
 
 class DynamoDbRepository:
@@ -14,7 +14,7 @@ class DynamoDbRepository:
             keywords = self.get_keywords(user)
 
         queries = [
-            MentionDateIndex.query(keyword, Mention.date.between(since, until))
+            MentionDateIndex.query(keyword, MentionDb.date.between(since, until))
             for keyword in keywords
         ]
 
@@ -26,20 +26,20 @@ class DynamoDbRepository:
         return pd.DataFrame.from_records(mentions)
 
     def get_keywords(self, user):
-        keywords = Keyword.query(user)
+        keywords = KeywordDb.query(user)
         return [k.keyword for k in keywords]
 
     def get_all_keywords(self):
-        keywords = Keyword.scan()
+        keywords = KeywordDb.scan()
         return list(set([k.keyword for k in keywords]))
 
 
-def map_mention_to_dto(m: Mention) -> dict:
+def map_mention_to_dto(m: MentionDb) -> dict:
     return {
         "author": m.author,
         "text": m.text,
         "date": m.date,
-        "sentimentScore": m.sentimentScore,
+        "sentiment_score": m.sentiment_score,
         "keyword": m.keyword,
     }
 

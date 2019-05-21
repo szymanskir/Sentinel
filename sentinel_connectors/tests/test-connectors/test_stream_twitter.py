@@ -52,26 +52,24 @@ def test_TwitterStreamConnector_create_mention_metadata(status_json):
 
 def test_TwitterStreamConnector_download_mentions(tweets_test_case):
     with patch.object(
-        TwitterSecretsManager,
-        "get_secrets",
-        return_value=MOCK_SECRETS
-        ), patch.multiple(
-            TwitterStreamConnector,
-            _get_stream=mock_get_stream,
-            _get_api_connection=mock_get_api_connection,
-        ):
-            connector = TwitterStreamConnector(TwitterSecretsManager())
-            mention_generator = connector.stream_comments()
-            mention_list = [mention for mention in mention_generator]
+        TwitterSecretsManager, "get_secrets", return_value=MOCK_SECRETS
+    ), patch.multiple(
+        TwitterStreamConnector,
+        _get_stream=mock_get_stream,
+        _get_api_connection=mock_get_api_connection,
+    ):
+        connector = TwitterStreamConnector(TwitterSecretsManager())
+        mention_generator = connector.stream_comments()
+        mention_list = [mention for mention in mention_generator]
 
-            assert len(mention_list) == len(tweets_test_case)
-            for mention, tweet_test_case in zip(mention_list, tweets_test_case):
-                expected_url = f"https://twitter.com/statuses/{tweet_test_case['id_str']}"
-                metadata = connector.create_twitter_mention_metadata(tweet_test_case)
-                assert mention.url == expected_url
-                assert mention.text == tweet_test_case["text"]
-                assert mention.creation_date == datetime.strptime(
-                    tweet_test_case["created_at"], "%a %b %d %H:%M:%S +0000 %Y"
-                )
-                assert mention.source == "twitter"
-                assert mention.metadata == metadata
+        assert len(mention_list) == len(tweets_test_case)
+        for mention, tweet_test_case in zip(mention_list, tweets_test_case):
+            expected_url = f"https://twitter.com/statuses/{tweet_test_case['id_str']}"
+            metadata = connector.create_twitter_mention_metadata(tweet_test_case)
+            assert mention.url == expected_url
+            assert mention.text == tweet_test_case["text"]
+            assert mention.origin_date == datetime.strptime(
+                tweet_test_case["created_at"], "%a %b %d %H:%M:%S +0000 %Y"
+            )
+            assert mention.source == "twitter"
+            assert mention.metadata == metadata

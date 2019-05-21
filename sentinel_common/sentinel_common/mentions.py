@@ -54,7 +54,7 @@ class Mention(BaseModel):
     id: Optional[UUID]
     text: str
     url: Optional[UrlStr]
-    creation_date: datetime
+    origin_date: datetime
     download_date: datetime
     source: str
     metadata: Union[

@@ -18,7 +18,7 @@ def map_reddit_comment(comment: praw.models.Comment) -> Mention:
         return Mention(
             text=comment.body,
             url="https://reddit.com" + comment.permalink,
-            creation_date=datetime.fromtimestamp(comment.created_utc),
+            origin_date=datetime.fromtimestamp(comment.created_utc),
             download_date=datetime.utcnow(),
             source="reddit",
             metadata=metadata,

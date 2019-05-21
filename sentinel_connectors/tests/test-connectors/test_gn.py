@@ -8,9 +8,7 @@ from sentinel_connectors.gn_common import create_gn_mention_metadata
 from sentinel_connectors.utils import read_jsonpickle
 from sentinel_connectors.secrets_manager import GoogleNewsSecretsManager
 
-MOCK_CONFIG = {
-    'GOOGLE_NEWS_API_KEY': 'XXX'
-}
+MOCK_CONFIG = {"GOOGLE_NEWS_API_KEY": "XXX"}
 
 
 def get_gn_articles():
@@ -43,18 +41,17 @@ def test_GoogleNewsHistoricalConnector_create_gn_metadata():
 
 def test_GoogleNewsHistoricalConnector_download_mentions():
     with patch.object(
-        GoogleNewsHistoricalConnector,
-        "_search_news",
-        return_value=mock_comments(),
-    ), patch.object(
-        GoogleNewsSecretsManager,
-        "get_secrets",
-        return_value=MOCK_CONFIG
-    ):
+        GoogleNewsHistoricalConnector, "_search_news", return_value=mock_comments()
+    ), patch.object(GoogleNewsSecretsManager, "get_secrets", return_value=MOCK_CONFIG):
         connector = GoogleNewsHistoricalConnector(GoogleNewsSecretsManager())
-        result = [mention for mention in connector.download_mentions(
-            keywords='microsoft', since=datetime(2019, 4, 4), until=datetime(2019, 4, 5)
-        )]
+        result = [
+            mention
+            for mention in connector.download_mentions(
+                keywords="microsoft",
+                since=datetime(2019, 4, 4),
+                until=datetime(2019, 4, 5),
+            )
+        ]
 
     expected = get_gn_articles()
 
@@ -66,19 +63,13 @@ def test_GoogleNewsHistoricalConnector_download_mentions():
         assert r.url == e["url"]
         assert r.metadata == create_gn_mention_metadata(e)
         assert r.source == "google-news"
-        assert r.creation_date is not None
+        assert r.origin_date is not None
 
 
 def test_GoogleNewsStreamConnector_download_mentions():
     with patch.object(
-        GoogleNewsStreamConnector,
-        "_listen_top_stories",
-        return_value=mock_comments(),
-    ), patch.object(
-        GoogleNewsSecretsManager,
-        "get_secrets",
-        return_value=MOCK_CONFIG
-    ):
+        GoogleNewsStreamConnector, "_listen_top_stories", return_value=mock_comments()
+    ), patch.object(GoogleNewsSecretsManager, "get_secrets", return_value=MOCK_CONFIG):
         connector = GoogleNewsStreamConnector(GoogleNewsSecretsManager())
         result = [mention for mention in connector.stream_comments()]
 
@@ -92,35 +83,29 @@ def test_GoogleNewsStreamConnector_download_mentions():
         assert r.url == e["url"]
         assert r.metadata == create_gn_mention_metadata(e)
         assert r.source == "google-news"
-        assert r.creation_date is not None
+        assert r.origin_date is not None
 
 
 def test_GoogleNewsStreamConnector_duplicates_filtering():
     @patch.object(
-        GoogleNewsStreamConnector,
-        "_retrieve_news_sources",
-        return_value="bbc.com"
+        GoogleNewsStreamConnector, "_retrieve_news_sources", return_value="bbc.com"
     )
     def execute_test(mock_stream_connector):
         with patch.object(
-            GoogleNewsSecretsManager,
-            "get_secrets",
-            return_value=MOCK_CONFIG
+            GoogleNewsSecretsManager, "get_secrets", return_value=MOCK_CONFIG
         ):
             connector = GoogleNewsStreamConnector(GoogleNewsSecretsManager())
             with patch.object(
                 NewsApiClient,
                 "get_top_headlines",
-                return_value=mock_response_with_latest_article_removed()
+                return_value=mock_response_with_latest_article_removed(),
             ):
                 # run first request to set time of latest retrieved article
                 first = connector._search_top_stories()
                 first = [x for x in first]
 
             with patch.object(
-                NewsApiClient,
-                "get_top_headlines",
-                return_value=mock_response(),
+                NewsApiClient, "get_top_headlines", return_value=mock_response()
             ):
                 second = connector._search_top_stories()
                 assert next(second) == mock_response()["articles"][0]

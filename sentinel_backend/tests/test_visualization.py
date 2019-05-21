@@ -1,4 +1,4 @@
-import pytest 
+import pytest
 import numpy as np
 import pandas as pd
 
@@ -17,17 +17,18 @@ def test_create_mentions_count_plot(test_mentions):
     result = create_mentions_count_plot(test_mentions)
     expected = [
         {
-            'x': np.array([datetime(2017,8, 31, 11, 10, 0)]),
-            'y': np.array([1]),
-            type: 'scatter',
-            'mode': 'lines+points'
+            "x": np.array([datetime(2017, 8, 31, 11, 10, 0)]),
+            "y": np.array([1]),
+            type: "scatter",
+            "mode": "lines+points",
         },
         {
-            'x': np.array([datetime(2017,8, 31, 11, 9, 0),
-            datetime(2017,8, 31, 11, 10, 0)]),
-            'y': np.array([2, 1]),
-            type: 'scatter',
-            'mode': 'lines+points'
-        }
+            "x": np.array(
+                [datetime(2017, 8, 31, 11, 9, 0), datetime(2017, 8, 31, 11, 10, 0)]
+            ),
+            "y": np.array([2, 1]),
+            type: "scatter",
+            "mode": "lines+points",
+        },
     ]
     assert result == expected

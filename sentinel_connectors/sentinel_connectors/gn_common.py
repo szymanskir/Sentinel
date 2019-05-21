@@ -15,7 +15,7 @@ def create_gn_mention(article: Dict) -> Mention:
         return Mention(
             text=text,
             url=article["url"],
-            creation_date=article["publishedAt"],
+            origin_date=article["publishedAt"],
             download_date=datetime.utcnow(),
             source="google-news",
             metadata=article_metadata,

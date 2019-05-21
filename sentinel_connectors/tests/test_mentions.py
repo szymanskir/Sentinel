@@ -39,7 +39,7 @@ def test_HackerNewsMetadata(obj):
         Mention(
             text="Lorem ipsum",
             url="https://example.com",
-            creation_date=datetime(2019, 4, 13),
+            origin_date=datetime(2019, 4, 13),
             download_date=datetime(2019, 4, 13),
             source="twitter",
             metadata=HackerNewsMetadata(author="John Doe", points=2, relevancy_score=3),
@@ -47,7 +47,7 @@ def test_HackerNewsMetadata(obj):
         Mention(
             text="Lorem ipsum",
             url="https://example.com",
-            creation_date=datetime(2019, 4, 13),
+            origin_date=datetime(2019, 4, 13),
             download_date=datetime(2019, 4, 13),
             source="twitter",
             metadata=TwitterMentionMetadata(

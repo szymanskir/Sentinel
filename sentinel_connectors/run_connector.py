@@ -95,10 +95,12 @@ def stream(source, keywords, sink):
             try:
                 for mention in connector.stream_comments():
                     if keyword_manager.any_match(mention.text):
-                        sink.put(mention)
-                        LOGGER.info(f"HIT: {mention.text[:30]}")
+                        pass
+                        # sink.put(mention)
+                        # LOGGER.info(f"HIT: {mention}")
                     else:
-                        LOGGER.info(f"MISS: {mention.text[:30]}")
+                        pass
+                        # LOGGER.info(f"HIT: {mention}")
             except SinkNotAvailableError as e:
                 raise RuntimeError from e
             except Exception as e:

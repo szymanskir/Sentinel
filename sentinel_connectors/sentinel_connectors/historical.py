@@ -67,7 +67,7 @@ class TwitterHistoricalConnector(IHistoricalConnector):
                 yield Mention(
                     text=tweet.text,
                     url=url,
-                    creation_date=tweet.created_at,
+                    origin_date=tweet.created_at,
                     download_date=datetime.utcnow(),
                     source="twitter",
                     metadata=twitter_mention_metadata,
@@ -123,7 +123,7 @@ class HackerNewsHistoricalConnector(IHistoricalConnector):
                     yield Mention(
                         text=clean_html(hit["comment_text"]),
                         url=hit["story_url"],
-                        creation_date=datetime.strptime(
+                        origin_date=datetime.strptime(
                             hit["created_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
                         ),
                         download_date=datetime.utcnow(),

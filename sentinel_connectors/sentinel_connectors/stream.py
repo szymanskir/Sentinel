@@ -82,7 +82,7 @@ class HackerNewsStreamConnector(IStreamConnector):
             return Mention(
                 text=clean_html(comment["body"]),
                 url=f'https://news.ycombinator.com/item?id={comment["id"]}',
-                creation_date=datetime.utcnow(),
+                origin_date=datetime.utcnow(),
                 download_date=datetime.utcnow(),
                 source="hacker-news",
                 metadata=metadata,
@@ -173,7 +173,7 @@ class TwitterStreamConnector(IStreamConnector):
             yield Mention(
                 text=tweet["text"],
                 url=url,
-                creation_date=datetime.strptime(
+                origin_date=datetime.strptime(
                     tweet["created_at"], "%a %b %d %H:%M:%S  +0000 %Y"
                 ),
                 download_date=datetime.utcnow(),
