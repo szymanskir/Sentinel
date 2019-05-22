@@ -1,9 +1,12 @@
 import click
 import logging
+import logging.handlers
 import json
+import math
 import os
 import os.path
 import sys
+import watchtower
 
 from datetime import datetime
 from sentinel_connectors.historical import HistoricalConnectorFactory
@@ -24,20 +27,27 @@ from sentinel_connectors.sinks import (
 LOGGER = logging.getLogger("main")
 LOG_DIRECTORY = "logs"
 CURRENT_DATETIME = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+MAX_SIZE_BYTE = 1024
+MAX_BACKUPS = 10000
 
 
 def setup_logger(filename: str):
-    logging.basicConfig(
-        level=logging.DEBUG,
-        filename=filename,
-        filemode="w",
-        format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
-    logging.getLogger("main").addHandler(logging.StreamHandler(sys.stdout))
-    logging.getLogger(f"{DynamicKeywordManager.__name__}").addHandler(
-        logging.StreamHandler(sys.stdout)
-    )
+    formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
+    file_handler = logging.handlers.RotatingFileHandler(filename=filename, mode='a', maxBytes = MAX_SIZE_BYTE, backupCount=MAX_BACKUPS)
+    file_handler.setFormatter(formatter)
+    file_handler.setLevel(logging.DEBUG)
+    
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    stdout_handler.setFormatter(formatter)
+    stdout_handler.setLevel(logging.DEBUG)
+
+    cloud_watch_handler = watchtower.CloudWatchLogHandler()
+    cloud_watch_handler.setLevel(logging.WARNING)
+
+    LOGGER.addHandler(file_handler)
+    LOGGER.addHandler(stdout_handler)
+    LOGGER.addHandler(cloud_watch_handler)
+    LOGGER.setLevel(logging.DEBUG)
 
 
 def get_sink(sink: str):
