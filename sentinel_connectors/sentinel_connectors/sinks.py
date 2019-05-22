@@ -59,3 +59,11 @@ class KinesisSink(IDataSink):
                 raise SinkNotAvailableError from e
 
         self._producer.put(mention.to_json())
+
+
+class DevNullSink(IDataSink):
+    def __init__(self):
+        pass
+
+    def put(self, mention: Mention):
+        pass        

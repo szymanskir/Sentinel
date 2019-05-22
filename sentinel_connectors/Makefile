@@ -42,7 +42,7 @@ tests:
 # PROJECT RULES                                                                 #
 #################################################################################
 
-SINK ?= kafka
+SINK ?= dev-null
 all:;: '$(SINK)'
 
 reddit_sample:

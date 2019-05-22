@@ -17,6 +17,7 @@ from sentinel_connectors.sinks import (
     IDataSink,
     KafkaSink,
     KinesisSink,
+    DevNullSink,
     SinkNotAvailableError,
 )
 
@@ -44,6 +45,8 @@ def get_sink(sink: str):
         return KafkaSink()
     elif sink == "kinesis":
         return KinesisSink()
+    elif sink == "dev-null":
+        return DevNullSink()
     else:
         raise ValueError(f"Unsupported sink: {sink}")
 
@@ -59,7 +62,7 @@ def main():
 @click.option("--keywords", type=click.STRING, required=True)
 @click.option("--since", type=click.DateTime(), required=True)
 @click.option("--until", type=click.DateTime(), default=str(datetime.today().date()))
-@click.option("--sink", type=click.Choice(["kafka", "kinesis"]))
+@click.option("--sink", type=click.Choice(["kafka", "kinesis", "dev-null"]))
 def historical(source, keywords, since, until, sink):
     setup_logger(
         os.path.join(LOG_DIRECTORY, f"logs_historical_{source}_{CURRENT_DATETIME}.log")
@@ -80,7 +83,7 @@ def historical(source, keywords, since, until, sink):
 @main.command()
 @click.option("--source", required=True)
 @click.option("--keywords", type=click.STRING)
-@click.option("--sink", type=click.Choice(["kafka", "kinesis"]))
+@click.option("--sink", type=click.Choice(["kafka", "kinesis", "dev-null"]))
 def stream(source, keywords, sink):
     setup_logger(
         os.path.join(LOG_DIRECTORY, f"logs_stream_{source}_{CURRENT_DATETIME}.log")
