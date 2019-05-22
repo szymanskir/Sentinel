@@ -6,10 +6,8 @@ def get_keywords_mention_count(mentions_data: pd.DataFrame):
         return pd.DataFrame(columns=["keyword", "date", "counts"])
 
     return (
-        mentions_data.groupby(by=["keyword", "date"])
-        .size()
-        .reset_index(name="counts")
-        )
+        mentions_data.groupby(by=["keyword", "date"]).size().reset_index(name="counts")
+    )
 
 
 def get_sentiment_scores(mentions_data: pd.DataFrame):
