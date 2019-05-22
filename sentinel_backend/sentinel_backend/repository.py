@@ -2,7 +2,6 @@ import os
 import pandas as pd
 from typing import List
 from datetime import datetime
-from sentinel_common.db_models import MentionDb, KeywordDb, MentionDateIndex
 
 
 class MockRepository:

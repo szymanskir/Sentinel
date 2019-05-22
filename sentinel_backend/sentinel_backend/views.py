@@ -28,7 +28,7 @@ def get_mentions():
         str(current_user), since, until, keywords
     )
     if not mentions.empty:
-        mentions.origin_date =  [str(x) for x in mentions.origin_date]
+        mentions.origin_date = [str(x) for x in mentions.origin_date]
     return mentions.to_json(orient="records")
 
 
