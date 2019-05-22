@@ -5,50 +5,6 @@ from datetime import datetime
 from sentinel_common.db_models import MentionDb, KeywordDb, MentionDateIndex
 
 
-class DynamoDbRepository:
-    def get_mentions(
-        self, user: str, since: datetime, until: datetime, keywords: List[str]
-    ):
-
-        if keywords is None or len(keywords) <= 0:
-            keywords = self.get_keywords(user)
-
-        queries = [
-            MentionDateIndex.query(keyword, MentionDb.origin_date.between(since, until))
-            for keyword in keywords
-        ]
-
-        mentions = []
-        for keyword in queries:
-            for m in keyword:
-                mentions.append(map_mention_to_dto(m))
-
-        return pd.DataFrame.from_records(mentions)
-
-    def get_keywords(self, user):
-        keywords = KeywordDb.query(user)
-        return [k.keyword for k in keywords]
-
-    def get_all_keywords(self):
-        keywords = KeywordDb.scan()
-        return list(set([k.keyword for k in keywords]))
-
-
-def map_mention_to_dto(m: MentionDb) -> dict:
-    return {
-        "author": m.author,
-        "origin_date": m.origin_date,
-        "keyword": m.keyword,
-        "id": m.id,
-        "download_date": m.download_date,
-        "text": m.text,
-        "url": m.url,
-        "source": m.source,
-        "sentiment_score": m.sentiment_score,
-        "metadata": m.metadata,
-    }
-
-
 class MockRepository:
     def __init__(self, directory: str):
         self._validate_mock_data_directory(directory)
@@ -81,7 +37,6 @@ class MockRepository:
         is_mention_from_time_period = (mentions_data_dates >= since) & (
             mentions_data_dates <= until
         )
-        # import pdb; pdb.set_trace()
         is_mention_from_keywords = (
             self._mentions_data.keyword.isin(keywords)
             if keywords

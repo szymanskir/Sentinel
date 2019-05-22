@@ -1,48 +1,31 @@
 import * as React from "react";
-import * as moment from "moment";
-import { AppBar, Toolbar, Typography, IconButton, Grid, Button, Card, CardContent } from "@material-ui/core";
-import { apiClient } from "../ApiClient";
+import { AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import DashboardPlot from "./DashboardPlot";
-import DashboardParamsSelector from "./DashboardParamsSelector";
-import CommentsTable from "./CommentsTable";
+import HomeIcon from "@material-ui/icons/Home";
+import AnnouncementIcon from "@material-ui/icons/Announcement";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { OverviewTabItem } from "./OverviewTabItem";
+import KeywordsTabItem from "./KeywordsTabItem";
 
 
 interface DashboardState {
-    allKeywords: string[];
-    selectedKeywords: string[];
-    from: moment.Moment;
-    to: moment.Moment;
-    mentions: [];
-    mentionsCount: [];
-    sentiments: [];
+    isDrawerOpen: boolean;
 }
 
 export class Dashboard extends React.Component<{}, DashboardState> {
     constructor(props: {}) {
         super(props);
         this.state = {
-            allKeywords: [],
-            selectedKeywords: [],
-            mentions: [],
-            mentionsCount: [],
-            sentiments: [],
-            from: moment().add(-7, "days").startOf("day"),
-            to: moment().startOf("day")
+            isDrawerOpen: false,
         };
-
-        setInterval(() => { this.downloadMentions(); this.downloadKeywords(); }, 5000);
-    }
-
-    componentDidMount() {
-        this.downloadKeywords();
     }
 
     render() {
-        return <div className="flex-grow-1">
+        return <div>
+            <Router>
             <AppBar position="fixed">
                 <Toolbar>
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" onClick={() => this.toggleDrawer(true)}>
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" color="inherit">
@@ -50,79 +33,27 @@ export class Dashboard extends React.Component<{}, DashboardState> {
                         </Typography>
                 </Toolbar>
             </AppBar>
-
-            <Grid container spacing={8} direction="column" alignItems="center">
-                <Grid container item xs={12} spacing={8} >
-                    <Grid container item spacing={8} xs={5} direction="column">
-                        <Grid item>
-                            <Card>
-                                <CardContent>
-                                    <Typography variant="h5" component="h6">
-                                        Settings
-                                </Typography>
-                                    <DashboardParamsSelector
-                                        allKeywords={this.state.allKeywords}
-                                        selectedKeywords={this.state.selectedKeywords}
-                                        from={this.state.from}
-                                        to={this.state.to}
-                                        onSelectedKeywordsChanged={selectedKeywords => this.setState({ selectedKeywords })}
-                                        onFromChanged={from => this.setState({ from })}
-                                        onToChanged={to => this.setState({ to })}
-                                    />
-                                    <Button
-                                        variant="contained"
-                                        onClick={this.downloadMentions}
-                                        color="primary">
-                                        Fetch
-                                </Button>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                        <Grid container item direction="column">
-                            <CommentsTable  mentions={this.state.mentions} />
-                        </Grid>
-                    </Grid>
-                    <Grid container item spacing={8} xs={7} direction="column">
-                        <Grid item>
-                        <DashboardPlot title="Sentiment plot" plotData={this.state.sentiments} />
-                        </Grid>
-                        <Grid item>
-                            <DashboardPlot title="Mentions count" plotData={this.state.mentionsCount} />
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
+            <Drawer anchor="left" open={this.state.isDrawerOpen} onClose={() => this.toggleDrawer(false)}>
+                <List>
+                    <ListItem button key="Home">
+                        <ListItemIcon><HomeIcon /></ListItemIcon>
+                        <ListItemText><Link to="/">Home</Link></ListItemText>
+                    </ListItem>
+                    <ListItem button key="Keywords">
+                        <ListItemIcon><AnnouncementIcon /></ListItemIcon>
+                        <ListItemText><Link to="/keywords">Keywords</Link></ListItemText>
+                    </ListItem>
+                </List>
+            </Drawer>
+            <div>
+                <Route exact path="/" component={OverviewTabItem}/>
+                <Route path="/keywords" component={KeywordsTabItem}/>
+            </div>
+                </Router>
         </div>;
     }
 
-    private downloadKeywords = async () => {
-        const keywords = await apiClient.getAllKeywords();
-        this.setState({ allKeywords: keywords });
-    }
-
-    private downloadMentions = async () => {
-        const mentionsCountPromise = apiClient.getMentionsCount(
-            this.state.from,
-            this.state.to,
-            this.state.selectedKeywords
-        );
-
-        const sentimentsPromise = apiClient.getMentionsSentimentScores(
-            this.state.from,
-            this.state.to,
-            this.state.selectedKeywords
-        );
-
-        const mentionsPromise = apiClient.getMentions(
-            this.state.from,
-            this.state.to,
-            this.state.selectedKeywords
-        );
-
-        const mentions = await mentionsPromise;
-        const mentionsCount = await mentionsCountPromise;
-        const sentiments = await sentimentsPromise;
-
-        this.setState({ mentions, sentiments, mentionsCount });
+    private toggleDrawer = async (shouldDrawerBeOpened: boolean) => {
+        this.setState({ isDrawerOpen: shouldDrawerBeOpened });
     }
 }

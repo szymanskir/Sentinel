@@ -11,7 +11,6 @@ def get_keywords_mention_count(mentions_data: pd.DataFrame):
         .reset_index(name="counts")
     )
 
-
 def get_sentiment_scores(mentions_data: pd.DataFrame):
     if len(mentions_data) == 0:
         return pd.DataFrame(columns=["keyword", "origin_date", "sentiment_score"])
