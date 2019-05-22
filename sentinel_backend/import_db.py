@@ -42,5 +42,5 @@ def import_keywords(filename):
             model.save()
 
 
-# import_mentions("../dynamo-dev/mock-data/mentions.json")
-# import_keywords("../dynamo-dev/mock-data/keywords.json")
+import_mentions("../dynamo-dev/mock-data/mentions.json")
+import_keywords("../dynamo-dev/mock-data/keywords.json")

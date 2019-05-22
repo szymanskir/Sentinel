@@ -1,5 +1,6 @@
 from sentinel_common.db_models import KeywordDb
 from typing import List
+from datetime import datetime
 
 
 class KeywordRepository:
@@ -12,7 +13,7 @@ class KeywordRepository:
         return list(set([k.keyword for k in keywords]))
 
     def add(self, keyword: str, user: str) -> None:
-        model = KeywordDb(user, keyword)
+        model = KeywordDb(user=user, keyword=keyword, creation_date=datetime.utcnow())
         model.save()
 
     def delete(self, keyword: str, user: str) -> None:
