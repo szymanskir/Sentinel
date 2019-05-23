@@ -114,7 +114,7 @@ def stream(source, keywords, sink):
         keyword_manager = DynamicKeywordManager()
         keyword_manager.start()
 
-    if sink != "dev-null":
+    if sink == "dev-null":
         metric_logger = DevNullMetricLogger()
     else:
         metric_logger = CloudWatchMetricLogger(source)
