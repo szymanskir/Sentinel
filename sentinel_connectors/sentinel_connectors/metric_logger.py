@@ -20,7 +20,7 @@ class MetricLogger(object):
         )
 
     def start(self):
-        self._logging_thread = threading.Thread(target=self._log_metrics)
+        self._logging_thread = threading.Thread(target=self._log_metrics, daemon=True)
         self._logging_thread.start()
 
     def _log_metrics(self):
@@ -43,10 +43,6 @@ class MetricLogger(object):
 
     def increment_data(self):
         self.data_counter.increment()
-
-    def stop(self):
-        self._exit_event.set()
-        self._update_thread.join()
 
 
 class AtomicCounter:

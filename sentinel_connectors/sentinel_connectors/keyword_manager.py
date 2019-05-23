@@ -28,16 +28,12 @@ class DynamicKeywordManager(KeywordManager):
         self._logger = logging.getLogger(DynamicKeywordManager.__name__)
         self._exit_event = threading.Event()
 
-    def run(self):
+    def start(self):
         self._update_thread = threading.Thread(target=self._update_keywords)
         self._update_thread.start()
 
         if not sentinel_common.db_models.KeywordDb.exists():
             raise RuntimeError("DynamoDb failure")
-
-    def exit(self):
-        self._exit_event.set()
-        self._update_thread.join()
 
     def _update_keywords(self):
         self.last_update = datetime.now()

@@ -105,35 +105,29 @@ def stream(source, keywords, sink):
     connector = factory.create_stream_connector(source)
     sink = get_sink(sink)
 
-    def stream_mentions():
-        metric_logger = MetricLogger(source)
-        metric_logger.start()
-
-        while True:
-            try:
-                for mention in connector.stream_comments():
-                    metric_logger.increment_data()
-                    if keyword_manager.any_match(mention.text):
-                        sink.put(mention)
-                        LOGGER.debug(f"HIT: {mention.text[:30]}")
-                        metric_logger.increment_hits()
-                    else:
-                        LOGGER.debug(f"MISS: {mention.text[:30]}")
-            except SinkNotAvailableError as e:
-                raise RuntimeError from e
-            except Exception as e:
-                LOGGER.error(e)
-
     if keywords is not None:
         keyword_manager = ConstKeywordManager(keywords.split(","))
-        stream_mentions()
     else:
         keyword_manager = DynamicKeywordManager()
+        keyword_manager.start()
+
+    metric_logger = MetricLogger(source)
+    metric_logger.start()
+
+    while True:
         try:
-            keyword_manager.run()
-            stream_mentions()
-        finally:
-            keyword_manager.exit()
+            for mention in connector.stream_comments():
+                metric_logger.increment_data()
+                if keyword_manager.any_match(mention.text):
+                    sink.put(mention)
+                    LOGGER.debug(f"HIT: {mention.text[:30]}")
+                    metric_logger.increment_hits()
+                else:
+                    LOGGER.debug(f"MISS: {mention.text[:30]}")
+        except SinkNotAvailableError as e:
+            raise RuntimeError from e
+        except Exception as e:
+            LOGGER.error(e)
 
 
 if __name__ == "__main__":
