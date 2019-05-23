@@ -28,7 +28,6 @@ class CloudWatchMetricLogger(IMetricLogger):
         self.INTERVAL = 60
         self.hits_counter = AtomicCounter()
         self.data_counter = AtomicCounter()
-        self._logger = logging.getLogger(CloudWatchMetricLogger.__name__)
         self._exit_event = threading.Event()
         self.metrics = (
             FluentMetric()
@@ -43,7 +42,6 @@ class CloudWatchMetricLogger(IMetricLogger):
 
     def _log_metrics(self):
         start_time = time.time()
-
         while not self._exit_event.is_set():
             self.metrics.count(MetricName="HitsCount", Value=self.hits_counter.reset())
             self.metrics.count(MetricName="DataCount", Value=self.data_counter.reset())

@@ -29,7 +29,9 @@ class DynamicKeywordManager(KeywordManager):
         self._exit_event = threading.Event()
 
     def start(self):
-        self._update_thread = threading.Thread(target=self._update_keywords)
+        self._update_thread = threading.Thread(
+            target=self._update_keywords, daemon=True
+        )
         self._update_thread.start()
 
         if not sentinel_common.db_models.KeywordDb.exists():
