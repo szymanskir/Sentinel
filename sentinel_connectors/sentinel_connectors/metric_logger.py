@@ -14,6 +14,7 @@ class IMetricLogger(metaclass=ABCMeta):
     def increment_data(self):
         pass
 
+
 class DevNullMetricLogger(IMetricLogger):
     def increment_hits(self):
         pass
@@ -21,12 +22,13 @@ class DevNullMetricLogger(IMetricLogger):
     def increment_data(self):
         pass
 
+
 class CloudWatchMetricLogger(IMetricLogger):
     def __init__(self, source: str):
         self.INTERVAL = 60
         self.hits_counter = AtomicCounter()
         self.data_counter = AtomicCounter()
-        self._logger = logging.getLogger(MetricLogger.__name__)
+        self._logger = logging.getLogger(CloudWatchMetricLogger.__name__)
         self._exit_event = threading.Event()
         self.metrics = (
             FluentMetric()

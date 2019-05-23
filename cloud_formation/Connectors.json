@@ -184,6 +184,14 @@
                             "Effect": "Allow",
                             "Action": "dynamodb:*",
                             "Resource": "*"
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "cloudwatch:*",
+                                "logs:*"
+                            ],
+                            "Resource": "*"
                         }
                     ]
                 },

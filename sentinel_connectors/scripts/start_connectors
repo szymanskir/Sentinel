@@ -2,6 +2,7 @@
 declare -a topics=("google-news" "hacker-news" "reddit" "twitter")
 export AWS_DEFAULT_REGION=eu-central-1
 export DYNAMO_DB_REGION=eu-central-1
+echo -e '\nexport AWS_DEFAULT_REGION=eu-central-1' >> ~/.bashrc
 
 cd /home/ec2-user/sentinel/sentinel_connectors
 source .env/bin/activate
