@@ -31,14 +31,13 @@ from sentinel_connectors.sinks import (
 LOGGER = logging.getLogger("main")
 LOG_DIRECTORY = "logs"
 CURRENT_DATETIME = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-MAX_SIZE_BYTE = 1024
-MAX_BACKUPS = 10000
+MAX_BACKUPS = 7
 
 
 def setup_logger(filename: str):
     formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
-    file_handler = logging.handlers.RotatingFileHandler(
-        filename=filename, mode="a", maxBytes=MAX_SIZE_BYTE, backupCount=MAX_BACKUPS
+    file_handler = logging.handlers.TimedRotatingFileHandler(
+        filename=filename, when="midnight", backupCount=MAX_BACKUPS
     )
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.DEBUG)
