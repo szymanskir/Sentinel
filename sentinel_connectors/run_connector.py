@@ -15,7 +15,11 @@ from sentinel_connectors.keyword_manager import (
     ConstKeywordManager,
     DynamicKeywordManager,
 )
-from sentinel_connectors.metric_logger import MetricLogger
+from sentinel_connectors.metric_logger import (
+    IMetricLogger,
+    DevNullMetricLogger,
+    CloudWatchMetricLogger,
+)
 from sentinel_connectors.sinks import (
     IDataSink,
     KafkaSink,
@@ -111,8 +115,11 @@ def stream(source, keywords, sink):
         keyword_manager = DynamicKeywordManager()
         keyword_manager.start()
 
-    metric_logger = MetricLogger(source)
-    metric_logger.start()
+    if sink != "dev-null":
+        metric_logger = DevNullMetricLogger()
+    else:
+        metric_logger = CloudWatchMetricLogger(source)
+        metric_logger.start()
 
     while True:
         try:

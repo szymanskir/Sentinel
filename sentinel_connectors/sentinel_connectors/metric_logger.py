@@ -2,9 +2,26 @@ import threading
 import time
 import logging
 from fluentmetrics import FluentMetric
+from abc import ABCMeta, abstractmethod
 
 
-class MetricLogger(object):
+class IMetricLogger(metaclass=ABCMeta):
+    @abstractmethod
+    def increment_hits(self):
+        pass
+
+    @abstractmethod
+    def increment_data(self):
+        pass
+
+class DevNullMetricLogger(IMetricLogger):
+    def increment_hits(self):
+        pass
+
+    def increment_data(self):
+        pass
+
+class CloudWatchMetricLogger(IMetricLogger):
     def __init__(self, source: str):
         self.INTERVAL = 60
         self.hits_counter = AtomicCounter()
