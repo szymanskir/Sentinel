@@ -25,7 +25,7 @@ class DynamicKeywordManager(KeywordManager):
         super().__init__(KeywordFinder())
         self.SLEEP_TIME = 30
         self._current_keywords = set()
-        self._logger = logging.getLogger(DynamicKeywordManager.__name__)
+        self._logger = logging.getLogger("sentinel")
         self._exit_event = threading.Event()
 
     def start(self):
@@ -39,10 +39,11 @@ class DynamicKeywordManager(KeywordManager):
 
     def _update_keywords(self):
         self.last_update = datetime.now()
+        logging.getLogger().error("TESTERRROR-ROOT")
         while not self._exit_event.is_set():
             new_keywords = self._get_keywords()
             if new_keywords != self._current_keywords:
-                self._logger.info(f"Keywords update: {new_keywords}")
+                self._logger.debug(f"Keywords update: {new_keywords}")
                 self._current_keywords = new_keywords
                 self.keyword_finder = KeywordFinder(new_keywords)
 
