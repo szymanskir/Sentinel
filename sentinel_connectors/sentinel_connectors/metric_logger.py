@@ -1,12 +1,11 @@
 import threading
 import time
-from datetime import datetime
 import logging
 from fluentmetrics import FluentMetric
 
 
 class MetricLogger(object):
-    def __init__(self, source):
+    def __init__(self, source: str):
         self.INTERVAL = 60
         self.hits_counter = AtomicCounter()
         self.data_counter = AtomicCounter()
@@ -27,10 +26,6 @@ class MetricLogger(object):
         start_time = time.time()
 
         while not self._exit_event.is_set():
-            print(
-                f"{datetime.now()}: {self.hits_counter.value}/{self.data_counter.value}"
-            )
-
             self.metrics.count(MetricName="HitsCount", Value=self.hits_counter.reset())
             self.metrics.count(MetricName="DataCount", Value=self.data_counter.reset())
 
@@ -47,16 +42,16 @@ class MetricLogger(object):
 
 class AtomicCounter:
     def __init__(self):
-        self.value = 0
+        self.value: int = 0
         self._lock = threading.Lock()
 
-    def increment(self):
+    def increment(self) -> int:
         with self._lock:
             self.value += 1
 
         return self.value
 
-    def reset(self):
+    def reset(self) -> int:
         value = self.value
         with self._lock:
             self.value = 0

@@ -66,4 +66,4 @@ class DevNullSink(IDataSink):
         pass
 
     def put(self, mention: Mention):
-        pass        
+        pass
