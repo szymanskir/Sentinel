@@ -15,7 +15,7 @@ from sentinel_connectors.keyword_manager import (
     ConstKeywordManager,
     DynamicKeywordManager,
 )
-from sentinel_connectors.utils import read_config
+from sentinel_connectors.metric_logger import MetricLogger
 from sentinel_connectors.sinks import (
     IDataSink,
     KafkaSink,
@@ -33,10 +33,12 @@ MAX_BACKUPS = 10000
 
 def setup_logger(filename: str):
     formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
-    file_handler = logging.handlers.RotatingFileHandler(filename=filename, mode='a', maxBytes = MAX_SIZE_BYTE, backupCount=MAX_BACKUPS)
+    file_handler = logging.handlers.RotatingFileHandler(
+        filename=filename, mode="a", maxBytes=MAX_SIZE_BYTE, backupCount=MAX_BACKUPS
+    )
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.DEBUG)
-    
+
     stdout_handler = logging.StreamHandler(sys.stdout)
     stdout_handler.setFormatter(formatter)
     stdout_handler.setLevel(logging.DEBUG)
@@ -104,12 +106,17 @@ def stream(source, keywords, sink):
     sink = get_sink(sink)
 
     def stream_mentions():
+        metric_logger = MetricLogger(source)
+        metric_logger.start()
+
         while True:
             try:
                 for mention in connector.stream_comments():
+                    metric_logger.increment_data()
                     if keyword_manager.any_match(mention.text):
                         sink.put(mention)
                         LOGGER.debug(f"HIT: {mention.text[:30]}")
+                        metric_logger.increment_hits()
                     else:
                         LOGGER.debug(f"MISS: {mention.text[:30]}")
             except SinkNotAvailableError as e:
