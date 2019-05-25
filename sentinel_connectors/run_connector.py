@@ -28,30 +28,35 @@ from sentinel_connectors.sinks import (
     SinkNotAvailableError,
 )
 
-LOGGER = logging.getLogger("main")
+LOGGER = logging.getLogger("sentinel")
 LOG_DIRECTORY = "logs"
 CURRENT_DATETIME = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-MAX_SIZE_BYTE = 1024
-MAX_BACKUPS = 10000
+MAX_BACKUPS = 7
 
 
 def setup_logger(filename: str):
     formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
-    file_handler = logging.handlers.RotatingFileHandler(
-        filename=filename, mode="a", maxBytes=MAX_SIZE_BYTE, backupCount=MAX_BACKUPS
+    file_handler = logging.handlers.TimedRotatingFileHandler(
+        filename=filename, when="midnight", backupCount=MAX_BACKUPS
     )
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.DEBUG)
+
+    cloud_watch_handler = watchtower.CloudWatchLogHandler()
+    cloud_watch_handler.setFormatter(formatter)
+    cloud_watch_handler.setLevel(logging.ERROR)
+
+    root_logger = logging.getLogger()
+    root_logger.addHandler(file_handler)
+    root_logger.addHandler(cloud_watch_handler)
+    root_logger.setLevel(logging.DEBUG)
 
     stdout_handler = logging.StreamHandler(sys.stdout)
     stdout_handler.setFormatter(formatter)
     stdout_handler.setLevel(logging.DEBUG)
 
-    cloud_watch_handler = watchtower.CloudWatchLogHandler()
-    cloud_watch_handler.setLevel(logging.WARNING)
-
-    LOGGER.addHandler(file_handler)
     LOGGER.addHandler(stdout_handler)
+    LOGGER.addHandler(file_handler)
     LOGGER.addHandler(cloud_watch_handler)
     LOGGER.setLevel(logging.DEBUG)
 
@@ -121,20 +126,20 @@ def stream(source, keywords, sink):
         metric_logger = CloudWatchMetricLogger(source)
         metric_logger.start()
 
-        while True:
-            try:
-                for mention in connector.stream_comments():
-                    metric_logger.increment_data()
-                    if keyword_manager.any_match(mention.text):
-                        sink.put(mention)
-                        LOGGER.debug(f"HIT: {mention.text[:30]}")
-                        metric_logger.increment_hits()
-                    else:
-                        LOGGER.debug(f"MISS: {mention.text[:30]}")
-            except SinkNotAvailableError as e:
-                raise RuntimeError from e
-            except Exception as e:
-                LOGGER.error(e)
+    while True:
+        try:
+            for mention in connector.stream_comments():
+                metric_logger.increment_data()
+                if keyword_manager.any_match(mention.text):
+                    sink.put(mention)
+                    LOGGER.debug(f"HIT: {mention.text[:30]}")
+                    metric_logger.increment_hits()
+                else:
+                    LOGGER.debug(f"MISS: {mention.text[:30]}")
+        except SinkNotAvailableError as e:
+            raise RuntimeError from e
+        except Exception as e:
+            LOGGER.error(e)
 
 
 if __name__ == "__main__":
