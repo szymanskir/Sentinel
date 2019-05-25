@@ -125,7 +125,7 @@ def stream(source, keywords, sink):
     else:
         metric_logger = CloudWatchMetricLogger(source)
         metric_logger.start()
-    LOGGER.error("TESTERROR-SENTINEL")
+
     while True:
         try:
             for mention in connector.stream_comments():
