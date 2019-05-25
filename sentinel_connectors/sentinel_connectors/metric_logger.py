@@ -1,6 +1,5 @@
 import threading
 import time
-import logging
 from fluentmetrics import FluentMetric
 from abc import ABCMeta, abstractmethod
 
