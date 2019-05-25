@@ -101,7 +101,7 @@ class GoogleNewsStreamConnector(IStreamConnector):
         self._last_article_time = None
 
     def _retrieve_news_sources(self) -> str:
-        response = self._api_client.get_sources()
+        response = self._api_client.get_sources(language="en")
         assert response["status"] == "ok"
         all_news_sources = ",".join([s["id"] for s in response["sources"]])
         return all_news_sources
