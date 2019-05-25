@@ -1,40 +1,53 @@
 import os
 from pynamodb.models import Model
-from pynamodb.attributes import UnicodeAttribute, NumberAttribute, UTCDateTimeAttribute
-from pynamodb.indexes import LocalSecondaryIndex, AllProjection
+from pynamodb.attributes import (
+    UnicodeAttribute,
+    NumberAttribute,
+    UTCDateTimeAttribute,
+    JSONAttribute,
+)
+from pynamodb.indexes import GlobalSecondaryIndex, AllProjection
 
 
 DB_ADDR = os.environ.get("DYNAMO_DB_URL")
 DB_REGION = os.environ.get("DYNAMO_DB_REGION")
 
 
-class MentionDateIndex(LocalSecondaryIndex):
+class MentionDateIndex(GlobalSecondaryIndex):
     class Meta:
         projection = AllProjection()
         host = DB_ADDR
         region = DB_REGION
+        read_capacity_units = 25
+        write_capacity_units = 25
 
     keyword = UnicodeAttribute(hash_key=True)
-    id = UnicodeAttribute(range_key=True)
+    origin_date = UTCDateTimeAttribute(range_key=True)
 
 
-class Mention(Model):
+class MentionDb(Model):
     class Meta:
         table_name = "mentions"
         host = DB_ADDR
         region = DB_REGION
 
-    keyword = UnicodeAttribute(hash_key=True)
-    id = UnicodeAttribute(range_key=True)
+    author = UnicodeAttribute(hash_key=True)
+    origin_date = UTCDateTimeAttribute(range_key=True)
 
-    author = UnicodeAttribute(null=False)
+    keyword = UnicodeAttribute(null=False)
+    id = UnicodeAttribute(null=False)
+    download_date = UTCDateTimeAttribute(null=False)
+
     text = UnicodeAttribute(null=False)
-    date = UTCDateTimeAttribute(null=False)
-    sentimentScore = NumberAttribute(null=False)
+    url = UnicodeAttribute(null=True)
+    source = UnicodeAttribute(null=False)
+    sentiment_score = NumberAttribute(null=False)
+    metadata = JSONAttribute(null=True)
+
     date_index = MentionDateIndex()
 
 
-class Keyword(Model):
+class KeywordDb(Model):
     class Meta:
         table_name = "keywords"
         host = DB_ADDR
@@ -42,3 +55,4 @@ class Keyword(Model):
 
     user = UnicodeAttribute(hash_key=True)
     keyword = UnicodeAttribute(range_key=True)
+    creation_date = UTCDateTimeAttribute(null=False)

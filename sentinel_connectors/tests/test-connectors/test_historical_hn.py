@@ -66,7 +66,7 @@ def test_HackerNewsHistoricalConnector_download_mentions(hn_comments):
         metadata = connector.create_hn_mention_metadata(hn_comment)
         assert mention.text == clean_html(hn_comment["comment_text"])
         assert mention.url == hn_comment["story_url"]
-        assert mention.creation_date == datetime.strptime(
+        assert mention.origin_date == datetime.strptime(
             hn_comment["created_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
         )
         assert mention.source == "hacker-news"

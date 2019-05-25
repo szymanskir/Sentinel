@@ -1,6 +1,6 @@
 import pandas as pd
 from datetime import datetime
-from sentinel_common.db_models import Mention, MentionDateIndex
+from sentinel_common.db_models import MentionDb, MentionDateIndex
 from typing import List
 
 
@@ -9,7 +9,7 @@ class MentionRepository:
         self, user: str, since: datetime, until: datetime, keywords: List[str]
     ):
         queries = [
-            MentionDateIndex.query(keyword, Mention.date.between(since, until))
+            MentionDateIndex.query(keyword, MentionDb.origin_date.between(since, until))
             for keyword in keywords
         ]
 
@@ -21,11 +21,16 @@ class MentionRepository:
         return pd.DataFrame.from_records(mentions)
 
 
-def map_mention_to_dto(m: Mention) -> dict:
+def map_mention_to_dto(m: MentionDb) -> dict:
     return {
         "author": m.author,
-        "text": m.text,
-        "date": m.date,
-        "sentimentScore": m.sentimentScore,
+        "origin_date": m.origin_date,
         "keyword": m.keyword,
+        "id": m.id,
+        "download_date": m.download_date,
+        "text": m.text,
+        "url": m.url,
+        "source": m.source,
+        "sentiment_score": m.sentiment_score,
+        "metadata": m.metadata,
     }

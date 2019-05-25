@@ -21,5 +21,5 @@ sdist: venv test
 	venv/bin/python setup.py sdist
 
 lint: 
-	venv/bin/flake8 sentinel_backend
-	venv/bin/mypy sentinel_backend --ignore-missing-imports
+	flake8 sentinel_backend
+	mypy sentinel_backend --ignore-missing-imports

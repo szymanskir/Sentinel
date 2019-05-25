@@ -4,7 +4,8 @@ from pydantic import BaseModel, UrlStr
 from datetime import datetime
 
 
-class TwitterMentionMetadata(BaseModel):
+class TwitterMetadata(BaseModel):
+    user_id: int
     followers_count: int
     statuses_count: int
     friends_count: int
@@ -45,14 +46,19 @@ class RedditMetadata(BaseModel):
 
 
 class Mention(BaseModel):
-    id: Optional[UUID] = uuid4()
+    def __init__(self, **kwargs):
+        if "id" not in kwargs:
+            kwargs["id"] = uuid4()
+        BaseModel.__init__(self, **kwargs)
+
+    id: Optional[UUID]
     text: str
     url: Optional[UrlStr]
-    creation_date: datetime
+    origin_date: datetime
     download_date: datetime
     source: str
     metadata: Union[
-        TwitterMentionMetadata, GoogleNewsMetadata, HackerNewsMetadata, RedditMetadata
+        TwitterMetadata, GoogleNewsMetadata, HackerNewsMetadata, RedditMetadata
     ]
 
     class Config:

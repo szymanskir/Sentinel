@@ -1,19 +1,25 @@
-https://www.json-generator.com/
-
 [
     '{{repeat(1000)}}',
     {
-   
+      id: '{{guid()}}',
       author: '{{firstName()}} {{surname()}}',
       text: '{{lorem(1, "paragraphs")}}',
       sentimentScore: '{{floating(-1,1)}}',
-      date: '{{date(new Date(2017,0,1), new Date(2019,4,10), "YYYY-MM-ddTHH:mm")}}',
+      origin_date: '{{date(new Date(2017,0,1), new Date(2019,4,10), "YYYY-MM-ddTHH:mm:ss")}}',
       user: function(tags) {
-          return 'users' + tags.integer(0,10);
+          return 'users' + tags.integer(0,3);
       },
       keyword: function (tags) {
         var keywords = ['life', 'nike', 'javascript', 'microsoft', 'gameofthrones'];
         return keywords[tags.integer(0, keywords.length - 1)];
-      }
+      },
+      
+      url: 'https://cataas.com/cat/says/{{lorem(1, "words")}}',
+      download_date: '{{date(new Date(2017,0,1), new Date(2019,4,10), "YYYY-MM-ddTHH:mm:ss")}}',
+      source: function (tags) {
+        var sources = ['reddit', 'twitter', 'google-news', 'hacker-news'];
+        return sources[tags.integer(0, sources.length- 1 )];
+      },
+      metadata: null
     }
 ]

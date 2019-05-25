@@ -15,10 +15,10 @@ from .reddit_common import map_reddit_comment
 from .secrets_manager import (
     RedditSecretsManager,
     GoogleNewsSecretsManager,
-    TwitterSecretsManager
+    TwitterSecretsManager,
 )
 
-from sentinel_common.mentions import Mention, HackerNewsMetadata, TwitterMentionMetadata
+from sentinel_common.mentions import Mention, HackerNewsMetadata, TwitterMetadata
 import twitter
 
 
@@ -82,7 +82,7 @@ class HackerNewsStreamConnector(IStreamConnector):
             return Mention(
                 text=clean_html(comment["body"]),
                 url=f'https://news.ycombinator.com/item?id={comment["id"]}',
-                creation_date=datetime.utcnow(),
+                origin_date=datetime.utcnow(),
                 download_date=datetime.utcnow(),
                 source="hacker-news",
                 metadata=metadata,
@@ -94,9 +94,7 @@ class HackerNewsStreamConnector(IStreamConnector):
 class GoogleNewsStreamConnector(IStreamConnector):
     def __init__(self, secrets_manager: GoogleNewsSecretsManager):
         secrets = secrets_manager.get_secrets()
-        self._api_client = NewsApiClient(
-            api_key=secrets["GOOGLE_NEWS_API_KEY"]
-        )
+        self._api_client = NewsApiClient(api_key=secrets["GOOGLE_NEWS_API_KEY"])
         self._REQUEST_INTERVAL = 60 * 5
         self._PAGE_SIZE = 100
         self._all_news_sources = None
@@ -169,12 +167,13 @@ class TwitterStreamConnector(IStreamConnector):
 
     def stream_comments(self) -> Iterator[Mention]:
         for tweet in self._get_stream():
+            # print(tweet)
             twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
             url = f"https://twitter.com/statuses/{tweet['id_str']}"
             yield Mention(
                 text=tweet["text"],
                 url=url,
-                creation_date=datetime.strptime(
+                origin_date=datetime.strptime(
                     tweet["created_at"], "%a %b %d %H:%M:%S  +0000 %Y"
                 ),
                 download_date=datetime.utcnow(),
@@ -194,9 +193,10 @@ class TwitterStreamConnector(IStreamConnector):
     @staticmethod
     def create_twitter_mention_metadata(
         status_dict: Dict[Any, Any]
-    ) -> TwitterMentionMetadata:
+    ) -> TwitterMetadata:
         user_dict = status_dict["user"]
-        return TwitterMentionMetadata(
+        return TwitterMetadata(
+            user_id=user_dict["id"],
             followers_count=user_dict["followers_count"],
             statuses_count=user_dict["statuses_count"],
             friends_count=user_dict["friends_count"],

@@ -7,6 +7,6 @@
       keyword: function (tags) {
         var keywords = ['life', 'nike', 'javascript', 'microsoft', 'gameofthrones'];
         return keywords[tags.integer(0, keywords.length - 1)];
-      }
+      },
     }
 ]

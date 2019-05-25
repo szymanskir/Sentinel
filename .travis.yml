@@ -27,13 +27,9 @@ matrix:
         pip: true
       before_install:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(beanstalk/backend|sentinel_backend/|sentinel_common/|\.travis.yml)' || exit 0
-        - cd sentinel_backend
-      install:
-        - make venv
       script:
-        - make lint
-        - cd ..
         - docker build -f sentinel_backend/Dockerfile -t balindwalinstalin/sentinel-backend:latest .
+        - docker run --entrypoint make balindwalinstalin/sentinel-backend:latest lint
 
       before_deploy:
         - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWD

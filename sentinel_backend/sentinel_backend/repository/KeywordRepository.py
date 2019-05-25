@@ -1,22 +1,23 @@
-from sentinel_common.db_models import Keyword
+from sentinel_common.db_models import KeywordDb
 from typing import List
+from datetime import datetime
 
 
 class KeywordRepository:
     def get_by_user(self, user: str) -> List[str]:
-        keywords = Keyword.query(user)
+        keywords = KeywordDb.query(user)
         return [k.keyword for k in keywords]
 
     def get_all(self) -> List[str]:
-        keywords = Keyword.scan()
+        keywords = KeywordDb.scan()
         return list(set([k.keyword for k in keywords]))
 
     def add(self, keyword: str, user: str) -> None:
-        model = Keyword(user, keyword)
+        model = KeywordDb(user=user, keyword=keyword, creation_date=datetime.utcnow())
         model.save()
 
     def delete(self, keyword: str, user: str) -> None:
-        model = Keyword(user, keyword)
+        model = KeywordDb(user, keyword)
         model.delete()
 
     def update(self, old_keyword: str, current_keyword: str, user: str) -> None:

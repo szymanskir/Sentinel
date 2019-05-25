@@ -65,4 +65,4 @@ def test_HackerNewsStreamConnector_stream_comments(hn_comments):
         assert r.url == e.url
         assert r.metadata == e.metadata
         assert r.source == "hacker-news"
-        assert r.creation_date is not None
+        assert r.origin_date is not None

@@ -32,7 +32,7 @@ class DynamicKeywordManager(KeywordManager):
         self._update_thread = threading.Thread(target=self._update_keywords)
         self._update_thread.start()
 
-        if not sentinel_common.db_models.Keyword.exists():
+        if not sentinel_common.db_models.KeywordDb.exists():
             raise RuntimeError("DynamoDb failure")
 
     def exit(self):
@@ -52,5 +52,5 @@ class DynamicKeywordManager(KeywordManager):
 
     def _get_keywords(self) -> Set[str]:
         return set(
-            [x.keyword for x in sentinel_common.db_models.Keyword.scan() if x.keyword]
+            [x.keyword for x in sentinel_common.db_models.KeywordDb.scan() if x.keyword]
         )

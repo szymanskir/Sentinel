@@ -8,11 +8,12 @@ def to_mention(data_tuple):
 
 
 def clean_mention_text(mention, text_clean_func):
-    return Mention(id=mention.id,
-                   text=text_clean_func(mention.text),
-                   url=mention.url,
-                   creation_date=mention.creation_date,
-                   download_date=mention.download_date,
-                   source=mention.source,
-                   metadata=mention.metadata
-                   )
+    return Mention(
+        id=mention.id,
+        text=text_clean_func(mention.text),
+        url=mention.url,
+        origin_date=mention.origin_date,
+        download_date=mention.download_date,
+        source=mention.source,
+        metadata=mention.metadata,
+    )

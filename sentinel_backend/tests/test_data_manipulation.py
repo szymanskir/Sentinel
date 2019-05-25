@@ -1,4 +1,4 @@
-import pytest 
+import pytest
 import pandas as pd
 
 from datetime import datetime
@@ -14,9 +14,15 @@ def test_mentions():
 
 def test_get_keywords_mention_count(test_mentions):
     result = get_keywords_mention_count(test_mentions)
-    expected = pd.DataFrame({
-        'keyword': ['javascript', 'javascript', 'nike'],
-        'date': [datetime(2017, 8, 31, 11, 9, 0), datetime(2017, 8, 31, 11, 10, 0), datetime(2017, 8, 31, 11, 10, 0)],
-        'counts':  [2, 1, 1]
-    })
+    expected = pd.DataFrame(
+        {
+            "keyword": ["javascript", "javascript", "nike"],
+            "date": [
+                datetime(2017, 8, 31, 11, 9, 0),
+                datetime(2017, 8, 31, 11, 10, 0),
+                datetime(2017, 8, 31, 11, 10, 0),
+            ],
+            "counts": [2, 1, 1],
+        }
+    )
     assert result.equals(expected)
