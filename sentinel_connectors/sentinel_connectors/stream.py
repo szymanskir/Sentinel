@@ -99,6 +99,7 @@ class GoogleNewsStreamConnector(IStreamConnector):
         self._PAGE_SIZE = 100
         self._all_news_sources = None
         self._last_article_time = None
+        self._last_download_time = None
 
     def _retrieve_news_sources(self) -> str:
         response = self._api_client.get_sources(language="en")
@@ -124,9 +125,12 @@ class GoogleNewsStreamConnector(IStreamConnector):
         )
 
         assert response["status"] == "ok"
+
+        self._last_download_time = datetime.utcnow()
+        new_articles = list()
         for article in response["articles"]:
             if self._is_article_fresh(article):
-                yield article
+                new_articles.append(article)
             else:
                 break
 
@@ -136,15 +140,23 @@ class GoogleNewsStreamConnector(IStreamConnector):
             ]  # in the response articles are sorted from the newest
         )
 
+        return new_articles
+
     def _listen_top_stories(self):
         # Free users can only retrieve a max of 100 results
         # in that case we can download just the first page
         # and increase the max size to 100. We do not have
         # to iterate through pages.
         while True:
+            if (
+                self._last_download_time is not None
+                and (datetime.utcnow() - self._last_download_time).total_seconds()
+                < self._REQUEST_INTERVAL
+            ):
+                time.sleep(self._REQUEST_INTERVAL)
+
             for article in self._search_top_stories():
                 yield article
-            time.sleep(self._REQUEST_INTERVAL)
 
     def stream_comments(self) -> Iterator[Mention]:
         for article in self._listen_top_stories():
@@ -191,9 +203,7 @@ class TwitterStreamConnector(IStreamConnector):
         )
 
     @staticmethod
-    def create_twitter_mention_metadata(
-        status_dict: Dict[Any, Any]
-    ) -> TwitterMetadata:
+    def create_twitter_mention_metadata(status_dict: Dict[Any, Any]) -> TwitterMetadata:
         user_dict = status_dict["user"]
         return TwitterMetadata(
             user_id=user_dict["id"],
