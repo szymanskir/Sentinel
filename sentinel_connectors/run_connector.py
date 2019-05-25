@@ -15,7 +15,11 @@ from sentinel_connectors.keyword_manager import (
     ConstKeywordManager,
     DynamicKeywordManager,
 )
-from sentinel_connectors.metric_logger import MetricLogger
+from sentinel_connectors.metric_logger import (
+    IMetricLogger,
+    DevNullMetricLogger,
+    CloudWatchMetricLogger,
+)
 from sentinel_connectors.sinks import (
     IDataSink,
     KafkaSink,
@@ -105,8 +109,16 @@ def stream(source, keywords, sink):
     connector = factory.create_stream_connector(source)
     sink = get_sink(sink)
 
-    def stream_mentions():
-        metric_logger = MetricLogger(source)
+    if keywords is not None:
+        keyword_manager = ConstKeywordManager(keywords.split(","))
+    else:
+        keyword_manager = DynamicKeywordManager()
+        keyword_manager.start()
+
+    if sink == "dev-null":
+        metric_logger = DevNullMetricLogger()
+    else:
+        metric_logger = CloudWatchMetricLogger(source)
         metric_logger.start()
 
         while True:
@@ -123,17 +135,6 @@ def stream(source, keywords, sink):
                 raise RuntimeError from e
             except Exception as e:
                 LOGGER.error(e)
-
-    if keywords is not None:
-        keyword_manager = ConstKeywordManager(keywords.split(","))
-        stream_mentions()
-    else:
-        keyword_manager = DynamicKeywordManager()
-        try:
-            keyword_manager.run()
-            stream_mentions()
-        finally:
-            keyword_manager.exit()
 
 
 if __name__ == "__main__":

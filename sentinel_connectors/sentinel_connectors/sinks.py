@@ -2,10 +2,11 @@ from kinesis.producer import KinesisProducer
 import kafka
 import json
 from sentinel_common.mentions import Mention
-from abc import ABCMeta
+from abc import ABCMeta, abstractmethod
 
 
 class IDataSink(metaclass=ABCMeta):
+    @abstractmethod
     def put(self, mention: Mention):
         pass
 
@@ -66,4 +67,4 @@ class DevNullSink(IDataSink):
         pass
 
     def put(self, mention: Mention):
-        pass        
+        pass

@@ -25,26 +25,24 @@ class DynamicKeywordManager(KeywordManager):
         super().__init__(KeywordFinder())
         self.SLEEP_TIME = 30
         self._current_keywords = set()
-        self._logger = logging.getLogger(DynamicKeywordManager.__name__)
+        self._logger = logging.getLogger("sentinel")
         self._exit_event = threading.Event()
 
-    def run(self):
-        self._update_thread = threading.Thread(target=self._update_keywords)
+    def start(self):
+        self._update_thread = threading.Thread(
+            target=self._update_keywords, daemon=True
+        )
         self._update_thread.start()
 
         if not sentinel_common.db_models.KeywordDb.exists():
             raise RuntimeError("DynamoDb failure")
-
-    def exit(self):
-        self._exit_event.set()
-        self._update_thread.join()
 
     def _update_keywords(self):
         self.last_update = datetime.now()
         while not self._exit_event.is_set():
             new_keywords = self._get_keywords()
             if new_keywords != self._current_keywords:
-                self._logger.info(f"Keywords update: {new_keywords}")
+                self._logger.debug(f"Keywords update: {new_keywords}")
                 self._current_keywords = new_keywords
                 self.keyword_finder = KeywordFinder(new_keywords)
 

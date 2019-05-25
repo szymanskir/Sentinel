@@ -1,16 +1,32 @@
 import threading
 import time
-from datetime import datetime
-import logging
 from fluentmetrics import FluentMetric
+from abc import ABCMeta, abstractmethod
 
 
-class MetricLogger(object):
-    def __init__(self, source):
+class IMetricLogger(metaclass=ABCMeta):
+    @abstractmethod
+    def increment_hits(self):
+        pass
+
+    @abstractmethod
+    def increment_data(self):
+        pass
+
+
+class DevNullMetricLogger(IMetricLogger):
+    def increment_hits(self):
+        pass
+
+    def increment_data(self):
+        pass
+
+
+class CloudWatchMetricLogger(IMetricLogger):
+    def __init__(self, source: str):
         self.INTERVAL = 60
         self.hits_counter = AtomicCounter()
         self.data_counter = AtomicCounter()
-        self._logger = logging.getLogger(MetricLogger.__name__)
         self._exit_event = threading.Event()
         self.metrics = (
             FluentMetric()
@@ -20,17 +36,12 @@ class MetricLogger(object):
         )
 
     def start(self):
-        self._logging_thread = threading.Thread(target=self._log_metrics)
+        self._logging_thread = threading.Thread(target=self._log_metrics, daemon=True)
         self._logging_thread.start()
 
     def _log_metrics(self):
         start_time = time.time()
-
         while not self._exit_event.is_set():
-            print(
-                f"{datetime.now()}: {self.hits_counter.value}/{self.data_counter.value}"
-            )
-
             self.metrics.count(MetricName="HitsCount", Value=self.hits_counter.reset())
             self.metrics.count(MetricName="DataCount", Value=self.data_counter.reset())
 
@@ -44,23 +55,19 @@ class MetricLogger(object):
     def increment_data(self):
         self.data_counter.increment()
 
-    def stop(self):
-        self._exit_event.set()
-        self._update_thread.join()
-
 
 class AtomicCounter:
     def __init__(self):
-        self.value = 0
+        self.value: int = 0
         self._lock = threading.Lock()
 
-    def increment(self):
+    def increment(self) -> int:
         with self._lock:
             self.value += 1
 
         return self.value
 
-    def reset(self):
+    def reset(self) -> int:
         value = self.value
         with self._lock:
             self.value = 0
