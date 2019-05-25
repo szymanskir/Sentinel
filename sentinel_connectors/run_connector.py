@@ -1,9 +1,12 @@
 import click
 import logging
+import logging.handlers
 import json
+import math
 import os
 import os.path
 import sys
+import watchtower
 
 from datetime import datetime
 from sentinel_connectors.historical import HistoricalConnectorFactory
@@ -12,31 +15,50 @@ from sentinel_connectors.keyword_manager import (
     ConstKeywordManager,
     DynamicKeywordManager,
 )
-from sentinel_connectors.utils import read_config
+from sentinel_connectors.metric_logger import (
+    IMetricLogger,
+    DevNullMetricLogger,
+    CloudWatchMetricLogger,
+)
 from sentinel_connectors.sinks import (
     IDataSink,
     KafkaSink,
     KinesisSink,
+    DevNullSink,
     SinkNotAvailableError,
 )
 
-LOGGER = logging.getLogger("main")
+LOGGER = logging.getLogger("sentinel")
 LOG_DIRECTORY = "logs"
 CURRENT_DATETIME = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+MAX_BACKUPS = 7
 
 
 def setup_logger(filename: str):
-    logging.basicConfig(
-        level=logging.DEBUG,
-        filename=filename,
-        filemode="w",
-        format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+    formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
+    file_handler = logging.handlers.TimedRotatingFileHandler(
+        filename=filename, when="midnight", backupCount=MAX_BACKUPS
     )
-    logging.getLogger("main").addHandler(logging.StreamHandler(sys.stdout))
-    logging.getLogger(f"{DynamicKeywordManager.__name__}").addHandler(
-        logging.StreamHandler(sys.stdout)
-    )
+    file_handler.setFormatter(formatter)
+    file_handler.setLevel(logging.DEBUG)
+
+    cloud_watch_handler = watchtower.CloudWatchLogHandler()
+    cloud_watch_handler.setFormatter(formatter)
+    cloud_watch_handler.setLevel(logging.ERROR)
+
+    root_logger = logging.getLogger()
+    root_logger.addHandler(file_handler)
+    root_logger.addHandler(cloud_watch_handler)
+    root_logger.setLevel(logging.DEBUG)
+
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    stdout_handler.setFormatter(formatter)
+    stdout_handler.setLevel(logging.DEBUG)
+
+    LOGGER.addHandler(stdout_handler)
+    LOGGER.addHandler(file_handler)
+    LOGGER.addHandler(cloud_watch_handler)
+    LOGGER.setLevel(logging.DEBUG)
 
 
 def get_sink(sink: str):
@@ -44,6 +66,8 @@ def get_sink(sink: str):
         return KafkaSink()
     elif sink == "kinesis":
         return KinesisSink()
+    elif sink == "dev-null":
+        return DevNullSink()
     else:
         raise ValueError(f"Unsupported sink: {sink}")
 
@@ -59,7 +83,7 @@ def main():
 @click.option("--keywords", type=click.STRING, required=True)
 @click.option("--since", type=click.DateTime(), required=True)
 @click.option("--until", type=click.DateTime(), default=str(datetime.today().date()))
-@click.option("--sink", type=click.Choice(["kafka", "kinesis"]))
+@click.option("--sink", type=click.Choice(["kafka", "kinesis", "dev-null"]))
 def historical(source, keywords, since, until, sink):
     setup_logger(
         os.path.join(LOG_DIRECTORY, f"logs_historical_{source}_{CURRENT_DATETIME}.log")
@@ -80,7 +104,7 @@ def historical(source, keywords, since, until, sink):
 @main.command()
 @click.option("--source", required=True)
 @click.option("--keywords", type=click.STRING)
-@click.option("--sink", type=click.Choice(["kafka", "kinesis"]))
+@click.option("--sink", type=click.Choice(["kafka", "kinesis", "dev-null"]))
 def stream(source, keywords, sink):
     setup_logger(
         os.path.join(LOG_DIRECTORY, f"logs_stream_{source}_{CURRENT_DATETIME}.log")
@@ -90,30 +114,32 @@ def stream(source, keywords, sink):
     connector = factory.create_stream_connector(source)
     sink = get_sink(sink)
 
-    def stream_mentions():
-        while True:
-            try:
-                for mention in connector.stream_comments():
-                    if keyword_manager.any_match(mention.text):
-                        sink.put(mention)
-                        LOGGER.info(f"HIT: {mention.text[:30]}")
-                    else:
-                        LOGGER.info(f"MISS: {mention.text[:30]}")
-            except SinkNotAvailableError as e:
-                raise RuntimeError from e
-            except Exception as e:
-                LOGGER.error(e)
-
     if keywords is not None:
         keyword_manager = ConstKeywordManager(keywords.split(","))
-        stream_mentions()
     else:
         keyword_manager = DynamicKeywordManager()
+        keyword_manager.start()
+
+    if sink == "dev-null":
+        metric_logger = DevNullMetricLogger()
+    else:
+        metric_logger = CloudWatchMetricLogger(source)
+        metric_logger.start()
+
+    while True:
         try:
-            keyword_manager.run()
-            stream_mentions()
-        finally:
-            keyword_manager.exit()
+            for mention in connector.stream_comments():
+                metric_logger.increment_data()
+                if keyword_manager.any_match(mention.text):
+                    sink.put(mention)
+                    LOGGER.debug(f"HIT: {mention.text[:30]}")
+                    metric_logger.increment_hits()
+                else:
+                    LOGGER.debug(f"MISS: {mention.text[:30]}")
+        except SinkNotAvailableError as e:
+            raise RuntimeError from e
+        except Exception as e:
+            LOGGER.error(e)
 
 
 if __name__ == "__main__":

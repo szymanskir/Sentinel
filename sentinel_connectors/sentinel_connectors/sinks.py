@@ -2,10 +2,11 @@ from kinesis.producer import KinesisProducer
 import kafka
 import json
 from sentinel_common.mentions import Mention
-from abc import ABCMeta
+from abc import ABCMeta, abstractmethod
 
 
 class IDataSink(metaclass=ABCMeta):
+    @abstractmethod
     def put(self, mention: Mention):
         pass
 
@@ -59,3 +60,11 @@ class KinesisSink(IDataSink):
                 raise SinkNotAvailableError from e
 
         self._producer.put(mention.to_json())
+
+
+class DevNullSink(IDataSink):
+    def __init__(self):
+        pass
+
+    def put(self, mention: Mention):
+        pass
