@@ -174,6 +174,7 @@ class GoogleNewsHistoricalConnector(IHistoricalConnector):
             from_param=str(since.date()),
             to=str(until.date()),
             page_size=self._PAGE_SIZE,
+            language="en",
         )
 
         assert response["status"] == "ok"

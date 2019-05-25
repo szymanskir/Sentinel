@@ -5,7 +5,7 @@ import time
 
 from abc import ABCMeta
 from datetime import datetime
-from typing import Any, Dict, Iterator
+from typing import Any, Dict, Iterator, Set
 from newsapi import NewsApiClient
 from pydantic import ValidationError
 
@@ -98,22 +98,17 @@ class GoogleNewsStreamConnector(IStreamConnector):
         self._REQUEST_INTERVAL = 60 * 5
         self._PAGE_SIZE = 100
         self._all_news_sources = None
-        self._last_article_time = None
+        self._last_download_time = None
+        self._last_urls: Set[str] = set()
 
     def _retrieve_news_sources(self) -> str:
-        response = self._api_client.get_sources()
+        response = self._api_client.get_sources(language="en")
         assert response["status"] == "ok"
         all_news_sources = ",".join([s["id"] for s in response["sources"]])
         return all_news_sources
 
     def _get_article_time(self, article: Dict) -> datetime:
         return datetime.strptime(article["publishedAt"], "%Y-%m-%dT%H:%M:%SZ")
-
-    def _is_article_fresh(self, article: Dict) -> bool:
-        if self._last_article_time is None:
-            return True
-        article_time = self._get_article_time(article)
-        return article_time > self._last_article_time
 
     def _search_top_stories(self):
         if self._all_news_sources is None:
@@ -124,17 +119,14 @@ class GoogleNewsStreamConnector(IStreamConnector):
         )
 
         assert response["status"] == "ok"
-        for article in response["articles"]:
-            if self._is_article_fresh(article):
-                yield article
-            else:
-                break
 
-        self._last_article_time = self._get_article_time(
-            response["articles"][
-                0
-            ]  # in the response articles are sorted from the newest
-        )
+        self._last_download_time = datetime.utcnow()
+        new_articles = [
+            x for x in response["articles"] if x["url"] not in self._last_urls
+        ]
+        self._last_urls = set([x["url"] for x in response["articles"]])
+
+        return new_articles
 
     def _listen_top_stories(self):
         # Free users can only retrieve a max of 100 results
@@ -142,9 +134,15 @@ class GoogleNewsStreamConnector(IStreamConnector):
         # and increase the max size to 100. We do not have
         # to iterate through pages.
         while True:
+            if (
+                self._last_download_time is not None
+                and (datetime.utcnow() - self._last_download_time).total_seconds()
+                < self._REQUEST_INTERVAL
+            ):
+                time.sleep(self._REQUEST_INTERVAL)
+
             for article in self._search_top_stories():
                 yield article
-            time.sleep(self._REQUEST_INTERVAL)
 
     def stream_comments(self) -> Iterator[Mention]:
         for article in self._listen_top_stories():
@@ -191,9 +189,7 @@ class TwitterStreamConnector(IStreamConnector):
         )
 
     @staticmethod
-    def create_twitter_mention_metadata(
-        status_dict: Dict[Any, Any]
-    ) -> TwitterMetadata:
+    def create_twitter_mention_metadata(status_dict: Dict[Any, Any]) -> TwitterMetadata:
         user_dict = status_dict["user"]
         return TwitterMetadata(
             user_id=user_dict["id"],

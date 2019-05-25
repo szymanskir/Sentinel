@@ -108,6 +108,7 @@ def test_GoogleNewsStreamConnector_duplicates_filtering():
                 NewsApiClient, "get_top_headlines", return_value=mock_response()
             ):
                 second = connector._search_top_stories()
-                assert next(second) == mock_response()["articles"][0]
+                assert len(second) == 1
+                assert second[0] == mock_response()["articles"][0]
 
     execute_test()
