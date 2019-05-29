@@ -4,6 +4,8 @@ from .db_models import MentionDb, KeywordDb
 from .mentions import Mention
 from typing import Iterable, List, Tuple, Set
 import re
+from nltk.tokenize import MWETokenizer
+
 
 AUTHOR_MAP = {
     "google-news": lambda x: x.metadata.news_source,
@@ -29,8 +31,10 @@ def to_db_mention(mention: Mention, keyword: str, sentiment_score: int) -> Menti
 
 
 def find_all_keywords(text: str, keywords: Set[str]) -> List[str]:
+    keywords_tuples = [tuple(k.split()) for k in keywords]
     text_without_punc = re.sub(r"[^\w\s]", "", text)
-    queried_text = text_without_punc.split()
+    tokenizer = MWETokenizer(keywords_tuples, separator=" ")
+    queried_text = tokenizer.tokenize(text_without_punc.split())
     found_words = [word for word in queried_text if word in keywords]
 
     return found_words

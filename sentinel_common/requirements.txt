@@ -1,2 +1,4 @@
+nltk==3.4.1
 pydantic==0.23
 pynamodb==3.3.3
+pytest==4.3.1
