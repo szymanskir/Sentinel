@@ -7,7 +7,7 @@ export interface CommentsTableProps {
 
 class CommentsTable extends React.Component<CommentsTableProps> {
     render() {
-        const columns = ["author", "sentiment_score", "keyword", "date"];
+        const columns = ["keyword", "text", "sentiment_score", "date"];
         const options = {
             filterType: "multiselect",
             responsive: "scroll",
@@ -18,7 +18,7 @@ class CommentsTable extends React.Component<CommentsTableProps> {
             title={"Mentions data"}
             data={this.props.mentions}
             columns={columns}
-            options={options}/>;
+            options={options} />;
     }
 }
 
