@@ -30,35 +30,39 @@ from sentinel_connectors.sinks import (
 
 LOGGER = logging.getLogger("sentinel")
 LOG_DIRECTORY = "logs"
-CURRENT_DATETIME = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 MAX_BACKUPS = 7
 
 
-def setup_logger(filename: str):
+def setup_logger(filename: str, source: str):
     formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
+    cw_formatter = logging.Formatter(
+        "%(asctime)s %(name)-12s %(levelname)-8s %(funcName)s:%(lineno)s %(message)s"
+    )
     file_handler = logging.handlers.TimedRotatingFileHandler(
         filename=filename, when="midnight", backupCount=MAX_BACKUPS
     )
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.DEBUG)
 
-    cloud_watch_handler = watchtower.CloudWatchLogHandler()
-    cloud_watch_handler.setFormatter(formatter)
-    cloud_watch_handler.setLevel(logging.ERROR)
-
-    root_logger = logging.getLogger()
-    root_logger.addHandler(file_handler)
-    root_logger.addHandler(cloud_watch_handler)
-    root_logger.setLevel(logging.DEBUG)
+    cloud_watch_handler = watchtower.CloudWatchLogHandler(
+        stream_name=source
+    )
+    cloud_watch_handler.setFormatter(cw_formatter)
+    cloud_watch_handler.setLevel(logging.WARN)
 
     stdout_handler = logging.StreamHandler(sys.stdout)
     stdout_handler.setFormatter(formatter)
     stdout_handler.setLevel(logging.DEBUG)
 
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.DEBUG)
+    root_logger.addHandler(file_handler)
+    root_logger.addHandler(cloud_watch_handler)
+
+    LOGGER.setLevel(logging.DEBUG)
     LOGGER.addHandler(stdout_handler)
     LOGGER.addHandler(file_handler)
     LOGGER.addHandler(cloud_watch_handler)
-    LOGGER.setLevel(logging.DEBUG)
 
 
 def get_sink(sink: str):
@@ -85,9 +89,7 @@ def main():
 @click.option("--until", type=click.DateTime(), default=str(datetime.today().date()))
 @click.option("--sink", type=click.Choice(["kafka", "kinesis", "dev-null"]))
 def historical(source, keywords, since, until, sink):
-    setup_logger(
-        os.path.join(LOG_DIRECTORY, f"logs_historical_{source}_{CURRENT_DATETIME}.log")
-    )
+    setup_logger(os.path.join(LOG_DIRECTORY, f"logs_historical_{source}"), source)
     keywords = keywords.split(",")
     factory = HistoricalConnectorFactory()
     connector = factory.create_historical_connector(source, config)
@@ -106,9 +108,7 @@ def historical(source, keywords, since, until, sink):
 @click.option("--keywords", type=click.STRING)
 @click.option("--sink", type=click.Choice(["kafka", "kinesis", "dev-null"]))
 def stream(source, keywords, sink):
-    setup_logger(
-        os.path.join(LOG_DIRECTORY, f"logs_stream_{source}_{CURRENT_DATETIME}.log")
-    )
+    setup_logger(os.path.join(LOG_DIRECTORY, f"logs_stream_{source}"), source)
 
     factory = StreamConnectorFactory()
     connector = factory.create_stream_connector(source)
