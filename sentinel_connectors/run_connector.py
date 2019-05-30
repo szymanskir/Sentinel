@@ -90,7 +90,7 @@ def historical(source, keywords, since, until, sink):
     )
     keywords = keywords.split(",")
     factory = HistoricalConnectorFactory()
-    connector = factory.create_historical_connector(source, config)
+    connector = factory.create_historical_connector(source)
     sink = get_sink(sink)
 
     try:
