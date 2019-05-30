@@ -30,7 +30,6 @@ from sentinel_connectors.sinks import (
 
 LOGGER = logging.getLogger("sentinel")
 LOG_DIRECTORY = "logs"
-CURRENT_DATETIME = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 MAX_BACKUPS = 7
 
 
@@ -85,9 +84,7 @@ def main():
 @click.option("--until", type=click.DateTime(), default=str(datetime.today().date()))
 @click.option("--sink", type=click.Choice(["kafka", "kinesis", "dev-null"]))
 def historical(source, keywords, since, until, sink):
-    setup_logger(
-        os.path.join(LOG_DIRECTORY, f"logs_historical_{source}_{CURRENT_DATETIME}.log")
-    )
+    setup_logger(os.path.join(LOG_DIRECTORY, f"logs_historical_{source}"))
     keywords = keywords.split(",")
     factory = HistoricalConnectorFactory()
     connector = factory.create_historical_connector(source, config)
@@ -106,9 +103,7 @@ def historical(source, keywords, since, until, sink):
 @click.option("--keywords", type=click.STRING)
 @click.option("--sink", type=click.Choice(["kafka", "kinesis", "dev-null"]))
 def stream(source, keywords, sink):
-    setup_logger(
-        os.path.join(LOG_DIRECTORY, f"logs_stream_{source}_{CURRENT_DATETIME}.log")
-    )
+    setup_logger(os.path.join(LOG_DIRECTORY, f"logs_stream_{source}"))
 
     factory = StreamConnectorFactory()
     connector = factory.create_stream_connector(source)
