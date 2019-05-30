@@ -37,10 +37,10 @@ class IHistoricalConnector(metaclass=ABCMeta):
 class HistoricalConnectorFactory:
     def create_historical_connector(self, source: str) -> IHistoricalConnector:
         creation_strategy = {
-            "twitter": (TwitterHistoricalConnector, RedditSecretsManager()),
+            "reddit": (RedditHistoricalConnector, RedditSecretsManager()),
             "hacker-news": (HackerNewsHistoricalConnector, None),
             "google-news": (GoogleNewsHistoricalConnector, GoogleNewsSecretsManager()),
-            "reddit": (RedditHistoricalConnector, TwitterSecretsManager()),
+            "twitter": (TwitterHistoricalConnector, TwitterSecretsManager()),
         }
         factory_method, secrets_manager = creation_strategy[source]
 
@@ -63,7 +63,8 @@ class TwitterHistoricalConnector(IHistoricalConnector):
         for tweet in tweet_generator:
             try:
                 twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
-                url = f"https://twitter.com/statuses/{tweet.id_str}"
+                username = tweet.user.screen_name
+                url = f"https://twitter.com/{username}/status/{tweet.id_str}"
                 yield Mention(
                     text=tweet.text,
                     url=url,

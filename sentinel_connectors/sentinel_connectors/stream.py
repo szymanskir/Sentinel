@@ -165,9 +165,9 @@ class TwitterStreamConnector(IStreamConnector):
 
     def stream_comments(self) -> Iterator[Mention]:
         for tweet in self._get_stream():
-            # print(tweet)
             twitter_mention_metadata = self.create_twitter_mention_metadata(tweet)
-            url = f"https://twitter.com/statuses/{tweet['id_str']}"
+            username = tweet["user"]["screen_name"]
+            url = f"https://twitter.com/{username}/status/{tweet['id_str']}"
             yield Mention(
                 text=tweet["text"],
                 url=url,

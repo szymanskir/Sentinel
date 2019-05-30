@@ -70,7 +70,7 @@ def test_TwitterHistoricalConnector_download_mentions(tweets_test_case):
 
     assert len(mention_list) == len(tweets_test_case)
     for mention, tweet_test_case in zip(mention_list, tweets_test_case):
-        expected_url = f"https://twitter.com/statuses/{tweet_test_case.id_str}"
+        expected_url = f"https://twitter.com/{tweet_test_case.user.screen_name}/status/{tweet_test_case.id_str}"
         metadata = connector.create_twitter_mention_metadata(tweet_test_case)
         assert mention.url == expected_url
         assert mention.text == tweet_test_case.text

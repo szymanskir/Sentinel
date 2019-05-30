@@ -92,7 +92,7 @@ def historical(source, keywords, since, until, sink):
     setup_logger(os.path.join(LOG_DIRECTORY, f"logs_historical_{source}"), source)
     keywords = keywords.split(",")
     factory = HistoricalConnectorFactory()
-    connector = factory.create_historical_connector(source, config)
+    connector = factory.create_historical_connector(source)
     sink = get_sink(sink)
 
     try:
