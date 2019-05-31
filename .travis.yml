@@ -15,6 +15,16 @@ matrix:
       script:
         - make tests
         - make lint
+      deploy:
+        - provider: codedeploy
+          revision_type: github
+          application: sentinel-connectors-app
+          deployment_group: sentinel-connectors-depgrp
+          region: eu-central-1
+          wait_until_deployed: true
+          on:
+            branch: dev
+
 
     - language: python
       env: COMMAND=sentinel_backend
@@ -45,7 +55,6 @@ matrix:
         env: "SentinelBackend-env-1"
         zip_file: sentinel-backend.zip
         bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
-
         on:
           branch: dev
         skip_cleanup: true

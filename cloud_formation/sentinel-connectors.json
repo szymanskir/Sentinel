@@ -1,21 +1,6 @@
 {
-    "Description": "Create and deploys Sentinel connectors. `sentinel-connectors-app` must already exists, because of GitHub authorization.",
+    "Description": "Creates and deploys Sentinel connectors.",
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Parameters": {
-        "CommitId": {
-            "Description": "Commit id of version to deploy",
-            "Type": "String",
-            "AllowedPattern": "[\\x20-\\x7E]*",
-            "ConstraintDescription": "Can contain only ASCII characters."
-        },
-        "Repository": {
-            "Description": "Repository name",
-            "Type": "String",
-            "Default": "szymanskir/Sentinel",
-            "AllowedPattern": "[\\x20-\\x7E]*",
-            "ConstraintDescription": "Can contain only ASCII characters."
-        }
-    },
     "Resources": {
         "LinuxEC2Instance": {
             "Type": "AWS::EC2::Instance",
@@ -213,11 +198,11 @@
                 ]
             }
         },
-        "KinesisStream": {
-            "Type": "AWS::Kinesis::Stream",
+        "ConnectorsApplication": {
+            "Type": "AWS::CodeDeploy::Application",
             "Properties": {
-                "Name": "sentinel-stream",
-                "ShardCount": 1
+                "ApplicationName": "sentinel-connectors-app",
+                "ComputePlatform": "Server"
             }
         },
         "ConnectorsDeploymentGroup": {
@@ -237,26 +222,11 @@
                         "CodeDeployRole",
                         "Arn"
                     ]
-                },
-                "Deployment": {
-                    "Description": "An initial deployment",
-                    "IgnoreApplicationStopFailures": "true",
-                    "Revision": {
-                        "RevisionType": "GitHub",
-                        "GitHubLocation": {
-                            "CommitId": {
-                                "Ref": "CommitId"
-                            },
-                            "Repository": {
-                                "Ref": "Repository"
-                            }
-                        }
-                    }
                 }
             },
             "DependsOn": [
+                "ConnectorsApplication",
                 "CodeDeployRole",
-                "KinesisStream",
                 "LinuxEC2Instance"
             ]
         },
