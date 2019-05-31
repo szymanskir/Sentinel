@@ -1,0 +1,66 @@
+{
+    "Description": "Create Beanstalk for Sentinel web apps",
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "BackendApp": {
+            "Type": "AWS::ElasticBeanstalk::Application",
+            "Properties": {
+                "ApplicationName": "sentinel_backend"
+            }
+        },
+        "BackendConfiguration": {
+            "Type": "AWS::ElasticBeanstalk::Environment",
+            "Properties": {
+                "ApplicationName": {
+                    "Ref": "BackendApp"
+                },
+                "Description": "AWS ElasticBeanstalk Sample Application Version",
+                "CNAMEPrefix": "sentinel-backend",
+                "EnvironmentName": "sentinel-backend-env",
+                "SolutionStackName": "64bit Amazon Linux 2018.03 v2.12.11 running Docker 18.06.1-ce",
+                "OptionSettings": [
+                    {
+                        "Namespace": "aws:autoscaling:launchconfiguration",
+                        "OptionName": "InstanceType",
+                        "Value": "t2.micro"
+                    },
+                    {
+                        "Namespace": "aws:autoscaling:launchconfiguration",
+                        "OptionName": "IamInstanceProfile",
+                        "Value": "aws-elasticbeanstalk-ec2-role"
+                    }
+                ]
+            }
+        },
+        "FrontendApp": {
+            "Type": "AWS::ElasticBeanstalk::Application",
+            "Properties": {
+                "ApplicationName": "sentinel_frontend"
+            }
+        },
+        "FrontendConfiguration": {
+            "Type": "AWS::ElasticBeanstalk::Environment",
+            "Properties": {
+                "ApplicationName": {
+                    "Ref": "FrontendApp"
+                },
+                "Description": "AWS ElasticBeanstalk Sample Application Version",
+                "CNAMEPrefix": "sentinel",
+                "EnvironmentName": "sentinel-frontend-env",
+                "SolutionStackName": "64bit Amazon Linux 2018.03 v2.12.11 running Docker 18.06.1-ce",
+                "OptionSettings": [
+                    {
+                        "Namespace": "aws:autoscaling:launchconfiguration",
+                        "OptionName": "InstanceType",
+                        "Value": "t2.micro"
+                    },
+                    {
+                        "Namespace": "aws:autoscaling:launchconfiguration",
+                        "OptionName": "IamInstanceProfile",
+                        "Value": "aws-elasticbeanstalk-ec2-role"
+                    }
+                ]
+            }
+        }
+    }
+}
