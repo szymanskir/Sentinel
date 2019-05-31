@@ -63,7 +63,7 @@ export class Dashboard extends React.Component<{}, DashboardState> {
 
     private logOut = (props: RouteComponentProps) => {
         Auth.signOut();
-        return <div />;
+        return <Link to="/" />;
     }
 
     private toggleDrawer = async (shouldDrawerBeOpened: boolean) => {
