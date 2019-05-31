@@ -17,13 +17,13 @@ matrix:
         - make lint
       deploy:
         - provider: codedeploy
+          region: eu-central-1
           revision_type: github
           application: sentinel-connectors-app
           deployment_group: sentinel-connectors-depgrp
-          region: eu-central-1
           wait_until_deployed: true
           on:
-            branch: dev
+            branch: master
 
 
     - language: python
@@ -40,23 +40,21 @@ matrix:
       script:
         - docker build -f sentinel_backend/Dockerfile -t balindwalinstalin/sentinel-backend:latest .
         - docker run --entrypoint make balindwalinstalin/sentinel-backend:latest lint
-
       before_deploy:
         - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWD
         - docker push balindwalinstalin/sentinel-backend:latest
         - cd beanstalk/backend
         - zip -r ../../sentinel-backend.zip .
         - cd ../..
-
       deploy:
         provider: elasticbeanstalk
-        region: "eu-central-1"
-        app: "sentinel-backend"
-        env: "SentinelBackend-env-1"
+        region: eu-central-1
+        app: sentinel-backend
+        env: SentinelBackend-env-1
         zip_file: sentinel-backend.zip
-        bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
+        bucket_name: elasticbeanstalk-eu-central-1-848201210986
         on:
-          branch: dev
+          branch: master
         skip_cleanup: true
         
       
@@ -84,7 +82,7 @@ matrix:
         - echo script_dummy
       after_script:
         - cd sentinel-analizer
-        - test $TRAVIS_BRANCH = "dev" && test $TRAVIS_PULL_REQUEST = "false" && serverless deploy -v --aws-s3-accelerate
+        - test $TRAVIS_BRANCH = "master" && test $TRAVIS_PULL_REQUEST = "false" && serverless deploy -v --aws-s3-accelerate
 
 
     - language: node_js
@@ -93,25 +91,21 @@ matrix:
         - 12.2
       before_install:
         - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(beanstalk/web|sentinel_web/|sentinel_common/|\.travis.yml)' || exit 0
-
       script:
         - docker build -f sentinel_web/release/Dockerfile -t balindwalinstalin/sentinel-web:latest sentinel_web
-
       before_deploy:
         - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWD
         - docker push balindwalinstalin/sentinel-web:latest
         - cd beanstalk/web
         - zip -r ../../sentinel-web.zip .
         - cd ../..
-
       deploy:
         provider: elasticbeanstalk
-        region: "eu-central-1"
-        app: "sentinel-web"
-        env: "sentinel-web-env-1"
+        region: eu-central-1
+        app: sentinel-web
+        env: sentinel-web-env-1
         zip_file: sentinel-web.zip
-        bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
-
+        bucket_name: elasticbeanstalk-eu-central-1-848201210986
         on:
-          branch: dev
+          branch: master
         skip_cleanup: true
