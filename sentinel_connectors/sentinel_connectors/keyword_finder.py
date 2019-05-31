@@ -3,17 +3,14 @@ from acora import AcoraBuilder
 
 
 class KeywordFinder:
-    def __init__(self, keywords: Optional[Iterable[str]] = None):
+    def __init__(self, keywords: Optional[Iterable[str]] = []):
         non_empty_keywords = []
         if keywords is not None:
             for w in keywords:
                 if w.strip() != "":
                     non_empty_keywords.append(w)
 
-        if len(non_empty_keywords) > 0:
-            self._keywords = set(non_empty_keywords)
-        else:
-            self._keywords = set()
+        self._keywords = set(non_empty_keywords)
 
         if len(self._keywords) > 0:
             ac_builder = AcoraBuilder()
@@ -32,7 +29,7 @@ class KeywordFinder:
             List[str]: Keywords matched.
         """
         if self._finder is not None:
-            for kw, pos in self._finder.finditer(text):
+            for _ in self._finder.finditer(text):
                 return True
 
         return False
