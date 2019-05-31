@@ -1,5 +1,5 @@
 {
-    "Description": "Create Beanstalk for Sentinel web apps",
+    "Description": "Create Beanstalk and Cognito for Sentinel web apps",
     "AWSTemplateFormatVersion": "2010-09-09",
     "Resources": {
         "BackendApp": {
@@ -51,14 +51,14 @@
                         "Namespace": "aws:elasticbeanstalk:application:environment",
                         "OptionName": "COGNITO_USERPOOL_ID",
                         "Value": {
-                            "Ref": "AWS::Region"
+                            "Ref": "CognitoUserPool"
                         }
                     },
                     {
                         "Namespace": "aws:elasticbeanstalk:application:environment",
                         "OptionName": "COGNITO_APP_CLIENT_ID",
                         "Value": {
-                            "Ref": "AWS::Region"
+                            "Ref": "CognitoUserClient"
                         }
                     }
                 ]
@@ -131,17 +131,45 @@
                         "Namespace": "aws:elasticbeanstalk:application:environment",
                         "OptionName": "COGNITO_USER_POOL_ID",
                         "Value": {
-                            "Ref": "AWS::Region"
+                            "Ref": "CognitoUserPool"
                         }
                     },
                     {
                         "Namespace": "aws:elasticbeanstalk:application:environment",
                         "OptionName": "COGNITO_WEB_CLIENT_ID",
                         "Value": {
-                            "Ref": "AWS::Region"
+                            "Ref": "CognitoUserClient"
                         }
                     }
                 ]
+            }
+        },
+        "CognitoUserPool": {
+            "Type": "AWS::Cognito::UserPool",
+            "Properties": {
+                "UserPoolName": "sentinel",
+                "Policies": {
+                    "PasswordPolicy": {
+                        "MinimumLength": 8,
+                        "RequireLowercase": true,
+                        "RequireNumbers": true,
+                        "RequireSymbols": false,
+                        "RequireUppercase": false
+                    }
+                },
+                "AdminCreateUserConfig": {
+                    "AllowAdminCreateUserOnly": true
+                }
+            }
+        },
+        "CognitoUserClient": {
+            "Type": "AWS::Cognito::UserPoolClient",
+            "Properties": {
+                "ClientName": "sentinel-web",
+                "GenerateSecret": false,
+                "UserPoolId": {
+                    "Ref": "CognitoUserPool"
+                }
             }
         }
     }
