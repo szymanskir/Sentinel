@@ -23,7 +23,7 @@ matrix:
           region: eu-central-1
           wait_until_deployed: true
           on:
-            branch: feature/connectors-deployment
+            branch: dev
 
 
     - language: python
