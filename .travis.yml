@@ -105,7 +105,7 @@ matrix:
       deploy:
         provider: elasticbeanstalk
         region: "eu-central-1"
-        app: "sentinel_frontent"
+        app: "sentinel_frontend"
         env: "sentinel-frontend-env"
         zip_file: sentinel-web.zip
         bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
