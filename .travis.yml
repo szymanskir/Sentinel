@@ -56,7 +56,7 @@ matrix:
         zip_file: sentinel-backend.zip
         bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
         on:
-          branch: feature/beanstalk-cloudformation
+          branch: dev
         skip_cleanup: true
 
     - language: python
@@ -111,5 +111,5 @@ matrix:
         bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
 
         on:
-          branch: feature/beanstalk-cloudformation
+          branch: dev
         skip_cleanup: true
