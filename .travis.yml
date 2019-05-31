@@ -51,21 +51,20 @@ matrix:
       deploy:
         provider: elasticbeanstalk
         region: "eu-central-1"
-        app: "sentinel-backend"
-        env: "SentinelBackend-env-1"
+        app: "sentinel_backend"
+        env: "sentinel-backend-env"
         zip_file: sentinel-backend.zip
         bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
         on:
-          branch: dev
+          branch: feature/beanstalk-cloudformation
         skip_cleanup: true
-        
-      
+
     - language: python
       env: COMMAND=sentinel_lambda
       sudo: required
       dist: xenial
       python: "3.6.7"
-      cache: 
+      cache:
         directories:
           - node_modules
         pip: true
@@ -85,7 +84,6 @@ matrix:
       after_script:
         - cd sentinel-analizer
         - test $TRAVIS_BRANCH = "dev" && test $TRAVIS_PULL_REQUEST = "false" && serverless deploy -v --aws-s3-accelerate
-
 
     - language: node_js
       env: COMMAND=sentinel_web
@@ -107,11 +105,11 @@ matrix:
       deploy:
         provider: elasticbeanstalk
         region: "eu-central-1"
-        app: "sentinel-web"
-        env: "sentinel-web-env-1"
+        app: "sentinel_frontent"
+        env: "sentinel-frontend-env"
         zip_file: sentinel-web.zip
         bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
 
         on:
-          branch: dev
+          branch: feature/beanstalk-cloudformation
         skip_cleanup: true
