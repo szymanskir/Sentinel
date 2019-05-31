@@ -8,7 +8,7 @@
                 "ApplicationName": "sentinel_backend"
             }
         },
-        "BackendConfiguration": {
+        "BackendEnvironment": {
             "Type": "AWS::ElasticBeanstalk::Environment",
             "Properties": {
                 "ApplicationName": {
@@ -17,6 +17,17 @@
                 "Description": "AWS ElasticBeanstalk Sample Application Version",
                 "CNAMEPrefix": "sentinel-backend",
                 "EnvironmentName": "sentinel-backend-env",
+                "TemplateName": {
+                    "Ref": "BackendConfigurationTemplate"
+                }
+            }
+        },
+        "BackendConfigurationTemplate": {
+            "Type": "AWS::ElasticBeanstalk::ConfigurationTemplate",
+            "Properties": {
+                "ApplicationName": {
+                    "Ref": "BackendApp"
+                },
                 "SolutionStackName": "64bit Amazon Linux 2018.03 v2.12.11 running Docker 18.06.1-ce",
                 "OptionSettings": [
                     {
@@ -28,6 +39,27 @@
                         "Namespace": "aws:autoscaling:launchconfiguration",
                         "OptionName": "IamInstanceProfile",
                         "Value": "aws-elasticbeanstalk-ec2-role"
+                    },
+                    {
+                        "Namespace": "aws:elasticbeanstalk:application:environment",
+                        "OptionName": "COGNITO_REGION",
+                        "Value": {
+                            "Ref": "AWS::Region"
+                        }
+                    },
+                    {
+                        "Namespace": "aws:elasticbeanstalk:application:environment",
+                        "OptionName": "COGNITO_USERPOOL_ID",
+                        "Value": {
+                            "Ref": "AWS::Region"
+                        }
+                    },
+                    {
+                        "Namespace": "aws:elasticbeanstalk:application:environment",
+                        "OptionName": "COGNITO_APP_CLIENT_ID",
+                        "Value": {
+                            "Ref": "AWS::Region"
+                        }
                     }
                 ]
             }
@@ -38,7 +70,7 @@
                 "ApplicationName": "sentinel_frontend"
             }
         },
-        "FrontendConfiguration": {
+        "FrontendEnvironment": {
             "Type": "AWS::ElasticBeanstalk::Environment",
             "Properties": {
                 "ApplicationName": {
@@ -47,6 +79,17 @@
                 "Description": "AWS ElasticBeanstalk Sample Application Version",
                 "CNAMEPrefix": "sentinel",
                 "EnvironmentName": "sentinel-frontend-env",
+                "TemplateName": {
+                    "Ref": "FrontendConfigurationTemplate"
+                }
+            }
+        },
+        "FrontendConfigurationTemplate": {
+            "Type": "AWS::ElasticBeanstalk::ConfigurationTemplate",
+            "Properties": {
+                "ApplicationName": {
+                    "Ref": "FrontendApp"
+                },
                 "SolutionStackName": "64bit Amazon Linux 2018.03 v2.12.11 running Docker 18.06.1-ce",
                 "OptionSettings": [
                     {
@@ -58,6 +101,45 @@
                         "Namespace": "aws:autoscaling:launchconfiguration",
                         "OptionName": "IamInstanceProfile",
                         "Value": "aws-elasticbeanstalk-ec2-role"
+                    },
+                    {
+                        "Namespace": "aws:elasticbeanstalk:application:environment",
+                        "OptionName": "API_ENDPOINT",
+                        "Value": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "http://",
+                                    {
+                                        "Fn::GetAtt": [
+                                            "BackendEnvironment",
+                                            "EndpointURL"
+                                        ]
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Namespace": "aws:elasticbeanstalk:application:environment",
+                        "OptionName": "AWS_REGION",
+                        "Value": {
+                            "Ref": "AWS::Region"
+                        }
+                    },
+                    {
+                        "Namespace": "aws:elasticbeanstalk:application:environment",
+                        "OptionName": "COGNITO_USER_POOL_ID",
+                        "Value": {
+                            "Ref": "AWS::Region"
+                        }
+                    },
+                    {
+                        "Namespace": "aws:elasticbeanstalk:application:environment",
+                        "OptionName": "COGNITO_WEB_CLIENT_ID",
+                        "Value": {
+                            "Ref": "AWS::Region"
+                        }
                     }
                 ]
             }
