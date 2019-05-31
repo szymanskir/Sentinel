@@ -1,5 +1,5 @@
 {
-  "Description": "Create Kinesis stream",
+  "Description": "Creates Kinesis stream",
   "AWSTemplateFormatVersion": "2010-09-09",
   "Resources": {
     "KinesisStream": {
