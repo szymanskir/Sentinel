@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as moment from "moment";
-import { AppBar, Toolbar, Typography, IconButton, Grid, Button, Card, CardContent } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, IconButton, Grid, Button, Card, CardContent, Checkbox, FormControlLabel } from "@material-ui/core";
 import { apiClient } from "../ApiClient";
 import MenuIcon from "@material-ui/icons/Menu";
 import DashboardPlot from "./DashboardPlot";
@@ -17,6 +17,8 @@ interface OverviewTabItemState {
     mentions: [];
     mentionsCount: [];
     sentiments: [];
+    refreshIntervalId: any;
+    isLiveModeOn: boolean;
 }
 
 export class OverviewTabItem extends React.Component<{}, OverviewTabItemState> {
@@ -30,15 +32,32 @@ export class OverviewTabItem extends React.Component<{}, OverviewTabItemState> {
             mentionsCount: [],
             sentiments: [],
             from: moment().add(-7, "days").startOf("day"),
-            to: moment().startOf("day")
+            to: moment().startOf("day"),
+            refreshIntervalId: null,
+            isLiveModeOn: false
         };
 
-        setInterval(() => { this.downloadMentions(); this.downloadKeywords(); }, 5000);
     }
 
     componentDidMount() {
         this.downloadKeywords();
     }
+
+    private startLiveMode() {
+        let liveModeId = setInterval(() => { this.downloadMentions(); this.downloadKeywords(); }, 5000);
+        this.setState({
+            refreshIntervalId: liveModeId,
+            isLiveModeOn: true
+        });
+    }
+
+    private stopLiveMode() {
+        clearInterval(this.state.refreshIntervalId);
+        this.setState({
+            isLiveModeOn: false
+        });
+    }
+
 
     render() {
         return <div className="flex-grow-1">
@@ -65,17 +84,18 @@ export class OverviewTabItem extends React.Component<{}, OverviewTabItemState> {
                                         onClick={this.downloadMentions}
                                         color="primary">
                                         Fetch
-                                </Button>
+                                    </Button>
+                                    <FormControlLabel label={"Live Mode"} control={<Checkbox checked={this.state.isLiveModeOn} onChange={(event: any, value: boolean) => value ? this.startLiveMode() : this.stopLiveMode()} />} />
                                 </CardContent>
                             </Card>
                         </Grid>
                         <Grid container item direction="column">
-                            <CommentsTable  mentions={this.state.mentions} />
+                            <CommentsTable mentions={this.state.mentions} />
                         </Grid>
                     </Grid>
                     <Grid container item spacing={8} xs={7} direction="column">
                         <Grid item>
-                        <DashboardPlot title="Sentiment plot" plotData={this.state.sentiments} />
+                            <DashboardPlot title="Sentiment plot" plotData={this.state.sentiments} />
                         </Grid>
                         <Grid item>
                             <DashboardPlot title="Mentions count" plotData={this.state.mentionsCount} />
