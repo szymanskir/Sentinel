@@ -3,7 +3,7 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Parameters": {
         "NotifiedEmail": {
-            "Description": "Email address to ne notified when alarms trigger.",
+            "Description": "Email address to be notified when alarms trigger.",
             "Type": "String",
             "AllowedPattern": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$",
             "ConstraintDescription": "Must be a valid email address."
