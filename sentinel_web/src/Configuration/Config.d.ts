@@ -1,5 +1,8 @@
 interface Configuration {
     apiEndpoint: string;
+    awsRegion: string;
+    cognitoUserPoolId: string;
+    cognitoWebClientId: string;
 }
 
 declare module "config" {
