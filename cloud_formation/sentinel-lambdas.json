@@ -1,0 +1,242 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "The AWS CloudFormation template for this Serverless application",
+    "Resources": {
+        "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+                "BucketEncryption": {
+                    "ServerSideEncryptionConfiguration": [
+                        {
+                            "ServerSideEncryptionByDefault": {
+                                "SSEAlgorithm": "AES256"
+                            }
+                        }
+                    ]
+                },
+                "AccelerateConfiguration": {
+                    "AccelerationStatus": "Enabled"
+                }
+            }
+        },
+        "AnalizeUnderscoreandUnderscoresaveLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+                "LogGroupName": "/aws/lambda/sentinel-analizer-dev-analize_and_save"
+            }
+        },
+        "IamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "lambda.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Policies": [
+                    {
+                        "PolicyName": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    "dev",
+                                    "sentinel-analizer",
+                                    "lambda"
+                                ]
+                            ]
+                        },
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "logs:CreateLogStream"
+                                    ],
+                                    "Resource": [
+                                        {
+                                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sentinel-analizer-dev-analize_and_save:*"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "logs:PutLogEvents"
+                                    ],
+                                    "Resource": [
+                                        {
+                                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sentinel-analizer-dev-analize_and_save:*:*"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "kinesis:DescribeStream",
+                                        "kinesis:DescribeStreamSummary",
+                                        "kinesis:GetRecords",
+                                        "kinesis:GetShardIterator",
+                                        "kinesis:ListShards",
+                                        "kinesis:ListStreams",
+                                        "kinesis:SubscribeToShard"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "dynamodb:*"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "comprehend:DetectDominantLanguage",
+                                        "comprehend:DetectSentiment"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "kinesis:GetRecords",
+                                        "kinesis:GetShardIterator",
+                                        "kinesis:DescribeStream",
+                                        "kinesis:ListStreams"
+                                    ],
+                                    "Resource": [
+                                        {
+                                            "Fn::Join": [
+                                                ":",
+                                                [
+                                                    "arn",
+                                                    "aws",
+                                                    "kinesis",
+                                                    "eu-central-1",
+                                                    848201210986,
+                                                    "stream/sentinel-stream"
+                                                ]
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "Path": "/",
+                "RoleName": {
+                    "Fn::Join": [
+                        "-",
+                        [
+                            "sentinel-analizer",
+                            "dev",
+                            {
+                                "Ref": "AWS::Region"
+                            },
+                            "lambdaRole"
+                        ]
+                    ]
+                }
+            }
+        },
+        "AnalizeUnderscoreandUnderscoresaveLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+                "Code": {
+                    "S3Bucket": {
+                        "Ref": "ServerlessDeploymentBucket"
+                    },
+                    "S3Key": "serverless/sentinel-analizer/dev/1559402841710-2019-06-01T15:27:21.710Z/sentinel-analizer.zip"
+                },
+                "FunctionName": "sentinel-analizer-dev-analize_and_save",
+                "Handler": "handler.analize_and_save",
+                "MemorySize": 1024,
+                "Role": {
+                    "Fn::GetAtt": [
+                        "IamRoleLambdaExecution",
+                        "Arn"
+                    ]
+                },
+                "Runtime": "python3.6",
+                "Timeout": 6,
+                "Environment": {
+                    "Variables": {
+                        "DYNAMO_DB_REGION": "eu-central-1"
+                    }
+                }
+            },
+            "DependsOn": [
+                "AnalizeUnderscoreandUnderscoresaveLogGroup",
+                "IamRoleLambdaExecution"
+            ]
+        },
+        "AnalizeUnderscoreandUnderscoresaveLambdaVersionqd3VRLnOhvlO0c50Gr29y7UYKiYtCCs1KOwsXYPIuA4": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+                "FunctionName": {
+                    "Ref": "AnalizeUnderscoreandUnderscoresaveLambdaFunction"
+                },
+                "CodeSha256": "1m8BUYBWMeg6SHWBNX+mgbZaem8nAksDpgxLJ3BBQxg="
+            }
+        },
+        "AnalizeUnderscoreandUnderscoresaveEventSourceMappingKinesisSentinelstream": {
+            "Type": "AWS::Lambda::EventSourceMapping",
+            "DependsOn": "IamRoleLambdaExecution",
+            "Properties": {
+                "BatchSize": 2,
+                "EventSourceArn": {
+                    "Fn::Join": [
+                        ":",
+                        [
+                            "arn",
+                            "aws",
+                            "kinesis",
+                            "eu-central-1",
+                            848201210986,
+                            "stream/sentinel-stream"
+                        ]
+                    ]
+                },
+                "FunctionName": {
+                    "Fn::GetAtt": [
+                        "AnalizeUnderscoreandUnderscoresaveLambdaFunction",
+                        "Arn"
+                    ]
+                },
+                "StartingPosition": "TRIM_HORIZON",
+                "Enabled": "True"
+            }
+        }
+    },
+    "Outputs": {
+        "ServerlessDeploymentBucketName": {
+            "Value": {
+                "Ref": "ServerlessDeploymentBucket"
+            }
+        },
+        "ServerlessDeploymentBucketAccelerated": {
+            "Value": true
+        },
+        "AnalizeUnderscoreandUnderscoresaveLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+                "Ref": "AnalizeUnderscoreandUnderscoresaveLambdaVersionqd3VRLnOhvlO0c50Gr29y7UYKiYtCCs1KOwsXYPIuA4"
+            }
+        }
+    }
+}
