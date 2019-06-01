@@ -38,18 +38,24 @@ export class Dashboard extends React.Component<{}, DashboardState> {
                 </AppBar>
                 <Drawer anchor="left" open={this.state.isDrawerOpen} onClose={() => this.toggleDrawer(false)}>
                     <List>
-                        <ListItem button key="Home">
-                            <ListItemIcon><HomeIcon /></ListItemIcon>
-                            <ListItemText><Link to="/">Home</Link></ListItemText>
-                        </ListItem>
-                        <ListItem button key="Keywords">
-                            <ListItemIcon><AnnouncementIcon /></ListItemIcon>
-                            <ListItemText><Link to="/keywords">Keywords</Link></ListItemText>
-                        </ListItem>
-                        <ListItem button key="Logout">
-                            <ListItemIcon><PowerSettingNew /></ListItemIcon>
-                            <ListItemText><Link to="/logout">Logout</Link></ListItemText>
-                        </ListItem>
+                        <Link to="/" style={{ textDecoration: "none" }}>
+                            <ListItem button key="Home" onClick={() => this.toggleDrawer(false)}>
+                                <ListItemIcon><HomeIcon /></ListItemIcon>
+                                <ListItemText>Home</ListItemText>
+                            </ListItem>
+                        </Link>
+                        <Link to="/keywords" style={{ textDecoration: "none" }}>
+                            <ListItem button key="Keywords" href="/keywords" onClick={() => this.toggleDrawer(false)}>
+                                <ListItemIcon><AnnouncementIcon /></ListItemIcon>
+                                <ListItemText primary="Keywords" />
+                            </ListItem>
+                        </Link>
+                        <Link to="/logout" style={{ textDecoration: "none" }}>
+                            <ListItem button key="Logout" onClick={() => this.toggleDrawer(false)}>
+                                <ListItemIcon><PowerSettingNew /></ListItemIcon>
+                                <ListItemText>Logout</ListItemText>
+                            </ListItem>
+                        </Link>
                     </List>
                 </Drawer>
                 <div>
