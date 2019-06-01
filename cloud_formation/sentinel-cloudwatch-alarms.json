@@ -1,0 +1,132 @@
+{
+    "Description": "Creates CloudWatch alarms",
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "NotifiedEmail": {
+            "Description": "Email address to be notified when alarms trigger.",
+            "Type": "String",
+            "AllowedPattern": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$",
+            "ConstraintDescription": "Must be a valid email address."
+        }
+    },
+    "Resources": {
+        "AlarmsTopic": {
+            "Type": "AWS::SNS::Topic",
+            "Properties": {
+                "Subscription": [
+                    {
+                        "Endpoint": {
+                            "Ref": "NotifiedEmail"
+                        },
+                        "Protocol": "email"
+                    }
+                ],
+                "TopicName": "ConnectorsAlarms"
+            }
+        },
+        "GoogleNewsAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmName": "Zero DataCount [google-news]",
+                "MetricName": "DataCount",
+                "Namespace": "SentinelConnectors",
+                "Statistic": "Average",
+                "Period": "60",
+                "DatapointsToAlarm": 60,
+                "EvaluationPeriods": 60,
+                "Threshold": 0,
+                "ComparisonOperator": "LessThanOrEqualToThreshold",
+                "TreatMissingData": "breaching",
+                "Dimensions": [
+                    {
+                        "Name": "Source",
+                        "Value": "google-news"
+                    }
+                ],
+                "AlarmActions": [
+                    {
+                        "Ref": "AlarmsTopic"
+                    }
+                ]
+            }
+        },
+        "HackerNewsAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmName": "Zero DataCount [hacker-news]",
+                "MetricName": "DataCount",
+                "Namespace": "SentinelConnectors",
+                "Statistic": "Average",
+                "Period": "60",
+                "DatapointsToAlarm": 15,
+                "EvaluationPeriods": 15,
+                "Threshold": 0,
+                "ComparisonOperator": "LessThanOrEqualToThreshold",
+                "TreatMissingData": "breaching",
+                "Dimensions": [
+                    {
+                        "Name": "Source",
+                        "Value": "hacker-news"
+                    }
+                ],
+                "AlarmActions": [
+                    {
+                        "Ref": "AlarmsTopic"
+                    }
+                ]
+            }
+        },
+        "TwitterAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmName": "Zero DataCount [twitter]",
+                "MetricName": "DataCount",
+                "Namespace": "SentinelConnectors",
+                "Statistic": "Average",
+                "Period": "60",
+                "DatapointsToAlarm": 15,
+                "EvaluationPeriods": 15,
+                "Threshold": 0,
+                "ComparisonOperator": "LessThanOrEqualToThreshold",
+                "TreatMissingData": "breaching",
+                "Dimensions": [
+                    {
+                        "Name": "Source",
+                        "Value": "twitter"
+                    }
+                ],
+                "AlarmActions": [
+                    {
+                        "Ref": "AlarmsTopic"
+                    }
+                ]
+            }
+        },
+        "RedditAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmName": "Zero DataCount [reddit]",
+                "MetricName": "DataCount",
+                "Namespace": "SentinelConnectors",
+                "Statistic": "Average",
+                "Period": "60",
+                "DatapointsToAlarm": 15,
+                "EvaluationPeriods": 15,
+                "Threshold": 0,
+                "ComparisonOperator": "LessThanOrEqualToThreshold",
+                "TreatMissingData": "breaching",
+                "Dimensions": [
+                    {
+                        "Name": "Source",
+                        "Value": "reddit"
+                    }
+                ],
+                "AlarmActions": [
+                    {
+                        "Ref": "AlarmsTopic"
+                    }
+                ]
+            }
+        }
+    }
+}
