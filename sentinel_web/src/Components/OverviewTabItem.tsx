@@ -32,7 +32,7 @@ export class OverviewTabItem extends React.Component<{}, OverviewTabItemState> {
             mentionsCount: [],
             sentiments: [],
             from: moment().add(-7, "days").startOf("day"),
-            to: moment().startOf("day"),
+            to: moment().add(1, "days").startOf("day"),
             refreshIntervalId: null,
             isLiveModeOn: false
         };
