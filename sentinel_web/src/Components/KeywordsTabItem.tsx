@@ -5,6 +5,7 @@ import AddIcon from "@material-ui/icons/Add";
 import KeywordListItem from "./KeywordListItem";
 import { KeywordItem } from "../Models/KeywordItem";
 import { apiClient } from "../ApiClient";
+import AddKeywordDialog from "./AddKeywordDialog";
 
 export interface KeywordsTabItemProps {
 
@@ -12,13 +13,15 @@ export interface KeywordsTabItemProps {
 
 export interface KeywordsTabItemState {
     keywords: KeywordItem[];
+    isDialogOpen: boolean;
 }
 
 class KeywordsTabItem extends React.Component<KeywordsTabItemProps, KeywordsTabItemState> {
     constructor(props: KeywordsTabItemProps) {
         super(props);
         this.state = {
-            keywords: []
+            keywords: [],
+            isDialogOpen: false
         };
     }
 
@@ -28,9 +31,11 @@ class KeywordsTabItem extends React.Component<KeywordsTabItemProps, KeywordsTabI
 
     private createStartEditCallback(index: number): () => void {
         return () => {
-            this.state.keywords[index].isEditable = true;
+            const keywords = Object.assign([], this.state.keywords) as KeywordItem[];
+            keywords.forEach(k => k.isEditable = false);
+            keywords[index].isEditable = true;
             this.setState({
-                    keywords: this.state.keywords,
+                keywords
             });
         };
     }
@@ -50,31 +55,41 @@ class KeywordsTabItem extends React.Component<KeywordsTabItemProps, KeywordsTabI
         };
     }
 
-    private addKeyword() {
-        this.state.keywords.push(new KeywordItem("Keyword", true));
-        apiClient.addKeyword("Keyword");
+    private openAddKeywordDialog() {
         this.setState({
-                keywords: this.state.keywords,
+            isDialogOpen: true
         });
+    }
+
+    private closeAddKeywordDialog() {
+        this.setState({
+            isDialogOpen: false
+        });
+    }
+
+    private async addKeyword(keywordName: string) {
+        await apiClient.addKeyword(keywordName);
+        this.downloadKeywords();
     }
 
     render() {
         return <div className="flex-grow-1">
+            <AddKeywordDialog isOpen={this.state.isDialogOpen} onCancel={() => this.closeAddKeywordDialog()} onSubmit={(keywordName: string) => { this.addKeyword(keywordName); this.closeAddKeywordDialog(); }} />
             <Grid container spacing={8} justify="center">
                 <Grid item xs={4}>
-                <Card>
-                    <CardHeader title="Keywords" action={<Button onClick={() => this.addKeyword()}><AddIcon/> Add keyword </Button>}/>
-                    <CardContent>
-                        <List>
-                            {this.state.keywords.map((keyword, index) => <KeywordListItem key={index}
-                                                                                          name={keyword.keyword}
-                                                                                          isEditable={this.state.keywords[index].isEditable}
-                                                                                          onStartEditCallback={this.createStartEditCallback(index)}
-                                                                                          onEndEditCallback={this.createEndEditCallback(index)}
-                                                                                          onDelete={this.createOnDeleteCallback(index)}/>)}
-                        </List>
-                    </CardContent>
-                </Card>
+                    <Card>
+                        <CardHeader title="Keywords" action={<Button onClick={() => this.openAddKeywordDialog()}><AddIcon /> Add keyword </Button>} />
+                        <CardContent>
+                            <List>
+                                {this.state.keywords.map((keyword, index) => <KeywordListItem key={index}
+                                    name={keyword.keyword}
+                                    isEditable={this.state.keywords[index].isEditable}
+                                    onStartEditCallback={this.createStartEditCallback(index)}
+                                    onEndEditCallback={this.createEndEditCallback(index)}
+                                    onDelete={this.createOnDeleteCallback(index)} />)}
+                            </List>
+                        </CardContent>
+                    </Card>
                 </Grid>
             </Grid>
         </div>;
