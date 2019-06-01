@@ -1,5 +1,5 @@
 from datetime import datetime
-from .keyword_finder import KeywordFinder
+from .any_keyword_matcher import AnyKeywordMatcher
 from abc import ABC
 from typing import Set
 import threading
@@ -12,17 +12,17 @@ class KeywordManager(ABC):
         self.keyword_finder = keyword_finder
 
     def any_match(self, text: str) -> bool:
-        return self.keyword_finder.match(text)
+        return self.keyword_finder.any_keyword_match(text)
 
 
 class ConstKeywordManager(KeywordManager):
     def __init__(self, keywords):
-        super().__init__(KeywordFinder(keywords))
+        super().__init__(AnyKeywordMatcher(keywords))
 
 
 class DynamicKeywordManager(KeywordManager):
     def __init__(self):
-        super().__init__(KeywordFinder())
+        super().__init__(AnyKeywordMatcher())
         self.SLEEP_TIME = 30
         self._current_keywords = set()
         self._logger = logging.getLogger("sentinel")
@@ -44,7 +44,7 @@ class DynamicKeywordManager(KeywordManager):
             if new_keywords != self._current_keywords:
                 self._logger.debug(f"Keywords update: {new_keywords}")
                 self._current_keywords = new_keywords
-                self.keyword_finder = KeywordFinder(new_keywords)
+                self.keyword_finder = AnyKeywordMatcher(new_keywords)
 
             self._exit_event.wait(self.SLEEP_TIME)
 

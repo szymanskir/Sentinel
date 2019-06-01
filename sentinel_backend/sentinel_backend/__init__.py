@@ -6,9 +6,11 @@ from flask_cognito import CognitoAuth
 app = Flask(__name__)
 app.config.from_object("sentinel_backend.default_settings")
 app.config.from_envvar("SENTINEL_BACKEND_SETTINGS")
+app.config["COGNITO_REGION"] = os.environ.get("COGNITO_REGION")
+app.config["COGNITO_USERPOOL_ID"] = os.environ.get("COGNITO_USERPOOL_ID")
+app.config["COGNITO_APP_CLIENT_ID"] = os.environ.get("COGNITO_APP_CLIENT_ID")
 
 CORS(app)
-
 cogauth = CognitoAuth(app)
 
 
