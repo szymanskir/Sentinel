@@ -3,7 +3,7 @@ from datetime import datetime
 from .db_models import MentionDb, KeywordDb
 from .mentions import Mention
 from typing import Iterable, List, Tuple
-from .keyword_matcher import KeywordMatcher
+from .all_keywords_matcher import AllKeywordsMatcher
 
 
 AUTHOR_MAP = {
@@ -38,9 +38,9 @@ def save_to_db(mentionsWithScores: Iterable[Tuple[Mention, int]]
     """
     entities = list()
     keywords = set([x.keyword for x in KeywordDb.scan() if x.keyword])
-    keyword_matcher = KeywordMatcher(keywords)
+    keyword_matcher = AllKeywordsMatcher(keywords)
     for mention, score in mentionsWithScores:
-        for keyword in keyword_matcher.occurring_keywords(mention.text):
+        for keyword in keyword_matcher.all_occurring_keywords(mention.text):
             entity = to_db_mention(mention, keyword, score)
             entity.save()
             entities.append(entity)

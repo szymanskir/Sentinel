@@ -2,7 +2,7 @@ from typing import Iterable, Optional
 from acora import AcoraBuilder
 
 
-class KeywordFinder:
+class AnyKeywordMatcher:
     def __init__(self, keywords: Optional[Iterable[str]] = []):
         non_empty_keywords = []
         if keywords is not None:
@@ -19,7 +19,7 @@ class KeywordFinder:
         else:
             self._finder = None
 
-    def match(self, text: str) -> bool:
+    def any_keyword_match(self, text: str) -> bool:
         """Finds matches of observed keywords in the given text.
 
         Args:

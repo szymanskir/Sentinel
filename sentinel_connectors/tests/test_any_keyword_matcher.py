@@ -1,5 +1,5 @@
 import pytest
-from sentinel_connectors.keyword_finder import KeywordFinder
+from sentinel_connectors.any_keyword_matcher import AnyKeywordMatcher
 
 
 @pytest.mark.parametrize(
@@ -18,7 +18,7 @@ from sentinel_connectors.keyword_finder import KeywordFinder
     ],
 )
 def test_KeywordFinder(keywords, text, expected):
-    kf = KeywordFinder(keywords)
+    kf = AnyKeywordMatcher(keywords)
     actual = kf.match(text)
 
     assert actual == expected

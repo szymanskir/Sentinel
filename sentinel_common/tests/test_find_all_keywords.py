@@ -1,5 +1,5 @@
 import pytest
-from sentinel_common.keyword_matcher import KeywordMatcher
+from sentinel_common.all_keywords_matcher import AllKeywordsMatcher
 
 
 @pytest.mark.parametrize(
@@ -16,5 +16,5 @@ from sentinel_common.keyword_matcher import KeywordMatcher
     ],
 )
 def test_find_all_keywords(keywords, text, expected):
-    matcher = KeywordMatcher(set(keywords))
-    assert matcher.occurring_keywords(text) == expected
+    matcher = AllKeywordsMatcher(set(keywords))
+    assert matcher.all_occurring_keywords(text) == expected
