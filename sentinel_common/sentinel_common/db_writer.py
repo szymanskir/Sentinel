@@ -2,8 +2,9 @@ from uuid import uuid4
 from datetime import datetime
 from .db_models import MentionDb, KeywordDb
 from .mentions import Mention
-from typing import Iterable, List, Tuple, Set
-import re
+from typing import Iterable, List, Tuple
+from .all_keywords_matcher import AllKeywordsMatcher
+
 
 AUTHOR_MAP = {
     "google-news": lambda x: x.metadata.news_source,
@@ -13,7 +14,8 @@ AUTHOR_MAP = {
 }
 
 
-def to_db_mention(mention: Mention, keyword: str, sentiment_score: int) -> MentionDb:
+def to_db_mention(mention: Mention, keyword: str, sentiment_score: int
+                  ) -> MentionDb:
     return MentionDb(
         AUTHOR_MAP[mention.source](mention),
         mention.origin_date,
@@ -28,23 +30,17 @@ def to_db_mention(mention: Mention, keyword: str, sentiment_score: int) -> Menti
     )
 
 
-def find_all_keywords(text: str, keywords: Set[str]) -> List[str]:
-    text_without_punc = re.sub(r"[^\w\s]", "", text)
-    queried_text = text_without_punc.split()
-    found_words = [word for word in queried_text if word in keywords]
-
-    return found_words
-
-
-def save_to_db(mentionsWithScores: Iterable[Tuple[Mention, int]]) -> List[MentionDb]:
+def save_to_db(mentionsWithScores: Iterable[Tuple[Mention, int]]
+               ) -> List[MentionDb]:
     """
-    Write all items in the partition to the database. 
+    Write all items in the partition to the database.
     Should be called with `mapPartitions`.
     """
     entities = list()
     keywords = set([x.keyword for x in KeywordDb.scan() if x.keyword])
+    keyword_matcher = AllKeywordsMatcher(keywords)
     for mention, score in mentionsWithScores:
-        for keyword in find_all_keywords(mention.text, keywords):
+        for keyword in keyword_matcher.all_occurring_keywords(mention.text):
             entity = to_db_mention(mention, keyword, score)
             entity.save()
             entities.append(entity)
