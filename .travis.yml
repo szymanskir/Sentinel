@@ -25,7 +25,6 @@ matrix:
           on:
             branch: dev
 
-
     - language: python
       env: COMMAND=sentinel_backend
       sudo: required
@@ -50,11 +49,11 @@ matrix:
 
       deploy:
         provider: elasticbeanstalk
-        region: "eu-central-1"
-        app: "sentinel_backend"
-        env: "sentinel-backend-env"
+        region: eu-central-1
+        app: sentinel_backend
+        env: sentinel-backend-env
         zip_file: sentinel-backend.zip
-        bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
+        bucket_name: elasticbeanstalk-eu-central-1-848201210986
         on:
           branch: dev
         skip_cleanup: true
@@ -104,11 +103,11 @@ matrix:
 
       deploy:
         provider: elasticbeanstalk
-        region: "eu-central-1"
-        app: "sentinel_frontend"
-        env: "sentinel-frontend-env"
+        region: eu-central-1
+        app: sentinel_frontend
+        env: sentinel-frontend-env
         zip_file: sentinel-web.zip
-        bucket_name: "elasticbeanstalk-eu-central-1-848201210986"
+        bucket_name: elasticbeanstalk-eu-central-1-848201210986
 
         on:
           branch: dev
