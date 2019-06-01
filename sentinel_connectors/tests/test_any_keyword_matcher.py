@@ -19,6 +19,6 @@ from sentinel_connectors.any_keyword_matcher import AnyKeywordMatcher
 )
 def test_KeywordFinder(keywords, text, expected):
     kf = AnyKeywordMatcher(keywords)
-    actual = kf.match(text)
+    actual = kf.any_keyword_match(text)
 
     assert actual == expected
