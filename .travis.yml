@@ -1,11 +1,109 @@
-language: python
-sudo: required
-dist: xenial
-python: "3.6.7"
-cache: 
-  pip: true
-install:
-  - make requirements
-script:
-  - make tests
-  - make lint
+matrix:
+  include:
+    - language: python
+      env: COMMAND=sentinel_connectors
+      sudo: required
+      dist: xenial
+      python: "3.6.7"
+      cache:
+        pip: true
+      before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_connectors/|sentinel_common/|\.travis.yml)' || exit 0
+        - cd sentinel_connectors
+      install:
+        - make requirements
+      script:
+        - make tests
+        - make lint
+      deploy:
+        - provider: codedeploy
+          region: eu-central-1
+          revision_type: github
+          application: sentinel-connectors-app
+          deployment_group: sentinel-connectors-depgrp
+          wait_until_deployed: true
+          on:
+            branch: master
+
+    - language: python
+      env: COMMAND=sentinel_backend
+      sudo: required
+      services:
+        - docker
+      dist: xenial
+      python: "3.6.7"
+      cache:
+        pip: true
+      before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(beanstalk/backend|sentinel_backend/|sentinel_common/|\.travis.yml)' || exit 0
+      script:
+        - docker build -f sentinel_backend/Dockerfile -t balindwalinstalin/sentinel-backend:latest .
+        - docker run --entrypoint make balindwalinstalin/sentinel-backend:latest lint
+      before_deploy:
+        - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWD
+        - docker push balindwalinstalin/sentinel-backend:latest
+        - cd beanstalk/backend
+        - zip -r ../../sentinel-backend.zip .
+        - cd ../..
+      deploy:
+        provider: elasticbeanstalk
+        region: eu-central-1
+        app: sentinel_backend
+        env: sentinel-backend-env
+        zip_file: sentinel-backend.zip
+        bucket_name: elasticbeanstalk-eu-central-1-848201210986
+        on:
+          branch: master
+        skip_cleanup: true
+
+    - language: python
+      env: COMMAND=sentinel_lambda
+      sudo: required
+      dist: xenial
+      python: "3.6.7"
+      cache:
+        directories:
+          - node_modules
+        pip: true
+      before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(sentinel_lambda/|sentinel_common/|\.travis.yml)' || exit 0
+        - cd sentinel_lambda
+        - nvm install 6
+        - node --version
+        - npm --version
+      install:
+        - cd sentinel-analizer
+        - python -m venv .env
+        - npm install -g serverless
+        - npm install --save serverless-python-requirements
+      script:
+        - echo script_dummy
+      after_script:
+        - cd sentinel-analizer
+        - test $TRAVIS_BRANCH = "master" && test $TRAVIS_PULL_REQUEST = "false" && serverless deploy -v --aws-s3-accelerate
+
+    - language: node_js
+      env: COMMAND=sentinel_web
+      node_js:
+        - 12.2
+      before_install:
+        - git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '^(beanstalk/web|sentinel_web/|sentinel_common/|\.travis.yml)' || exit 0
+      script:
+        - docker build -f sentinel_web/release/Dockerfile -t balindwalinstalin/sentinel-web:latest sentinel_web
+      before_deploy:
+        - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWD
+        - docker push balindwalinstalin/sentinel-web:latest
+        - cd beanstalk/web
+        - zip -r ../../sentinel-web.zip .
+        - cd ../..
+      deploy:
+        provider: elasticbeanstalk
+        region: eu-central-1
+        app: sentinel_frontend
+        env: sentinel-frontend-env
+        zip_file: sentinel-web.zip
+        bucket_name: elasticbeanstalk-eu-central-1-848201210986
+
+        on:
+          branch: master
+        skip_cleanup: true
