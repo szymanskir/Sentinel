@@ -38,7 +38,7 @@
                     {
                         "Namespace": "aws:autoscaling:launchconfiguration",
                         "OptionName": "IamInstanceProfile",
-                        "Value": "aws-elasticbeanstalk-ec2-role"
+                        "Value": "sentinel-backend-role"
                     },
                     {
                         "Namespace": "aws:elasticbeanstalk:application:environment",
@@ -170,6 +170,46 @@
                 "UserPoolId": {
                     "Ref": "CognitoUserPool"
                 }
+            }
+        },
+        "BackendAppRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
+                    "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier",
+                    "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker",
+                    "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
+                ],
+                "Path": "/",
+                "RoleName": "sentinel-backend-role",
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "BackendAppInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "InstanceProfileName": "sentinel-backend-role",
+                "Roles": [
+                    {
+                        "Ref": "BackendAppRole"
+                    }
+                ]
             }
         }
     }
