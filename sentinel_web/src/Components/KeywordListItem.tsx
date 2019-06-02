@@ -33,7 +33,7 @@ class KeywordListItem extends React.Component<KeywordListItemProps, KeywordsList
     private createEditableItem() {
         return <ListItem alignItems="flex-start">
             <ListItemText>
-                <TextField defaultValue={this.props.name} placeholder={"Enter keyword..."} onChange={(event) => this.saveKeywordItemName(event)}/>
+                <TextField defaultValue={this.props.name} placeholder={"Enter keyword..."} onChange={(event) => this.saveKeywordItemName(event)} autoFocus />
             </ListItemText>
             <ListItemSecondaryAction>
                 <Button onClick={() => this.props.onEndEditCallback(this.props.name, this.state.keywordItemName)}>
