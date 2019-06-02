@@ -1,7 +1,11 @@
 import re
 from typing import Set, List
+import imp
+import sys
+sys.modules["sqlite3"] = imp.new_module("sqlite3")
+sys.modules["sqlite3.dbapi2"] = imp.new_module("sqlite3.dbapi2")
+sys.modules["_sqlite3"] = imp.new_module("_sqlite3")
 from nltk.tokenize import MWETokenizer
-
 
 class AllKeywordsMatcher:
     def __init__(self, keywords: Set[str]):
