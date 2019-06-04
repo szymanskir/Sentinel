@@ -19,7 +19,7 @@ def clean_hashtags(text):
 
 
 def clean_comment_text(text):
-    return clean_hashtags(clean_tweet_user_mentions(clean_urls(clean_emojis(text))))
+    return clean_tweet_user_mentions(clean_urls(clean_emojis(text)))
 
 
 def clean_html_tags(text):
