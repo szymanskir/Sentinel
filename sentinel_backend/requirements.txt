@@ -33,7 +33,7 @@ pynamodb==3.3.3
 python-dateutil==2.8.0
 python-jose==3.0.1
 pytz==2019.1
-PyYAML==3.13
+PyYAML==5.4
 requests==2.21.0
 rsa==3.4.2
 s3transfer==0.2.0
