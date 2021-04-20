@@ -37,7 +37,7 @@ pluggy==0.9.0
 praw==6.1.1
 prawcore==1.0.1
 psaw==0.0.7
-py==1.8.0
+py==1.10.0
 pycodestyle==2.5.0
 pydantic==0.23
 pyflakes==2.1.1
