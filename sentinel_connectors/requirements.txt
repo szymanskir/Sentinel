@@ -39,7 +39,7 @@ prawcore==1.0.1
 psaw==0.0.7
 py==1.8.0
 pycodestyle==2.5.0
-pydantic==0.23
+pydantic==1.6.2
 pyflakes==2.1.1
 pynamodb==3.3.3
 PySocks==1.6.8
