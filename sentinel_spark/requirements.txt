@@ -1,5 +1,5 @@
 kafka-python==1.4.6
-nltk==3.4.1
+nltk==3.6.3
 textblob==0.15.3
 beautifulsoup4==4.7.1
 
