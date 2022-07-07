@@ -10,7 +10,7 @@
     "@types/react-router-dom": "^4.3.3",
     "aws-amplify": "^1.1.27",
     "aws-amplify-react": "^2.3.7",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mui-datatables": "^2.2.0",
     "plotly.js": "^1.47.4",
     "react": "^16.8.6",
